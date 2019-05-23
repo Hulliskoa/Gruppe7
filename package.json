@@ -1,0 +1,29 @@
+{
+  "name": "prosjektstyring-1337",
+  "version": "1.0.0",
+  "description": "Webapp for prosjektstyring",
+  "main": "App.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hulliskoa/Gruppe7.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hulliskoa/Gruppe7/issues"
+  },
+  "homepage": "https://github.com/Hulliskoa/Gruppe7#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.0.0",
+    "ejs": "^2.6.1",
+    "express": "^4.17.0",
+    "express-session": "^1.16.1",
+    "querystring": "^0.2.0",
+    "randomstring": "^1.1.5",
+    "request": "^2.88.0"
+  }
+}
