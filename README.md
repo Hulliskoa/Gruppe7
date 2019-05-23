@@ -4,4 +4,6 @@ Prosjektstyringsapp
 
 Husk å ALLTID pulle ned fra repository før man gjør endringer lokalt! :)
 
-Kobles til GitHubs commit message?
+Ideer:
+- Kobles til GitHubs commit message?
+- drag 'n' drop brukernavn for å tildele oppgaver
