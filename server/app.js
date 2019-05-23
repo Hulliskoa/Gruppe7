@@ -1,14 +1,12 @@
+// http://expressjs.com/en/4x/api.html#app
+
 require('dotenv').config();
 const express = require('express');
 const app = express();
-const session = require('express-session');
 const request = require('request');
-const qs = require('querystring');
-const url = require('url');
-const randomString = require('randomstring');
 const bodyParser = require('body-parser');
+const team = require('./users');
 
-const csrfString = randomString.generate();
 const port = process.env.PORT || 3000;
 const redirect_uri = process.env.HOST + '/redirect';
 
@@ -17,14 +15,22 @@ const redirect_uri = process.env.HOST + '/redirect';
 let repositoryName;
 let userName;
 let commitMessage;
-
 let assignemnts;
 
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static('public'))
 
 
+// setup for autentisering via github hvis vi tenker å implementere det
 /*
+
+//const session = require('express-session');
+//const qs = require('querystring');
+//const url = require('url');
+//const randomString = require('randomstring');
+//const csrfString = randomString.generate();
+
 var config = {
    client_id: process.env.github_client_id,
    client_secret: process.env.github_client_secret,

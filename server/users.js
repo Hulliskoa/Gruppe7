@@ -1,4 +1,4 @@
-let team = [
+const team = [
 
     { id: 1, name: "Marge" },
 
@@ -11,3 +11,5 @@ let team = [
     { id: 5, name: "Bart" },
 
 ];
+
+module.exports.team = team;
