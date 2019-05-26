@@ -29,6 +29,8 @@ const csrfString = randomString.generate();
 //---------------------------
 
 // globale variabler
+const redirect_uri = process.env.HOST + '/redirect';
+let accessToken;
 let apiCallbackData;
 let repositoryName;
 let userName;
@@ -45,6 +47,15 @@ app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'))
 
+app.use(
+  session({
+    secret: randomString.generate(),
+    cookie: { maxAge: 60000 },
+    resave: false,
+    saveUninitialized: false
+  })
+);
+
 
 // functions
 
@@ -58,18 +69,30 @@ const asyncMiddleware = fn =>
 //legger bruker og repo inn i api kallet
 const defineUserAndRepo = function (user, repo){
     return [
+      {
+      url:'https://api.github.com/user?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
+      method: 'GET',
+      headers: {'User-Agent': 'Login-App'},
+      Authorization:'token ' + accessToken
+    },
+
     {
       url:'https://api.github.com/repos/' + user + '/' + repo + '/languages?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
       method: 'GET',
-      headers: {'User-Agent': 'request'}},
+      headers: {'User-Agent': 'request'},
+      Authorization:'token ' + accessToken
+    },
     {
       url: 'https://api.github.com/repos/' + user + '/' + repo + '/commits?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
       method: 'GET',
-      headers: {'User-Agent': 'request'}},
+      headers: {'User-Agent': 'request'},
+      Authorization:'token ' + accessToken
+    },
     {
       url: 'https://api.github.com/repos/' + user + '/' + repo + '/collaborators?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
       method: 'GET',
-      headers: {'Accept': 'application/vnd.github.hellcat-preview+json', 'User-Agent': 'request'}}
+      headers: {'Accept': 'application/vnd.github.hellcat-preview+json', 'User-Agent': 'request'},
+      Authorization:'token ' + accessToken }
   ];
 }
 
@@ -92,16 +115,29 @@ const getParallel = async function(urls) {
     return data
 }
 
-app.get('/redirect',  (req, res, next) => {
+app.get('/',  (req, res, next) => {
   res.render('start');
 });
 
+
+
 // renders the index html/ejs file
 app.get('/index', asyncMiddleware(async (req, res, next) =>{
+/*
+   let username1 = request.get(
+    {
+      url: 'https://api.github.com/user',
+      headers: {
+        Authorization: 'token ' + req.session.access_token,
+        'User-Agent': 'Login-App'
+      }
+    });
+   console.log(username1)
+*/
 // getting languages and collaborators from specified github repo through github REST API
-  apiCallbackData = await getParallel(defineUserAndRepo(userName, repositoryName))
+  apiCallbackData = await getParallel(defineUserAndRepo( req, userName, repositoryName))
   console.log(apiCallbackData)
-  //Object.keys makes the object keys into an array so that we can send the info to the index page
+  //Object.keys gjør objekt nøklene om til en array slik at dette kan rendres på siden
   res.render('index', {languageInfo: Object.keys(apiCallbackData[0]), commitInfo: apiCallbackData[1]});
 }));
 
@@ -109,53 +145,26 @@ app.get('/index', asyncMiddleware(async (req, res, next) =>{
 app.post('/inputName', (req, res, next) => {
   userName = req.body.user;
   repositoryName = req.body.repo;
-  //API request to get latest commit message and languages used in repo from github REST API
   res.redirect('/index');
 });
 
-
-
-var config = {
-   client_id: process.env.github_client_id,
-   client_secret: process.env.github_client_secret,
-   redirect_url: 'http://localhost:3000/redirect',
-   api_url: 'https://api.github.com', 
-   authorize_url:'https://github.com/login/oauth/authorize?',
-   token_url: 'https://github.com/login/oauth/access_token',
-   user_url: 'https://api.github.com/user',
-   scope: 'user:email'
- };
-
-
 // GitHub Oauth autentisering for å få tilgang til mer data gjennom GitHub API
-app.get('/', (req, res, next) => {
-    // generate that csrf_string for your "state" parameter
+app.get('/authorize', (req, res, next) => {
   req.session.csrf_string = randomString.generate();
-    // construct the GitHub URL you redirect your user to.
-    // qs.stringify is a method that creates foo=bar&bar=baz
-    // type of string for you.
   const githubAuthUrl =
     'https://github.com/login/oauth/authorize?' +
     qs.stringify({
       client_id: process.env.CLIENT_ID,
       redirect_uri: redirect_uri,
       state: req.session.csrf_string,
-      scope: 'user:email'
+      scope: 'read:user'
     });
-  // redirect user with express
   res.redirect(githubAuthUrl);
 });
 
 app.all('/redirect', (req, res) => {
-  // Here, the req is request object sent by GitHub
   console.log('Request sent by GitHub: ');
   console.log(req.query);
-
-  // req.query should look like this:
-  // {
-  //   code: '3502d45d9fed81286eba',
-  //   state: 'RCr5KXq8GwDyVILFA6Dk7j0LbFNTzJHs'
-  // }
   const code = req.query.code;
   const returnedState = req.query.state;
 
@@ -172,7 +181,7 @@ app.all('/redirect', (req, res) => {
             client_secret: process.env.CLIENT_SECRET,
             code: code,
             redirect_uri: redirect_uri,
-            state: req.session.csrf_string
+            state: req.session.csrf_string 
           })
       },
       (error, response, body) => {
@@ -181,11 +190,11 @@ app.all('/redirect', (req, res) => {
         // for this example we're just storing it in session
         console.log('Your Access Token: ');
         console.log(qs.parse(body));
-        req.session.access_token = qs.parse(body).access_token;
+        accessToken = qs.parse(body).access_token;
 
         // Redirects user to /user page so we can use
         // the token to get some data.
-        res.redirect('/user');
+        res.redirect('/index');
       }
     );
   } else {
