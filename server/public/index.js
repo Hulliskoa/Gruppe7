@@ -12,7 +12,7 @@ if (!window.indexedDB) {
     window.alert("Your browser doesn't support a stable version of IndexedDB. Such and such feature will not be available.");
 }else{
 
-var request = window.indexedDB.open("MyTestDatabase", 3);
+var request = window.indexedDB.open("UserInfo", 3);
 
 request.onerror = function(event) {
   // Do something with request.errorCode!
