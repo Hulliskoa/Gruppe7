@@ -30,17 +30,16 @@ const redirect_uri = process.env.HOST + '/redirect';
 //---------------------------
 
 // globale variabler
-
+const repoNameArray = []
+const repoOwnerArray = [];
 let accessToken;
 let apiCallbackData;
 let repositoryName;
-let userName;
 let commitMessage;
 let members;
 let assignemnts;
-let colMembers;
-let APIurls = [];
 let data;
+let apiUserInfo;
 //----------------
 
 
@@ -49,27 +48,27 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'))
 
 app.use(
-  session({
-    secret: randomString.generate(),
-    cookie: { maxAge: 60000 },
-    resave: false,
-    saveUninitialized: false
-  })
+    session({
+      secret: randomString.generate(),
+      cookie: { maxAge: 60000 },
+      resave: false,
+      saveUninitialized: false
+    })
 );
 
 // funksjon for å vente på callback fra API før siden lastes
 const asyncMiddleware = fn =>
-  (req, res, next) => {
-    Promise.resolve(fn(req, res, next))
-      .catch(next);
-  };
+    (req, res, next) => {
+      Promise.resolve(fn(req, res, next))
+        .catch(next);
+    };
 
 const getUserInfo = function (accessToken){
  return [
     {
-      url:'https://api.github.com/user',
-      method: 'GET',
-      headers: {'Authorization': accessToken, 'User-Agent': 'request'}
+        url:'https://api.github.com/user',
+        method: 'GET',
+        headers: {'Authorization': accessToken, 'User-Agent': 'request'}
     }
 ];
 }
@@ -77,30 +76,25 @@ const getUserInfo = function (accessToken){
 const getUserRepos = function (accessToken){
     return [
     {// spørring etter alle brukers repos
-      url:'https://api.github.com/user/repos?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET + '&per_page=100',
-      method: 'GET',
-      headers: {'Authorization': accessToken, 'User-Agent': 'request'},
+        url:'https://api.github.com/user/repos?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET + '&per_page=100',
+        method: 'GET',
+        headers: {'Authorization': accessToken, 'User-Agent': 'request'},
     }
   ];
 }
 
 //legger bruker og repo inn i api kallet
-const defineUserAndRepo = function (accessToken, user, repo){
+const getLanguageAndCollaborators = function (accessToken, repo, owner){
     return [
-    {// spørring for alle brukers repos
-      url:'https://api.github.com/' + user + 'repos?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET + '&per_page=100',
-      method: 'GET',
-      headers: {'Authorization': accessToken, 'User-Agent': 'request'},
-    },
     {//spørring for alle programmeringsspråk brukt i repo
-      url: 'https://api.github.com/repos/' + user + '/' + repo + '/languages?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
-      method: 'GET',
-      headers: {'User-Agent': 'request'},
+        url: 'https://api.github.com/repos/' + owner + '/' + repo + '/languages?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
+        method: 'GET',
+        headers: {'User-Agent': 'request'},
     },
     {
-      url: 'https://api.github.com/repos/' + user + '/' + repo + '/collaborators?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
-      method: 'GET',
-      headers: {'Authorization': accessToken, 'Accept': 'application/vnd.github.hellcat-preview+json', 'User-Agent': 'request'},
+        url: 'https://api.github.com/repos/' + owner + '/' + repo + '/collaborators?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
+        method: 'GET',
+        headers: {'Authorization': accessToken, 'User-Agent': 'request'},
     }
   ];
 }
@@ -124,34 +118,39 @@ const getParallel = async function(urls) {
     return data
 }
 
+
+
+
 app.get('/',  (req, res, next) => {
-  res.render('start');
+    res.render('start');
 });
 
+app.get('/dashboard', asyncMiddleware(async (req, res, next) => {
+    let collaboratorsAndLanguage = await getParallel(getLanguageAndCollaborators(accessToken, repositoryName, apiUserInfo[0].login));
+    console.log(collaboratorsAndLanguage);
+    res.render('dashboard', {repo: repositoryName, userName: apiUserInfo[0].login});
+}));
 
-
-// renders the index html/ejs file
 app.get('/index', asyncMiddleware(async (req, res, next) =>{  
-  accessToken = 'token ' + req.session.access_token
-  //console.log(accessToken)
-  //henter brukernavn ved hjelp av Oauth token vi fikk fra github API
-  const apiUserInfo = await getParallel(getUserInfo(accessToken));
+    accessToken = 'token ' + req.session.access_token
+    //henter brukernavn ved hjelp av Oauth token vi fikk fra github API
+    apiUserInfo = await getParallel(getUserInfo(accessToken));
 
-// getting languages and collaborators from specified github repo through github REST API
-  apiCallbackData = await getParallel(getUserRepos(accessToken))
-  const repoNameArray = []
-  for(let i = 0; i < apiCallbackData[0].length; i++){
-    repoNameArray.push(apiCallbackData[0][i].name);
-  }
- 
-  res.render('index', {repoNames: repoNameArray, userName: apiUserInfo[0].login});
+    // getting languages and collaborators from specified github repo through github REST API
+    apiCallbackData = await getParallel(getUserRepos(accessToken))
+    console.log(apiCallbackData[0])
+    console.log(repoOwnerArray)
+    for(let i = 0; i < apiCallbackData[0].length; i++){
+      repoNameArray.push({name: apiCallbackData[0][i].name, owner: apiCallbackData[0][i].owner.login});
+    }
+    console.log(repoNameArray);
+    res.render('index', {repoNames: repoNameArray, userName: apiUserInfo[0].login});
 }));
 
 
 app.post('/inputName', (req, res, next) => {
-  userName = req.body.user;
-  repositoryName = req.body.repo;
-  res.redirect('/index');
+    repositoryName = req.body.repo;
+    res.redirect('/dashboard');
 });
 
 // GitHub Oauth autentisering for å få tilgang til mer data gjennom GitHub API
@@ -217,9 +216,4 @@ app.all('/redirect', (req, res) => {
 app.listen(port, () => {
   console.log('Server listening at port ' + port);
 });
-
-
-
-
-/* Works as of Node 7.6 */
 

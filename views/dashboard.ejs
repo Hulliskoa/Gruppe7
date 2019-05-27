@@ -7,11 +7,7 @@
 <body>
 	<h1>Welcome <%= userName %></h1>
 
-	<% for(var i = 0; i < repoNames.length; i++){ %>
-		<form method="POST" action="/inputName"> 
-			<input type="hidden" name="repo" value=<%=repoNames[i].name%>><button> <%=repoNames[i].name%></button> 
-		</form>
-	<%}%>
+	<%=repo%>
 	<button id="dbTest">Test DB</button>
 
 
