@@ -5,7 +5,11 @@
 </head>
 
 <body>
-<%= languageInfo %>
+	<h1>Welcome <%= userName %></h1>
+
+<% for(var i = 0; i < repoNames.length; i++){ %>
+<li><%= repoNames[i] %> </li>
+<%}%>
 <button id="dbTest">Test DB</button>
 
 </body>
