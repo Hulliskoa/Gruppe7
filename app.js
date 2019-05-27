@@ -11,7 +11,7 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const port = process.env.PORT || 3000;
+const port = 3000;
 
 // lokale moduler
 const team = require('./users');
@@ -30,8 +30,7 @@ const redirect_uri = process.env.HOST + '/redirect';
 //---------------------------
 
 // globale variabler
-const repoNameArray = []
-const repoOwnerArray = [];
+const repoNameOwnerArray = []
 let accessToken;
 let apiCallbackData;
 let repositoryName;
@@ -68,7 +67,7 @@ const getUserInfo = function (accessToken){
     {
         url:'https://api.github.com/user',
         method: 'GET',
-        headers: {'Authorization': accessToken, 'User-Agent': 'request'}
+        headers: {'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'}
     }
 ];
 }
@@ -78,7 +77,7 @@ const getUserRepos = function (accessToken){
     {// spørring etter alle brukers repos
         url:'https://api.github.com/user/repos?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET + '&per_page=100',
         method: 'GET',
-        headers: {'Authorization': accessToken, 'User-Agent': 'request'},
+        headers: {'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'},
     }
   ];
 }
@@ -89,12 +88,12 @@ const getLanguageAndCollaborators = function (accessToken, repo, owner){
     {//spørring for alle programmeringsspråk brukt i repo
         url: 'https://api.github.com/repos/' + owner + '/' + repo + '/languages?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
         method: 'GET',
-        headers: {'User-Agent': 'request'},
+        headers:{'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'},
     },
     {
-        url: 'https://api.github.com/repos/' + owner + '/' + repo + '/collaborators?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
+        url: 'https://api.github.com/repos/' + owner + '/' + repo + '/collaborators/Hulliskoa/permission?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
         method: 'GET',
-        headers: {'Authorization': accessToken, 'User-Agent': 'request'},
+        headers: {'Authorization': accessToken, 'Accept':'application/vnd.github.hellcat-preview+json', 'User-Agent': 'ProjectAdmin app'},
     }
   ];
 }
@@ -126,25 +125,25 @@ app.get('/',  (req, res, next) => {
 });
 
 app.get('/dashboard', asyncMiddleware(async (req, res, next) => {
-    let collaboratorsAndLanguage = await getParallel(getLanguageAndCollaborators(accessToken, repositoryName, apiUserInfo[0].login));
+    let repoOwner = repoNameOwnerArray[(repoNameOwnerArray.findIndex(x => x.name === repositoryName))].owner
+    let collaboratorsAndLanguage = await getParallel(getLanguageAndCollaborators(accessToken, repositoryName, repoOwner));
     console.log(collaboratorsAndLanguage);
     res.render('dashboard', {repo: repositoryName, userName: apiUserInfo[0].login});
 }));
 
 app.get('/index', asyncMiddleware(async (req, res, next) =>{  
     accessToken = 'token ' + req.session.access_token
+    while(repoNameOwnerArray.length > 0) {
+    repoNameOwnerArray.pop();
+    }
     //henter brukernavn ved hjelp av Oauth token vi fikk fra github API
     apiUserInfo = await getParallel(getUserInfo(accessToken));
-
     // getting languages and collaborators from specified github repo through github REST API
     apiCallbackData = await getParallel(getUserRepos(accessToken))
-    console.log(apiCallbackData[0])
-    console.log(repoOwnerArray)
     for(let i = 0; i < apiCallbackData[0].length; i++){
-      repoNameArray.push({name: apiCallbackData[0][i].name, owner: apiCallbackData[0][i].owner.login});
+      repoNameOwnerArray.push({name: apiCallbackData[0][i].name, owner: apiCallbackData[0][i].owner.login});
     }
-    console.log(repoNameArray);
-    res.render('index', {repoNames: repoNameArray, userName: apiUserInfo[0].login});
+    res.render('index', {repoNames: repoNameOwnerArray, userName: apiUserInfo[0].login});
 }));
 
 
@@ -162,7 +161,7 @@ app.get('/authorize', (req, res, next) => {
       client_id: process.env.CLIENT_ID,
       redirect_uri: redirect_uri,
       state: req.session.csrf_string,
-      scope: 'read:user'
+      scope: 'user'
     });
   res.redirect(githubAuthUrl);
 });
