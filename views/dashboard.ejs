@@ -1,19 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="style/syle.css">
-	<link rel="stylesheet" type="text/css" href="style/dashboard.css">
+	<link rel='stylesheet' href='css/style.css'/>
+	<link rel='stylesheet' href='css/dashboard.css'/>
 	<title>Webprosjekt</title>
 </head>
 
 <body>
 	<h1>Welcome <%= userName %></h1>
 
-	<%=repo%>
+	<!----------- Javascript for å hente ut og skille mellom repos brukeren eier og repos brukeren er collaborator på
+	------------->
+	<%let owner;%>
+	<% for(var i = 0; i < repoNames.length; i++){ %>
+		<form method="POST" action="/inputName"> 
+		<input type="hidden" name="repo" value=<%= repoNames[i].name %>>
+		<button 
+			<%if(repoNames[i].owner == userName){owner ="repoFrameOwned"%>
+			<%}else{ %>
+				<%owner = "repoFrameColab"%>
+			<%}%> class= <%=owner%>> <%= repoNames[i].name %></button> 
+		</form>
+	<%}%>
 
 
-
-<script type="text/javascript" src=index.js></script>
+<script type="text/javascript" src="scripts/index.js"></script>
 </body>
 
 

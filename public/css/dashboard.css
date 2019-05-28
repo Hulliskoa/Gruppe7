@@ -1,0 +1,23 @@
+.repoButtons{
+	
+}
+
+.repoFrameOwner{
+	height: 5rem;
+	width: 10rem;
+	font-family: helvetica;
+	background-color: #9fb8e0;
+	float: left;
+	font-weight: bold;
+	margin: 0.5rem;
+}
+
+.repoFrameColab{
+	height: 5rem;
+	width: 10rem;
+	font-family: helvetica;
+	background-color: red;
+	float: left;
+	font-weight: bold;
+	margin: 0.5rem;
+}

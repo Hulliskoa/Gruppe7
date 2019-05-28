@@ -7,7 +7,7 @@
 // https://shiya.io/how-to-do-3-legged-oauth-with-github-a-general-guide-by-example-with-node-js/ OAuth tutorial til github
 
 
-require('dotenv').config();
+require('dotenv').config(); //Github Oauth APP client id and client secret is stored in the .env file
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -44,7 +44,8 @@ let apiUserInfo;
 
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('public'))
+app.use(express.static(__dirname + '/public'));
+
 
 app.use(
     session({
@@ -55,16 +56,17 @@ app.use(
     })
 );
 
-// funksjon for å vente på callback fra API før siden lastes
+// middleware function to await api callback before continuing
 const asyncMiddleware = fn =>
     (req, res, next) => {
       Promise.resolve(fn(req, res, next))
         .catch(next);
     };
 
+// function for creating API query to access username  
 const getUserInfo = function (accessToken){
  return [
-    {
+    {//api query to access username from github
         url:'https://api.github.com/user',
         method: 'GET',
         headers: {'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'}
@@ -72,9 +74,10 @@ const getUserInfo = function (accessToken){
 ];
 }
 
+//function for creating API query for all repos using access token supplied by github
 const getUserRepos = function (accessToken){
     return [
-    {// spørring etter alle brukers repos
+    {// API query for all repos user owns and collaborates on. 
         url:'https://api.github.com/user/repos?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET + '&per_page=100',
         method: 'GET',
         headers: {'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'},
@@ -82,15 +85,15 @@ const getUserRepos = function (accessToken){
   ];
 }
 
-//legger bruker og repo inn i api kallet
+//function for creating API query. 
 const getLanguageAndCollaborators = function (accessToken, repo, owner){
     return [
-    {//spørring for alle programmeringsspråk brukt i repo
+    {//API query to get programming languages used in repo
         url: 'https://api.github.com/repos/' + owner + '/' + repo + '/languages?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
         method: 'GET',
         headers:{'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'},
     },
-    {
+    {// api query to list out collaborators in repo
         url: 'https://api.github.com/repos/' + owner + '/' + repo + '/collaborators/Hulliskoa/permission?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
         method: 'GET',
         headers: {'Authorization': accessToken, 'Accept':'application/vnd.github.hellcat-preview+json', 'User-Agent': 'ProjectAdmin app'},
@@ -98,7 +101,7 @@ const getLanguageAndCollaborators = function (accessToken, repo, owner){
   ];
 }
 
-
+//function for sending api query
 const requestAsync = async function(url) {
     return new Promise((resolve, reject) => {
         let req = request(url, (err, response, body) => {
@@ -108,6 +111,8 @@ const requestAsync = async function(url) {
     });
 };
 
+
+//function for doing api querys based on arrays created
 const getParallel = async function(urls) {
     try {
         data = await Promise.all(urls.map(requestAsync));
@@ -117,21 +122,18 @@ const getParallel = async function(urls) {
     return data
 }
 
-
-
-
 app.get('/',  (req, res, next) => {
-    res.render('start');
+    res.render('login');
 });
 
-app.get('/dashboard', asyncMiddleware(async (req, res, next) => {
+app.get('/mainpage', asyncMiddleware(async (req, res, next) => {
     let repoOwner = repoNameOwnerArray[(repoNameOwnerArray.findIndex(x => x.name === repositoryName))].owner
     let collaboratorsAndLanguage = await getParallel(getLanguageAndCollaborators(accessToken, repositoryName, repoOwner));
-    console.log(collaboratorsAndLanguage);
-    res.render('dashboard', {repo: repositoryName, userName: apiUserInfo[0].login});
+    console.log(Object.keys(collaboratorsAndLanguage[0]));
+    res.render('mainpage', {repo: repositoryName, userName: apiUserInfo[0].login, repoLanguage:Object.keys(collaboratorsAndLanguage[0])});
 }));
 
-app.get('/index', asyncMiddleware(async (req, res, next) =>{  
+app.get('/dashboard', asyncMiddleware(async (req, res, next) =>{  
     accessToken = 'token ' + req.session.access_token
     while(repoNameOwnerArray.length > 0) {
     repoNameOwnerArray.pop();
@@ -143,18 +145,19 @@ app.get('/index', asyncMiddleware(async (req, res, next) =>{
     for(let i = 0; i < apiCallbackData[0].length; i++){
       repoNameOwnerArray.push({name: apiCallbackData[0][i].name, owner: apiCallbackData[0][i].owner.login});
     }
-    res.render('index', {repoNames: repoNameOwnerArray, userName: apiUserInfo[0].login});
+    res.render('dashboard', {repoNames: repoNameOwnerArray, userName: apiUserInfo[0].login});
 }));
 
 
 app.post('/inputName', (req, res, next) => {
     repositoryName = req.body.repo;
-    res.redirect('/dashboard');
+    res.redirect('/mainpage');
 });
 
 // GitHub Oauth autentisering for å få tilgang til mer data gjennom GitHub API
 app.get('/authorize', (req, res, next) => {
   req.session.csrf_string = randomString.generate();
+  //generer url for autentisering av bruker
   const githubAuthUrl =
     'https://github.com/login/oauth/authorize?' +
     qs.stringify({
@@ -167,8 +170,6 @@ app.get('/authorize', (req, res, next) => {
 });
 
 app.all('/redirect', (req, res) => {
-  console.log('Request sent by GitHub: ');
-  console.log(req.query);
   const code = req.query.code;
   const returnedState = req.query.state;
 
@@ -198,7 +199,7 @@ app.all('/redirect', (req, res) => {
 
         // Redirects user to /user page so we can use
         // the token to get some data.
-        res.redirect('/index');
+        res.redirect('/dashboard');
       }
     );
   } else {
@@ -207,10 +208,6 @@ app.all('/redirect', (req, res) => {
     res.redirect('/');
   }
 });
- 
-
-
-
 
 app.listen(port, () => {
   console.log('Server listening at port ' + port);
