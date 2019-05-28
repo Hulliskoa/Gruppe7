@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel='stylesheet' href='/style.css'/>
+	<link rel='stylesheet' href='style/style.css'/>
+	<link rel='stylesheet' href='style/dashboard.css'/>
 	<title>Webprosjekt</title>
 </head>
 
@@ -10,7 +11,7 @@
 
 	<% for(var i = 0; i < repoNames.length; i++){ %>
 		<form method="POST" action="/inputName"> 
-			<input type="hidden" name="repo" value=<%=repoNames[i].name%>><button> <%=repoNames[i].name%></button> 
+			<input type="hidden" name="repo" value=<%= repoNames[i].name%>><button class="repoFrame"> <%=repoNames[i].name%></button> 
 		</form>
 	<%}%>
 
