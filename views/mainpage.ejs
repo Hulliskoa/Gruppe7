@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<!--- popup https://www.w3schools.com/cssref/tryit.asp?filename=trycss3_target_modal --->
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/mainpage.css">
+	<title>Webprosjekt</title>
+</head>
+
+<body>
+	<h1>Welcome <%= userName %></h1>
+
+	<%=repo%>
+	<h2>Languages used in REPO</h2>
+	<%for (let i = 0; i < repoLanguage.length; i++){%>
+		<li><%= repoLanguage[i]%></li>
+		<%}%>
+
+
+<script type="text/javascript" src=scripts/index.js></script>
+</body>
+
+
+</html>
