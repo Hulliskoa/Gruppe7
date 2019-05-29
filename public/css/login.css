@@ -20,19 +20,14 @@
     border-color: #e8eef2;
 }
 
-
-
 #octocat{	
 	width: 20rem;
 }
-
 
 .octoAnimation{
 	animation-name: imgZoom;
 	animation-duration: 1s;
 }
-
-
 
 @keyframes imgZoom{
 	from{width: 20rem;}
