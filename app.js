@@ -5,7 +5,7 @@
 // https://gist.github.com/bschwartz757/5d1ff425767fdc6baedb4e5d5a5135c8 request several urls at once
 // https://medium.com/@Abazhenov/using-async-await-in-express-with-node-8-b8af872c0016  ASYNC MIDDLEWARE
 // https://shiya.io/how-to-do-3-legged-oauth-with-github-a-general-guide-by-example-with-node-js/ OAuth tutorial til github
-
+// https://dev.to/geoff/writing-asyncawait-middleware-in-express-6i0 async middleware
 
 require('dotenv').config(); //Github Oauth APP client id and client secret is stored in the .env file
 const express = require('express');
@@ -15,6 +15,7 @@ const port = 3000;
 
 // lokale moduler
 const team = require('./users');
+const languageDocs = require('./languageDoc')
 
 // HTTP callbacks for å gjøre API requests
 const request = require('request');
@@ -32,7 +33,7 @@ const redirect_uri = process.env.HOST + '/redirect';
 // globale variabler
 const repoNameOwnerArray = []
 let accessToken;
-let apiCallbackData;
+let apiUserRepos;
 let repositoryName;
 let commitMessage;
 let members;
@@ -112,11 +113,11 @@ const requestAsync = async function(url) {
 };
 
 
-//function for doing api querys based on arrays created
+//function for doing a sequens of api querys based on arrays created
 const getParallel = async function(urls) {
     try {
         data = await Promise.all(urls.map(requestAsync));
-    } catch (err) {
+    }catch (err) {
         console.error(err);
     }
     return data
@@ -126,27 +127,30 @@ app.get('/',  (req, res, next) => {
     res.render('login');
 });
 
-app.get('/mainpage', asyncMiddleware(async (req, res, next) => {
-    let repoOwner = repoNameOwnerArray[(repoNameOwnerArray.findIndex(x => x.name === repositoryName))].owner
-    let collaboratorsAndLanguage = await getParallel(getLanguageAndCollaborators(accessToken, repositoryName, repoOwner));
-    console.log(Object.keys(collaboratorsAndLanguage[0]));
-    res.render('mainpage', {repo: repositoryName, userName: apiUserInfo[0].login, repoLanguage:Object.keys(collaboratorsAndLanguage[0])});
-}));
 
 app.get('/dashboard', asyncMiddleware(async (req, res, next) =>{  
     accessToken = 'token ' + req.session.access_token
     while(repoNameOwnerArray.length > 0) {
-    repoNameOwnerArray.pop();
+        repoNameOwnerArray.pop();
     }
     //henter brukernavn ved hjelp av Oauth token vi fikk fra github API
     apiUserInfo = await getParallel(getUserInfo(accessToken));
     // getting languages and collaborators from specified github repo through github REST API
-    apiCallbackData = await getParallel(getUserRepos(accessToken))
-    for(let i = 0; i < apiCallbackData[0].length; i++){
-      repoNameOwnerArray.push({name: apiCallbackData[0][i].name, owner: apiCallbackData[0][i].owner.login});
+    apiUserRepos = await getParallel(getUserRepos(accessToken))
+    for(let i = 0; i < apiUserRepos[0].length; i++){
+      repoNameOwnerArray.push({name: apiUserRepos[0][i].name, owner: apiUserRepos[0][i].owner.login});
     }
     res.render('dashboard', {repoNames: repoNameOwnerArray, userName: apiUserInfo[0].login});
 }));
+
+app.get('/mainpage', asyncMiddleware(async (req, res, next) => {
+    let repoOwner = repoNameOwnerArray[(repoNameOwnerArray.findIndex(x => x.name === repositoryName))].owner
+    let collaboratorsAndLanguage = await getParallel(getLanguageAndCollaborators(accessToken, repositoryName, repoOwner));
+    console.log(Object.keys(collaboratorsAndLanguage[0]));
+    res.render('mainpage', {repo: repositoryName, userName: apiUserInfo[0].login, repoLanguage:Object.keys(collaboratorsAndLanguage[0]), docs: languageDocs});
+}));
+
+
 
 
 app.post('/inputName', (req, res, next) => {
