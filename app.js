@@ -164,7 +164,7 @@ app.get('/authorize', (req, res, next) => {
       client_id: process.env.CLIENT_ID,
       redirect_uri: redirect_uri,
       state: req.session.csrf_string,
-      scope: 'user'
+      scope: 'read:user'
     });
   res.redirect(githubAuthUrl);
 });
