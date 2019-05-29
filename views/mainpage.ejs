@@ -44,6 +44,13 @@
 			</div>
 			<div class="column column-5">
 				<!--Filters and language docs-->
+				<h2>Languages used in repository</h2>
+					<%for (let i = 0; i < repoLanguage.length; i++){%>
+						<%if (repoLanguage.length == 0){%>
+						<li>No programming languages used in repository</li>
+						<%}else{%>
+						<li><a href =<%= docs[repoLanguage[i]]%>><%=repoLanguage[i] %></a></li>
+					<%}%>
 			</div>
 		</div>
 	</main>
@@ -53,10 +60,7 @@
 	<h1>Welcome <%= userName %></h1>
 
 	<%=repo%>
-	<h2>Languages used in REPO</h2>
-	<%for (let i = 0; i < repoLanguage.length; i++){%>
-		<li><%= repoLanguage[i]%></li>
-		<%}%>
+	
 
 
 	<script type="text/javascript" src="scripts/index.js"></script>
