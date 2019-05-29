@@ -10,14 +10,17 @@
 
 <body>
 	<h1>Welcome <%= userName %></h1>
-
 	<%=repo%>
-	<h2>Languages used in REPO</h2>
+
+	<h2>Language docs</h2>
+	
+	<!---for-loop to get languages used in repo  --->
 	<%for (let i = 0; i < repoLanguage.length; i++){%>
-		<li><%= repoLanguage[i]%></li>
-		<%}%>
-
-
+		<%let repoLowerCase = repoLanguage[i].toLowerCase()%>
+		<li><a target="_blank" rel="noopener noreferrer" href=<%=docs[repoLowerCase]%>><%=repoLanguage[i]%></a></li>
+		<%}%>	
+	<!---------------------->
+	
 <script type="text/javascript" src=scripts/index.js></script>
 </body>
 
