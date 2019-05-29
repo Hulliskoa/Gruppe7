@@ -6,6 +6,8 @@
 // https://medium.com/@Abazhenov/using-async-await-in-express-with-node-8-b8af872c0016  ASYNC MIDDLEWARE
 // https://shiya.io/how-to-do-3-legged-oauth-with-github-a-general-guide-by-example-with-node-js/ OAuth tutorial til github
 // https://dev.to/geoff/writing-asyncawait-middleware-in-express-6i0 async middleware
+// https://paulund.co.uk/how-to-capitalize-the-first-letter-of-a-string-in-javascript first letter to upperCase
+
 
 require('dotenv').config(); //Github Oauth APP client id and client secret is stored in the .env file
 const express = require('express');
@@ -13,9 +15,10 @@ const app = express();
 const bodyParser = require('body-parser');
 const port = 3000;
 
-// lokale moduler
+// local modules
 const team = require('./users');
 const languageDocs = require('./languageDoc')
+const helpers = require('./helpers/helpers')
 
 // HTTP callbacks for å gjøre API requests
 const request = require('request');
@@ -31,7 +34,7 @@ const redirect_uri = process.env.HOST + '/redirect';
 //---------------------------
 
 // globale variabler
-const repoNameOwnerArray = []
+const repoNameOwner = []
 let accessToken;
 let apiUserRepos;
 let repositoryName;
@@ -57,50 +60,52 @@ app.use(
     })
 );
 
-// middleware function to await api callback before continuing
+// middleware function to await callback from api endpoint before rendering page-content
 const asyncMiddleware = fn =>
     (req, res, next) => {
       Promise.resolve(fn(req, res, next))
         .catch(next);
     };
 
-// function for creating API query to access username  
+// functions for creating dynamic api querys based on authenticated user ---------------
 const getUserInfo = function (accessToken){
- return [
-    {//api query to access username from github
+    return [
+      {//api query to access username with accessToken supplied by github
         url:'https://api.github.com/user',
         method: 'GET',
         headers: {'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'}
-    }
-];
+      }
+    ];
 }
-
-//function for creating API query for all repos using access token supplied by github
 const getUserRepos = function (accessToken){
     return [
-    {// API query for all repos user owns and collaborates on. 
+      {// api query for all repos user owns and collaborates on. 
         url:'https://api.github.com/user/repos?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET + '&per_page=100',
         method: 'GET',
         headers: {'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'},
-    }
+      }
   ];
 }
-
-//function for creating API query. 
-const getLanguageAndCollaborators = function (accessToken, repo, owner){
+const getMainContent = function (accessToken, repo, owner){
     return [
-    {//API query to get programming languages used in repo
+      {//API query to get programming languages used in repo
         url: 'https://api.github.com/repos/' + owner + '/' + repo + '/languages?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
         method: 'GET',
         headers:{'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'},
-    },
-    {// api query to list out collaborators in repo
+      },
+      {// api query to list out collaborators in repo
         url: 'https://api.github.com/repos/' + owner + '/' + repo + '/collaborators/Hulliskoa/permission?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
         method: 'GET',
         headers: {'Authorization': accessToken, 'Accept':'application/vnd.github.hellcat-preview+json', 'User-Agent': 'ProjectAdmin app'},
-    }
+      },
+      {// api query to list out collaborators in repo
+        url: 'https://api.github.com/repos/' + owner + '/' + repo + '/commits?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
+        method: 'GET',
+        headers: {'Authorization': accessToken, 'Accept':'application/vnd.github.hellcat-preview+json', 'User-Agent': 'ProjectAdmin app'},
+      }
   ];
 }
+// -----------------------------------------------------------------------------------
 
 //function for sending api query
 const requestAsync = async function(url) {
@@ -130,38 +135,59 @@ app.get('/',  (req, res, next) => {
 
 app.get('/dashboard', asyncMiddleware(async (req, res, next) =>{  
     accessToken = 'token ' + req.session.access_token
-    while(repoNameOwnerArray.length > 0) {
-        repoNameOwnerArray.pop();
-    }
-    //henter brukernavn ved hjelp av Oauth token vi fikk fra github API
+    while(repoNameOwner.length > 0) {
+        repoNameOwner.pop();
+      }
+
+    //getting username based on access token that was supplied by github oAuth during authorization
     apiUserInfo = await getParallel(getUserInfo(accessToken));
-    // getting languages and collaborators from specified github repo through github REST API
+    // getting repositories user owns and collaborates on through github api
     apiUserRepos = await getParallel(getUserRepos(accessToken))
+    // pushing repo name and owner username into array to be able to check if authorized user is owner of repo or not
     for(let i = 0; i < apiUserRepos[0].length; i++){
-      repoNameOwnerArray.push({name: apiUserRepos[0][i].name, owner: apiUserRepos[0][i].owner.login});
-    }
-    res.render('dashboard', {repoNames: repoNameOwnerArray, userName: apiUserInfo[0].login});
+        repoNameOwner.push({
+            name: apiUserRepos[0][i].name, 
+            owner: apiUserRepos[0][i].owner.login});
+      }
+    // renders dashboard page and sends repoNameOwnerArray and username to the ejs file for further processing
+    res.render('dashboard', {
+        repoNames: repoNameOwner, 
+        userName: apiUserInfo[0].login});
 }));
-
-app.get('/mainpage', asyncMiddleware(async (req, res, next) => {
-    let repoOwner = repoNameOwnerArray[(repoNameOwnerArray.findIndex(x => x.name === repositoryName))].owner
-    let collaboratorsAndLanguage = await getParallel(getLanguageAndCollaborators(accessToken, repositoryName, repoOwner));
-    console.log(Object.keys(collaboratorsAndLanguage[0]));
-    res.render('mainpage', {repo: repositoryName, userName: apiUserInfo[0].login, repoLanguage:Object.keys(collaboratorsAndLanguage[0]), docs: languageDocs});
-}));
-
-
-
 
 app.post('/inputName', (req, res, next) => {
     repositoryName = req.body.repo;
     res.redirect('/mainpage');
-});
+  });
 
-// GitHub Oauth autentisering for å få tilgang til mer data gjennom GitHub API
+
+
+
+app.get('/mainpage', asyncMiddleware(async (req, res, next) => {
+    //checking the owner of selected repo and supplying it to the getMainContent function
+    let repoOwner = repoNameOwner[(repoNameOwner.findIndex(x => x.name === repositoryName))].owner
+    let mainPageContent = await getParallel(getMainContent(accessToken, repositoryName, repoOwner));
+    
+    const latestCommitMsg = [];
+    for(let i = 0;i < 10; i++){
+        latestCommitMsg.push({
+            message: helpers.upperCase(mainPageContent[2][i].commit.message), 
+            user: mainPageContent[2][i].commit.committer.name});
+      }
+    res.render('mainpage', {
+        repo: repositoryName, 
+        userName: apiUserInfo[0].login, 
+        repoLanguage:Object.keys(mainPageContent[0]), 
+        docs: languageDocs, 
+        commits: latestCommitMsg
+      });
+}));
+
+
+
+// GitHub Oauth authorization to be able to make authorized api request (reference: https://shiya.io/how-to-do-3-legged-oauth-with-github-a-general-guide-by-example-with-node-js/)
 app.get('/authorize', (req, res, next) => {
   req.session.csrf_string = randomString.generate();
-  //generer url for autentisering av bruker
   const githubAuthUrl =
     'https://github.com/login/oauth/authorize?' +
     qs.stringify({
@@ -178,9 +204,6 @@ app.all('/redirect', (req, res) => {
   const returnedState = req.query.state;
 
   if (req.session.csrf_string === returnedState) {
-    // Remember from step 5 that we initialized
-    // If state matches up, send request to get access token
-    // the request module is used here to send the post request
     request.post(
       {
         url:
@@ -194,21 +217,13 @@ app.all('/redirect', (req, res) => {
           })
       },
       (error, response, body) => {
-        // The response will contain your new access token
-        // this is where you store the token somewhere safe
-        // for this example we're just storing it in session
         console.log('Your Access Token: ');
         console.log(qs.parse(body));
         req.session.access_token = qs.parse(body).access_token;
-
-        // Redirects user to /user page so we can use
-        // the token to get some data.
         res.redirect('/dashboard');
       }
     );
   } else {
-    // if state doesn't match up, something is wrong
-    // just redirect to homepage
     res.redirect('/');
   }
 });

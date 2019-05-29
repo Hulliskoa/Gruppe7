@@ -44,22 +44,33 @@
 			</div>
 			<div class="column column-5">
 				<!--Filters and language docs-->
-				<h2>Languages used in repository</h2>
+				<h4>Repository collaborators</h4>
+
+
+				<!--language docs-->
+				<h4>Documentation for languages used in repository</h4>
 					<%for (let i = 0; i < repoLanguage.length; i++){%>
 						<%if (repoLanguage.length == 0){%>
 						<li>No programming languages used in repository</li>
 						<%}else{%>
-						<li><a href =<%= docs[repoLanguage[i]]%>><%=repoLanguage[i] %></a></li>
+						<li><a class="docsLink" target="_blank" href="<%= docs[repoLanguage[i].toLowerCase()]%>"><%=repoLanguage[i]%></a></li>
+						<%}%>
+					<%}%>
+
+				<!--10 latest committs-->
+				<h4>Latest commits</h4>
+				<%for (let i = 0; i < commits.length; i++){%>
+						<%if (commits.length == 0){%>
+						<li>No commits so far</li>
+						<%}else{%>
+						<li><%=commits[i].message%> - by <%=commits[i].user%> </li>
+						<%}%>
 					<%}%>
 			</div>
 		</div>
 	</main>
 	<footer></footer>
 
-	<!--Reformat this code, and put it where it belongs-->
-	<h1>Welcome <%= userName %></h1>
-
-	<%=repo%>
 	
 
 
