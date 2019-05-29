@@ -60,3 +60,19 @@ https://www.figma.com/file/WSdBuMBUvZqwTLJ0fI3OjRKm/Gruppe-7?node-id=1%3A2 (Ghul
   - Innhold/tekst
   - Status
   - Fargekoder på oppgavene/bakgrunnsfarge 
+ - Mulig å endre status ved hjelp av knappene på oppgave-objektet
+ 
+ 
+ Delmål til 30.05:
+ - Truls
+  - Starter på prosjektrapport
+  - Lager logg ut mulighet
+  - Modulariserer serveren
+ - Morten
+  - Noterer hva som er gjort så langt og sender til Truls
+ - Richard
+  - Ser på pop-up vindu ved opprettelse av oppgaver
+ - Håkon
+  - Legger opp HTML i prosjektrepo og gjør det klart til javascript 
+  - Ser på hvordan OOP fungerer i Javascript
+ - Ghulam
