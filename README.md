@@ -64,15 +64,16 @@ https://www.figma.com/file/WSdBuMBUvZqwTLJ0fI3OjRKm/Gruppe-7?node-id=1%3A2 (Ghul
  
  
  Delmål til 30.05:
- - Truls
+### Truls
   - Starter på prosjektrapport
   - Lager logg ut mulighet
   - Modulariserer serveren
- - Morten
+### Morten
   - Noterer hva som er gjort så langt og sender til Truls
- - Richard
+### Richard
   - Ser på pop-up vindu ved opprettelse av oppgaver
- - Håkon
+### Håkon
   - Legger opp HTML i prosjektrepo og gjør det klart til javascript 
   - Ser på hvordan OOP fungerer i Javascript
- - Ghulam
+### Ghulam
+  - 
