@@ -1,6 +1,6 @@
 // http://expressjs.com/en/4x/api.html#app  expressjs docs
 // https://www.npmjs.com/package/request
-
+// https://developer.github.com/v3/
 // https://developer.github.com/v3/repos/collaborators/#list-collaborators 
 // https://gist.github.com/bschwartz757/5d1ff425767fdc6baedb4e5d5a5135c8 request several urls at once
 // https://medium.com/@Abazhenov/using-async-await-in-express-with-node-8-b8af872c0016  ASYNC MIDDLEWARE
@@ -107,7 +107,7 @@ const getMainContent = function (accessToken, repo, owner){
 }
 // -----------------------------------------------------------------------------------
 
-//function for sending api query
+//function for sending api query to an api endpoint
 const requestAsync = async function(url) {
     return new Promise((resolve, reject) => {
         let req = request(url, (err, response, body) => {
@@ -117,8 +117,7 @@ const requestAsync = async function(url) {
     });
 };
 
-
-//function for doing a sequens of api querys based on arrays created
+//function for doing a sequence of api querys based on arrays passed to it
 const getParallel = async function(urls) {
     try {
         data = await Promise.all(urls.map(requestAsync));
@@ -160,9 +159,6 @@ app.post('/inputName', (req, res, next) => {
     res.redirect('/mainpage');
   });
 
-
-
-
 app.get('/mainpage', asyncMiddleware(async (req, res, next) => {
     //checking the owner of selected repo and supplying it to the getMainContent function
     let repoOwner = repoNameOwner[(repoNameOwner.findIndex(x => x.name === repositoryName))].owner
@@ -187,46 +183,47 @@ app.get('/mainpage', asyncMiddleware(async (req, res, next) => {
 
 // GitHub Oauth authorization to be able to make authorized api request (reference: https://shiya.io/how-to-do-3-legged-oauth-with-github-a-general-guide-by-example-with-node-js/)
 app.get('/authorize', (req, res, next) => {
-  req.session.csrf_string = randomString.generate();
-  const githubAuthUrl =
-    'https://github.com/login/oauth/authorize?' +
-    qs.stringify({
-      client_id: process.env.CLIENT_ID,
-      redirect_uri: redirect_uri,
-      state: req.session.csrf_string,
-      scope: 'read:user'
-    });
-  res.redirect(githubAuthUrl);
-});
-
-app.all('/redirect', (req, res) => {
-  const code = req.query.code;
-  const returnedState = req.query.state;
-
-  if (req.session.csrf_string === returnedState) {
-    request.post(
-      {
-        url:
-          'https://github.com/login/oauth/access_token?' +
+    req.session.csrf_string = randomString.generate();
+      const githubAuthUrl =
+        'https://github.com/login/oauth/authorize?' +
           qs.stringify({
-            client_id: process.env.CLIENT_ID,
-            client_secret: process.env.CLIENT_SECRET,
-            code: code,
-            redirect_uri: redirect_uri,
-            state: req.session.csrf_string 
-          })
-      },
-      (error, response, body) => {
-        console.log('Your Access Token: ');
-        console.log(qs.parse(body));
-        req.session.access_token = qs.parse(body).access_token;
-        res.redirect('/dashboard');
-      }
-    );
-  } else {
-    res.redirect('/');
-  }
+              client_id: process.env.CLIENT_ID,
+              redirect_uri: redirect_uri,
+              state: req.session.csrf_string,
+              scope: 'read:user'
+          });
+      res.redirect(githubAuthUrl);
+  });
+
+  app.all('/redirect', (req, res) => {
+    const code = req.query.code;
+    const returnedState = req.query.state;
+
+    if (req.session.csrf_string === returnedState) {
+      request.post(
+        {
+          url:
+            'https://github.com/login/oauth/access_token?' +
+            qs.stringify({
+              client_id: process.env.CLIENT_ID,
+              client_secret: process.env.CLIENT_SECRET,
+              code: code,
+              redirect_uri: redirect_uri,
+              state: req.session.csrf_string 
+            })
+        },
+        (error, response, body) => {
+          console.log('Your Access Token: ');
+          console.log(qs.parse(body));
+          req.session.access_token = qs.parse(body).access_token;
+          res.redirect('/dashboard');
+        }
+      );
+    } else {
+      res.redirect('/');
+    }
 });
+//--------------------------------------
 
 app.listen(port, () => {
   console.log('Server listening at port ' + port);

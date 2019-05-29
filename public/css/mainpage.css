@@ -36,6 +36,11 @@
     box-sizing: border-box;
 }
 
+/*Added by Truls: wanted to remove bulletpoints on the <li> tag*/
+.column li {
+    list-style-type: none;
+}
+
 .item{
     border: 0.1rem solid black;
     /*border-radius: 0.5rem;*/
@@ -65,3 +70,4 @@
     margin-top: 10%;
     padding: .5rem;
 }
+
