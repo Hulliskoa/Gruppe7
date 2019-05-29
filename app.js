@@ -105,6 +105,28 @@ const getMainContent = function (accessToken, repo, owner){
       }
   ];
 }
+
+const getAuthorization = function (accessToken){
+   return [
+      {//remove accesToken
+        url: 'https://api.github.com/applications/grants?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
+        method: 'GET',
+        headers:{'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'},
+      }
+    ]
+ 
+}
+// log out by revoking the applications access to user profile data  DELETE /applications/:client_id/grants/:access_token
+const revokeGrant = function (accessToken){
+   return [
+      {//remove accesToken
+        url: 'https://api.github.com/applications/' + process.env.CLIENT_ID + '/grants/' + accessToken + '?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
+        method: 'DELETE',
+        headers:{'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'},
+      }
+    ]
+ 
+}
 // -----------------------------------------------------------------------------------
 
 //function for sending api query to an api endpoint
@@ -130,6 +152,12 @@ const getParallel = async function(urls) {
 app.get('/',  (req, res, next) => {
     res.render('login');
 });
+
+app.get('/logout',asyncMiddleware(async  (req, res, next) => {
+    const checkAuth = await getParallel(getAuthorization(accessToken));
+    console.log(checkAuth)
+    res.redirect('/');
+}));
 
 
 app.get('/dashboard', asyncMiddleware(async (req, res, next) =>{  
