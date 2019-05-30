@@ -2,3 +2,8 @@ html, body{
     font-size: 1rem;
     margin: 0;
 }
+
+#profilePicture{
+	border-radius: 50%;
+	height: 7vh;
+}

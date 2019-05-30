@@ -17,8 +17,10 @@ const port = 3000;
 
 // local modules
 const team = require('./users');
-const languageDocs = require('./languageDoc')
-const helpers = require('./helpers/helpers')
+const languageDocs = require('./languageDoc')//links to programming language documentation
+const helpers = require('./helpers/helpers')//premade functions that does no directly relate to the server
+const classes = require('./classes');//module that contains all classes used in application
+const tasks = require('./tasks')// module that contains an array of all tasks created
 
 // HTTP callbacks for å gjøre API requests
 const request = require('request');
@@ -53,79 +55,88 @@ app.use(express.static(__dirname + '/public'));
 
 app.use(
     session({
-      secret: randomString.generate(),
-      cookie: { maxAge: 60000 },
-      resave: false,
-      saveUninitialized: false
+        secret: randomString.generate(),
+        cookie: { maxAge: 60000 },
+        resave: false,
+        saveUninitialized: false
     })
 );
 
 // middleware function to await callback from api endpoint before rendering page-content
 const asyncMiddleware = fn =>
     (req, res, next) => {
-      Promise.resolve(fn(req, res, next))
+        Promise.resolve(fn(req, res, next))
         .catch(next);
     };
 
 // functions for creating dynamic api querys based on authenticated user ---------------
 const getUserInfo = function (accessToken){
     return [
-      {//api query to access username with accessToken supplied by github
-        url:'https://api.github.com/user',
-        method: 'GET',
-        headers: {'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'}
-      }
+        {//api query to access username with accessToken supplied by github
+            url:'https://api.github.com/user',
+            method: 'GET',
+            headers: {'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'}
+        }
     ];
 }
 const getUserRepos = function (accessToken){
     return [
-      {// api query for all repos user owns and collaborates on. 
-        url:'https://api.github.com/user/repos?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET + '&per_page=100',
-        method: 'GET',
-        headers: {'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'},
-      }
+        {// api query for all repos user owns and collaborates on. 
+            url:'https://api.github.com/user/repos?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET + '&per_page=100',
+            method: 'GET',
+            headers: {'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'},
+        }
   ];
 }
 const getMainContent = function (accessToken, repo, owner){
     return [
-      {//API query to get programming languages used in repo
-        url: 'https://api.github.com/repos/' + owner + '/' + repo + '/languages?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
-        method: 'GET',
-        headers:{'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'},
-      },
-      {// api query to list out collaborators in repo
-        url: 'https://api.github.com/repos/' + owner + '/' + repo + '/collaborators/Hulliskoa/permission?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
-        method: 'GET',
-        headers: {'Authorization': accessToken, 'Accept':'application/vnd.github.hellcat-preview+json', 'User-Agent': 'ProjectAdmin app'},
-      },
-      {// api query to list out collaborators in repo
-        url: 'https://api.github.com/repos/' + owner + '/' + repo + '/commits?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
-        method: 'GET',
-        headers: {'Authorization': accessToken, 'Accept':'application/vnd.github.hellcat-preview+json', 'User-Agent': 'ProjectAdmin app'},
-      }
-  ];
+        {//API query to get programming languages used in repo
+            url: 'https://api.github.com/repos/' + owner + '/' + repo + '/languages?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
+            method: 'GET',
+            headers:{'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'},
+        },
+        {// api query to list out collaborators in repo
+            url: 'https://api.github.com/repos/' + owner + '/' + repo + '/collaborators/Hulliskoa/permission?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
+            method: 'GET',
+            headers: {'Authorization': accessToken, 'Accept':'application/vnd.github.hellcat-preview+json', 'User-Agent': 'ProjectAdmin app'},
+        },
+        {// api query to list out collaborators in repo
+            url: 'https://api.github.com/repos/' + owner + '/' + repo + '/commits?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
+            method: 'GET',
+            headers: {'Authorization': accessToken, 'Accept':'application/vnd.github.hellcat-preview+json', 'User-Agent': 'ProjectAdmin app'},
+        }
+    ];
 }
 
 const getAuthorization = function (accessToken){
    return [
-      {//remove accesToken
-        url: 'https://api.github.com/applications/grants?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
-        method: 'GET',
-        headers:{'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'},
-      }
+        {//remove accesToken
+            url: 'https://api.github.com/applications/grants?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
+            method: 'GET',
+            headers:{'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'},
+        }
     ]
  
 }
 // log out by revoking the applications access to user profile data  DELETE /applications/:client_id/grants/:access_token
 const revokeGrant = function (accessToken){
    return [
-      {//remove accesToken
-        url: 'https://api.github.com/applications/' + process.env.CLIENT_ID + '/grants/' + accessToken + '?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
-        method: 'DELETE',
-        headers:{'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'},
-      }
+        {//remove accesToken
+            url: 'https://api.github.com/applications/' + process.env.CLIENT_ID + '/grants/' + accessToken + '?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
+            method: 'DELETE',
+            headers:{'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'},
+        }
     ]
- 
+}
+
+const profileImage = function (accessToken){
+   return [
+        {//remove accesToken
+            url: 'https://api.github.com/users/?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
+            method: 'DELETE',
+            headers:{'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'},
+        }
+    ]
 }
 // -----------------------------------------------------------------------------------
 
@@ -164,7 +175,7 @@ app.get('/dashboard', asyncMiddleware(async (req, res, next) =>{
     accessToken = 'token ' + req.session.access_token
     while(repoNameOwner.length > 0) {
         repoNameOwner.pop();
-      }
+    }
 
     //getting username based on access token that was supplied by github oAuth during authorization
     apiUserInfo = await getParallel(getUserInfo(accessToken));
@@ -179,13 +190,15 @@ app.get('/dashboard', asyncMiddleware(async (req, res, next) =>{
     // renders dashboard page and sends repoNameOwnerArray and username to the ejs file for further processing
     res.render('dashboard', {
         repoNames: repoNameOwner, 
-        userName: apiUserInfo[0].login});
+        userName: apiUserInfo[0].login,
+        profilePicture: apiUserInfo[0].avatar_url
+    });
 }));
 
 app.post('/inputName', (req, res, next) => {
     repositoryName = req.body.repo;
     res.redirect('/mainpage');
-  });
+});
 
 app.get('/mainpage', asyncMiddleware(async (req, res, next) => {
     //checking the owner of selected repo and supplying it to the getMainContent function
@@ -197,65 +210,67 @@ app.get('/mainpage', asyncMiddleware(async (req, res, next) => {
         latestCommitMsg.push({
             message: helpers.upperCase(mainPageContent[2][i].commit.message), 
             user: mainPageContent[2][i].commit.committer.name});
-      }
+    }
     res.render('mainpage', {
         repo: repositoryName, 
-        userName: apiUserInfo[0].login, 
+        userName: apiUserInfo[0].login,
+        profilePicture: apiUserInfo[0].avatar_url,
         repoLanguage:Object.keys(mainPageContent[0]), 
         docs: languageDocs, 
-        commits: latestCommitMsg
-      });
+        commits: latestCommitMsg,
+
+    });
 }));
 
 
 
 app.post('/newTask', (req, res, next) => {
-
+    //let id = randomString.generate(),
+    //tasks.taskArray.push(new classes.task(id, req.body.title, req.body.owner, req.body.category, req.body.content))
+    res.redirect('/mainpage');
 });
-
-
 
 // GitHub Oauth authorization to be able to make authorized api request (reference: https://shiya.io/how-to-do-3-legged-oauth-with-github-a-general-guide-by-example-with-node-js/)
 app.get('/authorize', (req, res, next) => {
     req.session.csrf_string = randomString.generate();
       const githubAuthUrl =
         'https://github.com/login/oauth/authorize?' +
-          qs.stringify({
-              client_id: process.env.CLIENT_ID,
-              redirect_uri: redirect_uri,
-              state: req.session.csrf_string,
-              scope: 'read:user'
-          });
+        qs.stringify({
+            client_id: process.env.CLIENT_ID,
+            redirect_uri: redirect_uri,
+            state: req.session.csrf_string,
+            scope: 'read:user'
+        });
       res.redirect(githubAuthUrl);
   });
 
-  app.all('/redirect', (req, res) => {
-    const code = req.query.code;
-    const returnedState = req.query.state;
+    app.all('/redirect', (req, res) => {
+        const code = req.query.code;
+        const returnedState = req.query.state;
 
-    if (req.session.csrf_string === returnedState) {
-      request.post(
-        {
-          url:
-            'https://github.com/login/oauth/access_token?' +
-            qs.stringify({
-              client_id: process.env.CLIENT_ID,
-              client_secret: process.env.CLIENT_SECRET,
-              code: code,
-              redirect_uri: redirect_uri,
-              state: req.session.csrf_string 
-            })
-        },
-        (error, response, body) => {
-          console.log('Your Access Token: ');
-          console.log(qs.parse(body));
-          req.session.access_token = qs.parse(body).access_token;
-          res.redirect('/dashboard');
+        if (req.session.csrf_string === returnedState) {
+          request.post(
+            {
+              url:
+                    'https://github.com/login/oauth/access_token?' +
+                    qs.stringify({
+                        client_id: process.env.CLIENT_ID,
+                        client_secret: process.env.CLIENT_SECRET,
+                        code: code,
+                        redirect_uri: redirect_uri,
+                        state: req.session.csrf_string 
+                })
+            },
+            (error, response, body) => {
+                  console.log('Your Access Token: ');
+                  console.log(qs.parse(body));
+                  req.session.access_token = qs.parse(body).access_token;
+                  res.redirect('/dashboard');
+            }
+          );
+        }else {
+            res.redirect('/');
         }
-      );
-    } else {
-      res.redirect('/');
-    }
 });
 //--------------------------------------
 
