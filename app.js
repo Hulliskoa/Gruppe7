@@ -7,7 +7,7 @@
 // https://shiya.io/how-to-do-3-legged-oauth-with-github-a-general-guide-by-example-with-node-js/ OAuth tutorial til github
 // https://dev.to/geoff/writing-asyncawait-middleware-in-express-6i0 async middleware
 // https://paulund.co.uk/how-to-capitalize-the-first-letter-of-a-string-in-javascript first letter to upperCase
-
+// https://www.npmjs.com/package/request request module
 
 require('dotenv').config(); //Github Oauth APP client id and client secret is stored in the .env file
 const express = require('express');
@@ -15,22 +15,17 @@ const app = express();
 const bodyParser = require('body-parser');
 const port = 3000;
 
-
-
-
-
 // local modules
-const team = require('./users');
+const team = require('./users');// module containing static user object
 const languageDocs = require('./languageDoc')//module containing links to programming language documentation
 const helpers = require('./helpers/helpers')//module conatining premade functions that does no directly relate to the server
 const classes = require('./classes');//module containing all classes used in application
 const tasks = require('./tasks')// module containing an array of all tasks created
 const mWare = require('./middleware/middleware')// module containing middleware used with http requests
-const api = require('./apiQuery');// module containing all functions for creating array of api queries
+const api = require('./api');// module containing all functions for creating arrays of api queries
 
-// HTTP callbacks for å gjøre API requests
+// module for making HTTP calls to an api
 const request = require('request');
-//-------------
 
 // OAuth mot GitHub
 const session = require('express-session');
@@ -137,7 +132,7 @@ app.get('/mainpage', mWare.asyncMiddleware(async (req, res, next) => {
     //saves callback data from getMainContent() queries to be used when rendering mainpage
     let mainPageContent = await getParallel(api.getMainContent(accessToken, repositoryName, repoOwner));
     
-    //push 10 last commit messages and user who committed as objects to latestCommiMsg array.
+    //push 10 last commit messages and user who committed as an objects to latestCommiMsg array.
     const lastCommitMsg = [];
     for(let i = 0;i < 10; i++){
         lastCommitMsg.push({
