@@ -8,6 +8,7 @@
 // https://dev.to/geoff/writing-asyncawait-middleware-in-express-6i0 async middleware
 // https://paulund.co.uk/how-to-capitalize-the-first-letter-of-a-string-in-javascript first letter to upperCase
 // https://www.npmjs.com/package/request request module
+// https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/ scope of oauth authorization
 
 require('dotenv').config(); //Github Oauth APP client id and client secret is stored in the .env file
 const express = require('express');
@@ -131,17 +132,25 @@ app.get('/mainpage', mWare.asyncMiddleware(async (req, res, next) => {
     let repoOwner = repoNameOwner[(repoNameOwner.findIndex(x => x.name === repositoryName))].owner
     //saves callback data from getMainContent() queries to be used when rendering mainpage
     let mainPageContent = await getParallel(api.getMainContent(accessToken, repositoryName, repoOwner));
-    
-    //push 10 last commit messages and user who committed as an objects to latestCommiMsg array.
-    const lastCommitMsg = [];
-    for(let i = 0;i < 10; i++){
-        lastCommitMsg.push({
-            message: helpers.upperCase(mainPageContent[2][i].commit.message), //commit message
-            user: mainPageContent[2][i].commit.committer.name});//username
+    let collaborators =[];
+    for(let i = 0; i < mainPageContent[1].length; i++){
+        collaborators.push(helpers.upperCase(mainPageContent[1][i].login));
     }
+
+    console.log(mainPageContent[2]);
+    //push 10 last commit messages and user who committed as an objects to latestCommiMsg array.
+    let checkNumberOfCommits = (mainPageContent[2].length < 10) ? mainPageContent[2].length : 10
+    const lastCommitMsg = [];
+    for(let i = 0; i < checkNumberOfCommits; i++){
+        lastCommitMsg.push({
+            message: mainPageContent[2][i].commit.message,
+            user: mainPageContent[2][i].commit.committer.name});//username
+        }
+    
     res.render('mainpage', {
         repo: repositoryName, 
         userName: apiUserInfo[0].login,
+        collaborators: collaborators,
         profilePicture: apiUserInfo[0].avatar_url,
         repoLanguage:Object.keys(mainPageContent[0]), 
         docs: languageDocs, 
@@ -164,7 +173,7 @@ app.get('/authorize', (req, res, next) => {
             client_id: process.env.CLIENT_ID,
             redirect_uri: redirect_uri,
             state: req.session.csrf_string,
-            scope: 'read:user'
+            scope: 'public_repo, read:user'//public_repo gives the server access to query data from users public repos. read:user gives the app access to read profile info. 
         });
       res.redirect(githubAuthUrl);
   });

@@ -31,7 +31,7 @@ getMainContent: function (accessToken, repo, owner){
             headers:{'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'},
         },
         {// api query to list out collaborators in repo
-            url: 'https://api.github.com/repos/' + owner + '/' + repo + '/collaborators/Hulliskoa/permission?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
+            url: 'https://api.github.com/repos/' + owner + '/' + repo + '/collaborators?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
             method: 'GET',
             headers: {'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'},
         },

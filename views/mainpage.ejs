@@ -48,7 +48,13 @@
 			<div class="column column-5">
 				<!--Filters and language docs-->
 				<h4>Repository collaborators</h4>
-
+					<%for (let i = 0; i < collaborators.length; i++){%>
+						<%if (collaborators.length == 0){%>
+						<li>No collaborators in repo</li>
+						<%}else{%>
+						<li><%=collaborators[i]%> </li>
+						<%}%>
+					<%}%>
 
 				<!--language docs-->
 				<h4>Documentation for languages used in repository</h4>
