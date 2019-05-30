@@ -20,5 +20,5 @@ popup.style.visibility = 'visible';
 
 function exitTask(){
 let popup = document.getElementById("popup");
-popup.style.visibility = 'visible';
+popup.style.visibility = 'hidden';
 }

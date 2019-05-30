@@ -209,6 +209,12 @@ app.get('/mainpage', asyncMiddleware(async (req, res, next) => {
 
 
 
+app.post('/newTask', (req, res, next) => {
+
+});
+
+
+
 // GitHub Oauth authorization to be able to make authorized api request (reference: https://shiya.io/how-to-do-3-legged-oauth-with-github-a-general-guide-by-example-with-node-js/)
 app.get('/authorize', (req, res, next) => {
     req.session.csrf_string = randomString.generate();
