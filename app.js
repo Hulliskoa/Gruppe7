@@ -15,12 +15,18 @@ const app = express();
 const bodyParser = require('body-parser');
 const port = 3000;
 
+
+
+
+
 // local modules
 const team = require('./users');
-const languageDocs = require('./languageDoc')//links to programming language documentation
-const helpers = require('./helpers/helpers')//premade functions that does no directly relate to the server
-const classes = require('./classes');//module that contains all classes used in application
-const tasks = require('./tasks')// module that contains an array of all tasks created
+const languageDocs = require('./languageDoc')//module containing links to programming language documentation
+const helpers = require('./helpers/helpers')//module conatining premade functions that does no directly relate to the server
+const classes = require('./classes');//module containing all classes used in application
+const tasks = require('./tasks')// module containing an array of all tasks created
+const mWare = require('./middleware/middleware')// module containing middleware used with http requests
+const api = require('./apiQuery');// module containing all functions for creating array of api queries
 
 // HTTP callbacks for å gjøre API requests
 const request = require('request');
@@ -43,7 +49,7 @@ let repositoryName;
 let commitMessage;
 let members;
 let assignemnts;
-let data;
+
 let apiUserInfo;
 //----------------
 
@@ -62,85 +68,9 @@ app.use(
     })
 );
 
-// middleware function to await callback from api endpoint before rendering page-content
-const asyncMiddleware = fn =>
-    (req, res, next) => {
-        Promise.resolve(fn(req, res, next))
-        .catch(next);
-    };
+//functions for api queries
 
-// functions for creating dynamic api querys based on authenticated user ---------------
-const getUserInfo = function (accessToken){
-    return [
-        {//api query to access username with accessToken supplied by github
-            url:'https://api.github.com/user',
-            method: 'GET',
-            headers: {'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'}
-        }
-    ];
-}
-const getUserRepos = function (accessToken){
-    return [
-        {// api query for all repos user owns and collaborates on. 
-            url:'https://api.github.com/user/repos?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET + '&per_page=100',
-            method: 'GET',
-            headers: {'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'},
-        }
-  ];
-}
-const getMainContent = function (accessToken, repo, owner){
-    return [
-        {//API query to get programming languages used in repo
-            url: 'https://api.github.com/repos/' + owner + '/' + repo + '/languages?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
-            method: 'GET',
-            headers:{'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'},
-        },
-        {// api query to list out collaborators in repo
-            url: 'https://api.github.com/repos/' + owner + '/' + repo + '/collaborators/Hulliskoa/permission?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
-            method: 'GET',
-            headers: {'Authorization': accessToken, 'Accept':'application/vnd.github.hellcat-preview+json', 'User-Agent': 'ProjectAdmin app'},
-        },
-        {// api query to list out collaborators in repo
-            url: 'https://api.github.com/repos/' + owner + '/' + repo + '/commits?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
-            method: 'GET',
-            headers: {'Authorization': accessToken, 'Accept':'application/vnd.github.hellcat-preview+json', 'User-Agent': 'ProjectAdmin app'},
-        }
-    ];
-}
-
-const getAuthorization = function (accessToken){
-   return [
-        {//remove accesToken
-            url: 'https://api.github.com/applications/grants?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
-            method: 'GET',
-            headers:{'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'},
-        }
-    ]
- 
-}
-// log out by revoking the applications access to user profile data  DELETE /applications/:client_id/grants/:access_token
-const revokeGrant = function (accessToken){
-   return [
-        {//remove accesToken
-            url: 'https://api.github.com/applications/' + process.env.CLIENT_ID + '/grants/' + accessToken + '?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
-            method: 'DELETE',
-            headers:{'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'},
-        }
-    ]
-}
-
-const profileImage = function (accessToken){
-   return [
-        {//remove accesToken
-            url: 'https://api.github.com/users/?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
-            method: 'DELETE',
-            headers:{'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'},
-        }
-    ]
-}
-// -----------------------------------------------------------------------------------
-
-//function for sending api query to an api endpoint
+//function for sending api query to an api endpoint - reference: https://gist.github.com/bschwartz757/5d1ff425767fdc6baedb4e5d5a5135c8
 const requestAsync = async function(url) {
     return new Promise((resolve, reject) => {
         let req = request(url, (err, response, body) => {
@@ -150,7 +80,7 @@ const requestAsync = async function(url) {
     });
 };
 
-//function for doing a sequence of api querys based on arrays passed to it
+//function for doing a sequence of api querys based on arrays passed to it - reference: https://gist.github.com/bschwartz757/5d1ff425767fdc6baedb4e5d5a5135c8
 const getParallel = async function(urls) {
     try {
         data = await Promise.all(urls.map(requestAsync));
@@ -159,28 +89,29 @@ const getParallel = async function(urls) {
     }
     return data
 }
+//----------------------------------------------------------------------
+
 
 app.get('/',  (req, res, next) => {
     res.render('login');
 });
 
-app.get('/logout',asyncMiddleware(async  (req, res, next) => {
-    const checkAuth = await getParallel(getAuthorization(accessToken));
+app.get('/logout', mWare.asyncMiddleware(async  (req, res, next) => {
+    const checkAuth = await api.getParallel(api.getAuthorization(accessToken));
     console.log(checkAuth)
     res.redirect('/');
 }));
 
 
-app.get('/dashboard', asyncMiddleware(async (req, res, next) =>{  
+app.get('/dashboard', mWare.asyncMiddleware(async (req, res, next) =>{  
     accessToken = 'token ' + req.session.access_token
     while(repoNameOwner.length > 0) {
         repoNameOwner.pop();
     }
-
     //getting username based on access token that was supplied by github oAuth during authorization
-    apiUserInfo = await getParallel(getUserInfo(accessToken));
-    // getting repositories user owns and collaborates on through github api
-    apiUserRepos = await getParallel(getUserRepos(accessToken))
+    apiUserInfo = await getParallel(api.getUserInfo(accessToken));
+    // getting repositories user owns and collaborates on through the github api
+    apiUserRepos = await getParallel(api.getUserRepos(accessToken))
     // pushing repo name and owner username into array to be able to check if authorized user is owner of repo or not
     for(let i = 0; i < apiUserRepos[0].length; i++){
         repoNameOwner.push({
@@ -200,16 +131,18 @@ app.post('/inputName', (req, res, next) => {
     res.redirect('/mainpage');
 });
 
-app.get('/mainpage', asyncMiddleware(async (req, res, next) => {
+app.get('/mainpage', mWare.asyncMiddleware(async (req, res, next) => {
     //checking the owner of selected repo and supplying it to the getMainContent function
     let repoOwner = repoNameOwner[(repoNameOwner.findIndex(x => x.name === repositoryName))].owner
-    let mainPageContent = await getParallel(getMainContent(accessToken, repositoryName, repoOwner));
+    //saves callback data from getMainContent() queries to be used when rendering mainpage
+    let mainPageContent = await getParallel(api.getMainContent(accessToken, repositoryName, repoOwner));
     
-    const latestCommitMsg = [];
+    //push 10 last commit messages and user who committed as objects to latestCommiMsg array.
+    const lastCommitMsg = [];
     for(let i = 0;i < 10; i++){
-        latestCommitMsg.push({
-            message: helpers.upperCase(mainPageContent[2][i].commit.message), 
-            user: mainPageContent[2][i].commit.committer.name});
+        lastCommitMsg.push({
+            message: helpers.upperCase(mainPageContent[2][i].commit.message), //commit message
+            user: mainPageContent[2][i].commit.committer.name});//username
     }
     res.render('mainpage', {
         repo: repositoryName, 
@@ -217,12 +150,9 @@ app.get('/mainpage', asyncMiddleware(async (req, res, next) => {
         profilePicture: apiUserInfo[0].avatar_url,
         repoLanguage:Object.keys(mainPageContent[0]), 
         docs: languageDocs, 
-        commits: latestCommitMsg,
-
+        commits: lastCommitMsg,
     });
 }));
-
-
 
 app.post('/newTask', (req, res, next) => {
     //let id = randomString.generate(),
@@ -262,10 +192,10 @@ app.get('/authorize', (req, res, next) => {
                 })
             },
             (error, response, body) => {
-                  console.log('Your Access Token: ');
-                  console.log(qs.parse(body));
-                  req.session.access_token = qs.parse(body).access_token;
-                  res.redirect('/dashboard');
+                    console.log('Your Access Token: ');
+                    console.log(qs.parse(body));
+                    req.session.access_token = qs.parse(body).access_token;
+                    res.redirect('/dashboard');
             }
           );
         }else {
