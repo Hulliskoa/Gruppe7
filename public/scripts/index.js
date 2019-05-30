@@ -11,3 +11,14 @@ function post(formID) {
 	let form = document.getElementById(formID)
   form.submit();
 }
+
+function createNewTask(){
+let popup = document.getElementById("popup");
+popup.style.visibility = 'visible';
+
+}
+
+function exitTask(){
+let popup = document.getElementById("popup");
+popup.style.visibility = 'visible';
+}
