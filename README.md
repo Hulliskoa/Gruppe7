@@ -72,6 +72,7 @@ https://www.figma.com/file/WSdBuMBUvZqwTLJ0fI3OjRKm/Gruppe-7?node-id=1%3A2 (Ghul
   - Status
   - Fargekoder på oppgavene/bakgrunnsfarge 
  - Mulig å endre status ved hjelp av knappene på oppgave-objektet
+ - On-click funksjon på oppgavene slik at de kan endres etter opprettelse
  
  
 ## Delmål til 31.05:
