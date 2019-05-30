@@ -99,12 +99,6 @@
     z-index:99;
 }
 
-#popup{
-    visibility: hidden;
-}
-
-
-
 /* basic stylings ------------------------------------------ */
 .form-container         {
   font-family:'Roboto';
