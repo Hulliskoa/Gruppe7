@@ -24,16 +24,27 @@ https://www.figma.com/file/WSdBuMBUvZqwTLJ0fI3OjRKm/Gruppe-7?node-id=1%3A2 (Ghul
 
 # Oppgaver 
 
-#### Done:
+## Done:
 - Grid-view lagt opp med vagt innslag av flexbox
 - Opprette oppgave i javascript
-- figma modell/wireframe
+- Figma modell/wireframe
 - Førsteutkast på papir
-- førsteutkast/mal med statisk HTML og CSS
-- kobling mot Github API på plass
+- Førsteutkast/mal med statisk HTML og CSS
+- Kobling mot Github API på plass
+- Lage klasse for oppgave-objekter
+
+### Truls
+  - Starter på prosjektrapport
+  - Lager logg ut mulighet
+  - Modulariserer serveren
+### Richard
+  - Ser på pop-up vindu ved opprettelse av oppgaver
+### Håkon
+  - Legger opp HTML i prosjektrepo og gjør det klart til javascript 
+  - Ser på hvordan OOP fungerer i Javascript
 
 
-### To DO: 
+## To-Do: 
 - Få på plass designprinsipper
   - Lage farge palette
   - Style alle sidene ihht til designprinsipper
@@ -51,7 +62,7 @@ https://www.figma.com/file/WSdBuMBUvZqwTLJ0fI3OjRKm/Gruppe-7?node-id=1%3A2 (Ghul
   - Tekniske valg
   - Referanser
 
-#### Teknisk:
+### Teknisk:
 - Oppgave-objekter skal inneholde
   - Reponavn
   - Tittel
@@ -63,17 +74,20 @@ https://www.figma.com/file/WSdBuMBUvZqwTLJ0fI3OjRKm/Gruppe-7?node-id=1%3A2 (Ghul
  - Mulig å endre status ved hjelp av knappene på oppgave-objektet
  
  
- Delmål til 30.05:
+## Delmål til 31.05:
 ### Truls
-  - Starter på prosjektrapport
-  - Lager logg ut mulighet
-  - Modulariserer serveren
+  - Sette opp mottaker av formet som Richard lager
+  - Få colaborators listet opp på siden
 ### Morten
   - Noterer hva som er gjort så langt og sender til Truls
+  - Ser på dropdown meny
 ### Richard
-  - Ser på pop-up vindu ved opprettelse av oppgaver
+  - Fullføre pop-up
+  - Begynne på renderItems fuksjonen
 ### Håkon
-  - Legger opp HTML i prosjektrepo og gjør det klart til javascript 
-  - Ser på hvordan OOP fungerer i Javascript
+  - Legge inn dette på Trello
+  - Filter, statisk på test-repo
 ### Ghulam
-  - 
+  - Lager logo
+### Vixen
+  - Fortsette med design og utforming i Figma
