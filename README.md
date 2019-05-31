@@ -37,11 +37,16 @@ https://www.figma.com/file/WSdBuMBUvZqwTLJ0fI3OjRKm/Gruppe-7?node-id=1%3A2 (Ghul
   - Starter på prosjektrapport
   - Lager logg ut mulighet
   - Modulariserer serveren
+  - Få colaborators listet opp på siden
 ### Richard
   - Ser på pop-up vindu ved opprettelse av oppgaver
+  - Fullføre pop-up
 ### Håkon
   - Legger opp HTML i prosjektrepo og gjør det klart til javascript 
   - Ser på hvordan OOP fungerer i Javascript
+  - Starte med checkbox
+### Morten
+  - Ordna dropdown meny
 
 
 ## To-Do: 
@@ -64,31 +69,32 @@ https://www.figma.com/file/WSdBuMBUvZqwTLJ0fI3OjRKm/Gruppe-7?node-id=1%3A2 (Ghul
 
 ### Teknisk:
 - Oppgave-objekter skal inneholde
-  - Reponavn
-  - Tittel
-  - Medlemsnavn
-  - Kategori
-  - Innhold/tekst
   - Status
-  - Fargekoder på oppgavene/bakgrunnsfarge 
- - Mulig å endre status ved hjelp av knappene på oppgave-objektet
- - On-click funksjon på oppgavene slik at de kan endres etter opprettelse
+- Mulig å endre status ved hjelp av knappene på oppgave-objektet
+- On-click funksjon på oppgavene slik at de kan endres etter opprettelse
+- ..?
  
- 
-## Delmål til 31.05:
+## Delmål til 03.06:
 ### Truls
   - Sette opp mottaker av formet som Richard lager
-  - Få colaborators listet opp på siden
+  - Vise colaborators i dropdown menyen "Category" i newTask elementet
+  - Mulighet for å lage repo fra appen
 ### Morten
   - Noterer hva som er gjort så langt og sender til Truls
-  - Ser på dropdown meny
+  - Rapport: Ide og konsept
+  - On-click funksjon på oppgavene slik at de kan endres etter opprettelse
 ### Richard
-  - Fullføre pop-up
   - Begynne på renderItems fuksjonen
+  - Rapport: Tekniske valg
 ### Håkon
   - Legge inn dette på Trello
-  - Filter, statisk på test-repo
+  - Fortsette med checkbox
+  - Rapport: kodestandarder / semantikk
+  - Rapport: Designprinsipper (Design og utforming)
+  - Starte med css på dashboard/Login
 ### Ghulam
-  - Lager logo
+  - Lage logo
+  - Rapport: Innledning
 ### Vixen
   - Fortsette med design og utforming i Figma
+  - Rapport: Design og utforming
