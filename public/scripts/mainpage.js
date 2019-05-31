@@ -1,4 +1,4 @@
-
+let main = document.getElementsByTagName("main");
 
 function post(formID) {
     // The rest of this code assumes you are not using a library.
@@ -8,10 +8,12 @@ function post(formID) {
   
   function createNewTask()
   {
+      main[0].style.filter = "blur(10px)";
       let newItem = document.createElement("div");
+      newItem.setAttribute("id", "popup");
       newItem.classList.add("popup-container");
       newItem.innerHTML = '<div class="popup-window">'+
-            '<div class="popup-exit-button">X</div>'+
+            '<div onclick="exitTask()" class="popup-exit-button">X</div>'+
             '<div class="popup-column">'+
             '<h2 id="popup-header">Ny oppgave</h2>'+
             '<form>'+
@@ -46,10 +48,11 @@ function post(formID) {
       document.body.appendChild(newItem);
   }
   
-  function exitTask(){
-  let popup = document.getElementById("popup");
-  popup.parentNode.removeChild(popup);
-  }
+function exitTask(){
+    main[0].style.filter = "blur(0)";
+    let popup = document.getElementById("popup");
+    popup.remove();
+}
   
   
   // Anonymous function. Always provoked 

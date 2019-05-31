@@ -1,5 +1,4 @@
-let data;
-const request = require('request');
+const qs = require('querystring');
 
 module.exports = { // functions for creating dynamic api querys based on authenticated user ---------------
 	
@@ -72,5 +71,25 @@ profilePicture: function (accessToken){
             headers:{'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'},
         }
     ]
+},
+
+createNewRepo: function (accessToken, user, name, description, private){
+   return [
+        {//get the github profilepicture/user/repos
+            url: 'https://api.github.com/' + user  +'/repos?' + qs.stringify({
+                        
+                        client_id: process.env.CLIENT_ID,
+                        client_secret: process.env.CLIENT_SECRET,
+                        name: name,
+                        description: description,
+                        private: private
+                        
+                }),
+            method: 'POST',
+            headers:{'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'},
+        }
+    ]
 }
+
+
 }

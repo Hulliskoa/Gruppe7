@@ -32,12 +32,20 @@
 		<div class="container">
 
 			<div class="column column-1">
+				
 			</div>
-
 			<!----------- 
 			EJS file allow us to use javascript within the HTML tags to populate with data from the arrays we send from server to client
 			------------->
 			<div class="column column-2">
+				<p class = "dashTitles">OWNED</p>
+				<div class="item addRepo" onclick="createNewRepo()" >
+					<div class="content">
+						<img id="addRepoImg" src="/img/plus.png">
+					</div>			                       
+				</div>
+
+				
 				<%let repoName;%>
 				<%let columnClass;%>
 				<%let user = userName;%>
@@ -63,6 +71,7 @@
 			</div>	
 
 			<div class="column column-3">
+				<p class = "dashTitles">COLLABORATOR</p>
 				<%repoID = 1%>
 				<% for(let i = 0; i < repoNames.length; i++){ %>
 					<%repoName = repoNames[i].name%>

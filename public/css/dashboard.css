@@ -2,25 +2,48 @@
 .container{
   margin-top: 4rem;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh; /*change from 100vh to auto so that background gradient goes all the way down */
   display: grid;
   grid-template-columns: 10% 40% 40% 10%;
   background: radial-gradient(circle 30rem, #ffffff, #e7e7e7);
   box-sizing: border-box;
+
+}
+
+
+.dashTitles{
+  align-items: center; 
+  margin: auto;
+  vertical-align: middle;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  
 }
 
 .column{
-  /*display: flex;
-  flex-direction: column;*/
+  display: grid;
+  grid-auto-rows: 7rem;
+  /*flex-direction: column;*/
   box-sizing: border-box;
+  grid-template-columns: 50% 50%;
+
+}
+
+.column-2{
+  background-color: white;
+  margin-top: 1rem;
+}
+.column-3{
+  background-color: white;
+  margin-top: 1rem;
 }
 
 .item{
   border: 0.1rem solid black;
-  /*border-radius: 0.5rem;*/
   background: linear-gradient(-180deg, #e0b7b7, #e0b7b7 41%);
   margin: 0.6rem;
-	
+  overflow: hidden;/*Truls: added this so that text dont overflow when window is scaled*/
+	border-radius: 3%;
 }
 
 .item:hover{
@@ -31,4 +54,169 @@
   padding: 0 .5rem 0 .5rem;
   margin: 0rem .5rem 0 .5rem;
 }
+
+.addRepo{
+    align-content: center;
+  
+}
+
+#addRepoImg{
+  display: block;
+  margin: auto;
+  height: 3rem;  
+}
+
 /* END MAIN */
+
+
+/* POP-UP create new repo */
+
+.popup-container
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.2);
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.popup-window
+{
+    background-color: white;
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    width: 60%;
+    height: 70%;
+    z-index: 2;
+    /*font-family: "Roboto"; */ 
+    border-radius: 15px;
+    display: grid;
+    grid-template-columns: 95%;
+    padding: 0 2.5%;
+}
+
+.popup-column
+{
+  display: flex;
+  flex-direction: column;
+}
+
+#popup-header
+{
+    display: flex;
+    justify-content: center;
+    height: 10%;
+}
+
+
+/* form starting stylings ------------------------------- */
+
+#group1
+{
+    height: 10%;
+}
+
+.input-box
+{          
+  position:relative; 
+  margin-bottom: 2rem; 
+}
+input         {
+  font-size:1.3rem;
+  padding:3% 0.3rem 0.3rem 0.5rem;
+  margin-bottom: 0.5rem;
+  width:92%;
+  border:none;
+  border-bottom:1px solid #757575;
+}
+
+input:focus     
+{ 
+    outline:none; 
+}
+
+#newRepoSubmit{
+  right: 2rem;
+}
+
+/* LABEL ======================================= */
+label          {
+  color:#999;
+  font-size: 1.4rem;
+  font-weight:normal;
+  position:absolute;
+  pointer-events:none;
+  left:1%;
+  top:70%;
+}
+
+/* active state */
+input:focus ~ label, input:valid ~ label    {
+  opacity: 0;
+}
+
+#group2
+{
+    height: 10%;
+}
+
+.input-dropdown
+{
+    padding-top: 3%;
+    position: relative;
+    width: 100%;
+}
+
+select {
+    width: 100%;
+    padding: 2% 0;
+    border: none;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+    margin-bottom: 1.25rem;
+  }
+
+#group4
+{
+    height: 40%;
+}
+
+.input-multiline
+{
+    width: 100%;
+    background-color: #f8f8f8;
+
+}
+
+textarea
+{
+    width: 98%;
+    border: none;
+    background-color: #f8f8f8;
+    margin-bottom: 0.31 rem;
+    resize: none;
+    outline:none; 
+    padding: 0;
+    margin: 2% 0 0 2%;
+    font-size: 1 rem;
+    word-wrap: break-word;
+}
+
+
+::placeholder
+{
+  font-size:  1.1 rem;
+}
+
+.popup-exit-button
+{
+    position: fixed;
+    z-index: 1;
+    top: 20.5%;
+    right: 15.699%;
+    font-size: 1.5rem;
+    cursor: pointer;
+}

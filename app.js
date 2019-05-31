@@ -124,7 +124,18 @@ app.post('/inputName', (req, res, next) => {
     repositoryName = req.body.repo;
     res.redirect('/mainpage');
 });
+/*
+//Create new repo on github
+app.post( '/newRepo', mWare.asyncMiddleware(async (req, res, next) => {
+    let repoName = req.body.repoName;
+    let description = req.body.repoDescription;
+    //let colabMembers = req.body.colabMembers;
+    let privateBool = req.body.privateBool;
+    let newRepo = await getParallel(api.createNewRepo(access.token, username, repoName, privateBool));
 
+    res.redirect('/dashboard');
+}));
+*/
 app.get('/mainpage', mWare.asyncMiddleware(async (req, res, next) => {
     //checking the owner of selected repo and supplying it to the getMainContent function
     let repoOwner = repoNameOwner[(repoNameOwner.findIndex(x => x.name === repositoryName))].owner
