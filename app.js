@@ -39,7 +39,7 @@ const redirect_uri = process.env.HOST + '/redirect';
 
 // globale variabler
 const repoNameOwner = []
-let accessToken;
+const access = {token: ""};
 let apiUserRepos;
 let repositoryName;
 let commitMessage;
@@ -93,22 +93,22 @@ app.get('/',  (req, res, next) => {
 });
 
 app.get('/logout', mWare.asyncMiddleware(async  (req, res, next) => {
-    const checkAuth = await api.getParallel(api.getAuthorization(accessToken));
+    const checkAuth = await api.getParallel(api.getAuthorization(access.token));
     console.log(checkAuth)
     res.redirect('/');
 }));
 
 
 app.get('/dashboard', mWare.asyncMiddleware(async (req, res, next) =>{  
-    accessToken = 'token ' + req.session.access_token
+    
     while(repoNameOwner.length > 0) {
         repoNameOwner.pop();
     }
-    console.log(accessToken)
+    console.log(access.token)
     //getting username based on access token that was supplied by github oAuth during authorization
-    apiUserInfo = await getParallel(api.getUserInfo(accessToken));
+    apiUserInfo = await getParallel(api.getUserInfo(access.token));
     // getting repositories user owns and collaborates on through the github api
-    apiUserRepos = await getParallel(api.getUserRepos(accessToken))
+    apiUserRepos = await getParallel(api.getUserRepos(access.token))
     // pushing repo name and owner username into array to be able to check if authorized user is owner of repo or not
     for(let i = 0; i < apiUserRepos[0].length; i++){
         repoNameOwner.push({
@@ -132,7 +132,7 @@ app.get('/mainpage', mWare.asyncMiddleware(async (req, res, next) => {
     //checking the owner of selected repo and supplying it to the getMainContent function
     let repoOwner = repoNameOwner[(repoNameOwner.findIndex(x => x.name === repositoryName))].owner
     //saves callback data from getMainContent() queries to be used when rendering mainpage
-    let mainPageContent = await getParallel(api.getMainContent(accessToken, repositoryName, repoOwner));
+    let mainPageContent = await getParallel(api.getMainContent(access.token, repositoryName, repoOwner));
     let collaborators =[];
     for(let i = 0; i < mainPageContent[1].length; i++){
         collaborators.push(helpers.upperCase(mainPageContent[1][i].login));
@@ -198,6 +198,7 @@ app.get('/authorize', (req, res, next) => {
                     console.log('Your Access Token: ');
                     console.log(qs.parse(body));
                     req.session.access_token = qs.parse(body).access_token;
+                    access.token = 'token ' + req.session.access_token
                     res.redirect('/dashboard');
             }
           );
