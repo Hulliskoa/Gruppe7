@@ -1,4 +1,4 @@
-.head-container{
+﻿.head-container{
     background-color: rgb(70, 70, 70);
     color: white;
     position: fixed;
@@ -153,6 +153,7 @@ input:focus ~ label, input:valid ~ label 		{
   opacity: 0;
 }
 
+<<<<<<< HEAD
 .input-dropdown
 {
     padding-top: 3%;
@@ -210,4 +211,3 @@ textarea
     right: 15.699%;
     font-size: 1.5rem;
 }
-
