@@ -1,10 +1,28 @@
+/* ROOT */
 html, body{
     font-size: 1rem;
 	margin: 0;
 	font-family: 'Ubuntu', sans-serif;
 }
 
-/* NAV-BAR ICONS */
+/* HEADER */
+.head-container{
+	background: #ffffff;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	display: grid;
+	grid-template-columns: 10% 80% 10%;;
+  }
+  
+.head-column{
+	display: flex;
+	justify-content: center;
+	margin-top: .3rem;
+}
+
+  /* NAV-BAR ICONS */
 #logo-icon{
 	height: 7vh;
   }
@@ -13,4 +31,36 @@ html, body{
 	border-radius: 50%;
 	height: 7vh;
 }
-/* END NAV-BAR ICONS */
+
+
+/* DROPDOWN MENU */
+.dropdown-content{
+	display: none; 
+	position: absolute;
+	top: 4rem;
+	right: 1rem;
+	min-width: 15rem;
+	background-color: #ffffff;
+	border-radius: .3rem;
+	box-shadow: black 0.1rem 0.3rem .5rem 0rem;
+}
+
+.dropdown-li {
+	display: block;
+	color: black;
+	text-decoration: none;
+	padding: 1rem 1rem 1rem 1rem;
+}
+
+.dropdown:hover .dropdown-content {
+	display: block;
+}
+
+.dropbtn:hover{
+	cursor: pointer;
+}
+
+.dropdown-li:hover {
+	background-color: #b7e0c2;
+}
+/* END HEADER */

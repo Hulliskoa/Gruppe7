@@ -1,24 +1,4 @@
-﻿.head-container{
-    background-color: rgb(70, 70, 70);
-    color: white;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    display: grid;
-    grid-template-columns: 20% 20% 20% 20% 20%;
-}
-
-.head-column{
-    display: flex;
-    justify-content: center;
-}
-
-.head-h3{
-    border-bottom: 0.1rem solid white;
-    box-sizing: border-box;
-}
-
+﻿/* MAIN */
 .container{
     margin-top: 4rem;
     width: 100vw;

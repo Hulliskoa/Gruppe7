@@ -13,20 +13,21 @@
 	<header>
 		<div class="head-container">
             <div class="head-column">
-                <h3 class="head-h3">Manual</h3>
-
+                <!--ORDENTLIG LINK MÅ INN I HREF-->
+                <a href="/dashboard.ejs"><img id="logo-icon" src="/img/logo.png" alt="Logo"></a>
             </div>
             <div class="head-column">
-                <h3 class="head-h3">To-Do</h3>
             </div>
             <div class="head-column">
-                <h3 class="head-h3">Ongoing</h3>
-            </div>
-            <div class="head-column">
-                <h3 class="head-h3">Finished</h3>
-            </div>
-            <div class="head-column">
-                <h3 class="head-h3">Task filter</h3>
+				<div class="dropdown">
+					<img class="dropbtn" id="profilePicture" src="<%=profilePicture%>">
+					<div class="dropdown-content">
+						<a class="dropdown-li" href="https://github.com/Hessh/Test-repo">Github</a>
+						<a class="dropdown-li" href="https://trello.com/b/FLL4lMIf/prosjektstyringsapp">Trello</a>
+						<a class="dropdown-li" href="https://www.figma.com/file/WSdBuMBUvZqwTLJ0fI3OjRKm/Gruppe-7?node-id=6%3A2">Figma</a>
+						<a class="dropdown-li" href="/logout">Sign out</a>
+					</div>
+				</div> 
             </div> 
 
         </div>
