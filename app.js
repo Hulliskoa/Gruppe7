@@ -10,6 +10,7 @@
 // https://www.npmjs.com/package/request request module
 // https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/ scope of oauth authorization
 
+// basic modules for hosting server
 require('dotenv').config(); //Github Oauth APP client id and client secret is stored in the .env file
 const express = require('express');
 const app = express();
@@ -28,7 +29,7 @@ const api = require('./api');// module containing all functions for creating arr
 // module for making HTTP calls to an api
 const request = require('request');
 
-// OAuth mot GitHub
+// modules used for GitHub OAuth 
 const session = require('express-session');
 const qs = require('querystring');
 const url = require('url');
@@ -37,7 +38,7 @@ const csrfString = randomString.generate();
 const redirect_uri = process.env.HOST + '/redirect';
 //---------------------------
 
-// globale variabler
+// globale variables
 const repoNameOwner = []
 const access = {token: ""};
 let apiUserRepos;
@@ -45,7 +46,6 @@ let repositoryName;
 let commitMessage;
 let members;
 let assignemnts;
-
 let apiUserInfo;
 //----------------
 
@@ -63,8 +63,6 @@ app.use(
         saveUninitialized: false
     })
 );
-
-//functions for api queries
 
 //function for sending api query to an api endpoint - reference: https://gist.github.com/bschwartz757/5d1ff425767fdc6baedb4e5d5a5135c8
 const requestAsync = async function(url) {
@@ -85,7 +83,6 @@ const getParallel = async function(urls) {
     }
     return data
 }
-//----------------------------------------------------------------------
 
 
 app.get('/',  (req, res, next) => {
