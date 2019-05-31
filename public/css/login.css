@@ -8,6 +8,11 @@
 	background: radial-gradient(circle 30rem at 45rem 18rem, #ffffff, #cacaca);
 }
 
+#logo{	
+	margin-top: 8rem;
+	width: 20rem;
+}
+
 #login-button{ 
 	display: flex;
 	align-content: center;
@@ -16,7 +21,7 @@
 	font-weight: bold;
 	text-decoration: none;
 	padding: 1rem 3.5rem 1rem 3.5rem;
-	margin: 1rem 0 1.5rem 0;
+	margin: 2.5rem 0 1.5rem 0;
 	border: solid #e8eef2;
 	border-radius: 0.5rem;
 	background: #b7e0c2;
@@ -28,9 +33,4 @@
 
 #login-button:active{
 	box-shadow: inset .1rem .1rem 5rem #b7e0c2;
-}
-
-#logo{	
-	margin-top: 8rem;
-	width: 20rem;
 }
