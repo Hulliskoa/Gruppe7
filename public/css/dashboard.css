@@ -18,7 +18,7 @@
 .item{
   border: 0.1rem solid black;
   /*border-radius: 0.5rem;*/
-  background-color: #ffffff;
+  background: linear-gradient(-180deg, #e0b7b7, #e0b7b7 41%);
   margin: 0.6rem;
 	
 }
