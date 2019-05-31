@@ -70,15 +70,17 @@ https://www.figma.com/file/WSdBuMBUvZqwTLJ0fI3OjRKm/Gruppe-7?node-id=1%3A2 (Ghul
 ### Teknisk:
 - Oppgave-objekter skal inneholde
   - Status
-- Mulig å endre status ved hjelp av knappene på oppgave-objektet
+- Flytte oppgaver
+  - Drag and drop og/eller knapper
 - On-click funksjon på oppgavene slik at de kan endres etter opprettelse
-- ..?
+- Tidsfrist (eventuelt kalender)
  
 ## Delmål til 03.06:
 ### Truls
   - Sette opp mottaker av formet som Richard lager
-  - Vise colaborators i dropdown menyen "Category" i newTask elementet
+  - Vise colaborators i dropdown menyen "Owner" i newTask elementet
   - Mulighet for å lage repo fra appen
+  - Sjekke litt på checkbox med Håkon
 ### Morten
   - Noterer hva som er gjort så langt og sender til Truls
   - Rapport: Ide og konsept
