@@ -4,7 +4,13 @@ html, body{
 	font-family: 'Ubuntu', sans-serif;
 }
 
+/* NAV-BAR ICONS */
+#logo-icon{
+	height: 7vh;
+  }
+
 #profilePicture{
 	border-radius: 50%;
 	height: 7vh;
 }
+/* END NAV-BAR ICONS */
