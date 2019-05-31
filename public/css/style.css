@@ -7,6 +7,4 @@ html, body{
 #profilePicture{
 	border-radius: 50%;
 	height: 7vh;
-	border-style: solid;
-	border-color: white;
 }
