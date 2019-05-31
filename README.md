@@ -1,3 +1,13 @@
+# How to start app
+
+1. Clone repository to your local folder(this is optional if you already have a local copy of the repository)
+2. $ "cd path\to\folder" which contains the app
+3. $ npm install
+4. $ node app.js
+
+Server is now running on localhost:3000
+
+
 # Gruppe 7
 Prosjektstyringsapp
 - Truls Istre - Morten Olsen - Richard Greger - Ghulam Ahmad - Håkon Hess

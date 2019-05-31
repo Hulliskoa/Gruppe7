@@ -104,6 +104,7 @@ app.get('/dashboard', mWare.asyncMiddleware(async (req, res, next) =>{
     while(repoNameOwner.length > 0) {
         repoNameOwner.pop();
     }
+    console.log(accessToken)
     //getting username based on access token that was supplied by github oAuth during authorization
     apiUserInfo = await getParallel(api.getUserInfo(accessToken));
     // getting repositories user owns and collaborates on through the github api
@@ -136,10 +137,8 @@ app.get('/mainpage', mWare.asyncMiddleware(async (req, res, next) => {
     for(let i = 0; i < mainPageContent[1].length; i++){
         collaborators.push(helpers.upperCase(mainPageContent[1][i].login));
     }
-
-    console.log(mainPageContent[2]);
-    //push 10 last commit messages and user who committed as an objects to latestCommiMsg array.
-    let checkNumberOfCommits = (mainPageContent[2].length < 10) ? mainPageContent[2].length : 10
+    //push 5 last commit messages and user who committed as an objects to latestCommiMsg array.
+    let checkNumberOfCommits = (mainPageContent[2].length < 5) ? mainPageContent[2].length : 5
     const lastCommitMsg = [];
     for(let i = 0; i < checkNumberOfCommits; i++){
         lastCommitMsg.push({

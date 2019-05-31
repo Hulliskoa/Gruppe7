@@ -53,7 +53,9 @@ function post(formID) {
   
   
   // Anonymous function. Always provoked 
+  /*
   (function (){
     
         createNewTask();    
   })();
+  */
