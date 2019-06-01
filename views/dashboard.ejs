@@ -10,7 +10,6 @@
 	<header>
         <div class="head-container">
             <div class="head-column">
-				<!--ORDENTLIG LINK MÅ INN I HREF-->
                 <a href="/dashboard"><img id="logo-icon" src="/img/logo.png" alt="Logo"></a>
             </div>
             <div class="head-column">
@@ -74,7 +73,7 @@
 						<div class="item" onclick="post('<%=repoID + colab%>')">
 							<div class="content">
 								<h4><%=repoNames[i].name%></h4>
-								<h5>Name</h5>
+								<h5><%=repoNames[i].owner%></h5>
 								<form id=<%=repoID + colab%> action="/inputName" method="POST">
 									<input type="hidden" name="repo" value=<%=repoNames[i].name%>>
 								</form>

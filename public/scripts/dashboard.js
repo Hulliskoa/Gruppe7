@@ -18,17 +18,17 @@ function post(formID) {
             '<div onclick="exitTask()" class="popup-exit-button">X</div>'+
             '<div class="popup-column">'+
             '<h2 id="popup-header">Create new GitHub repository</h2>'+
-            '<form action="/newRepo" method="POST">'+
-              '<div id="group1" class="input-box">'+ 
-                '<input type="text" required>'+
-                '<span class="highlight"></span>'+
-                '<span class="bar"></span>'+
-                '<label>Repository name</label>'+
+            '<form id="new-repo-form1" class="new-repo-forms" action="/newRepo" method="POST">'+
+              '<div id="group1" class="input-box group">'+ 
+                '<input type="text"  placeholder="Repository name.." required>'+
               '</div>'+
-              '<div id="group4" class="input-multiline">'+
-                '<textarea name="message" placeholder="Repository description"></textarea>'+
+              '<div id="group3" class="group">'+
+                '<textarea name="message" placeholder="Description.." form="new-repo-form1"></textarea>'+
+                ' <input class="group" id="new-repo-checkbox" type="checkbox" name="privateBool">Private repository</input>' +
               '</div>'+
-              '<button id="newRepoSubmit">Create</button>'
+              '<div id="group4" class="group">'+
+                '<button id="new-repo-submit">Create repository</button>' +
+              '</div>'+        
             '</form>'+
             '</div>';
       document.body.appendChild(newItem);
@@ -40,4 +40,5 @@ function exitTask(){
   	let popup = document.getElementById("popup");
   	popup.remove();
 }
-  
+
+

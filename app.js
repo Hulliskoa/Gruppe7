@@ -101,7 +101,6 @@ app.get('/dashboard', mWare.asyncMiddleware(async (req, res, next) =>{
     while(repoNameOwner.length > 0) {
         repoNameOwner.pop();
     }
-    console.log(access.token)
     //getting username based on access token that was supplied by github oAuth during authorization
     apiUserInfo = await getParallel(api.getUserInfo(access.token));
     // getting repositories user owns and collaborates on through the github api

@@ -100,7 +100,7 @@
 
 #group1
 {
-    height: 10%;
+      height: 2rem;
 }
 
 .input-box
@@ -140,7 +140,7 @@ input:focus ~ label, input:valid ~ label 		{
 
 #group2
 {
-    height: 10%;
+    height: 2rem;
 }
 
 .input-dropdown
@@ -158,10 +158,15 @@ select {
     background-color: #f1f1f1;
     margin-bottom: 1.25rem;
   }
+#group2
+{
+      height: 2rem;
+}
+
 
 #group4
 {
-    height: 40%;
+      height: 2rem;
 }
 
 .input-multiline
