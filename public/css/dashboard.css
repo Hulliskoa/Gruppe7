@@ -10,7 +10,7 @@
   z-index: 0;
 }
 
-.dash-titles{
+.dash-title{
   align-items: center; 
   margin: auto;
   vertical-align: middle;
@@ -24,15 +24,14 @@
   grid-auto-rows: 7rem;
   grid-template-columns: 50% 50%;
   margin-top: 10rem;
-  margin-bottom: 6rem;
-  height: 67vh;
+  height: 66vh;
   border-radius: 0.3rem;
   box-sizing: border-box;
   padding: 0 1rem 0rem 1rem;
 }
 
 .column-2{
-  background-color: white;
+  background-color: #ffffff;
   margin-right: 1rem;
 }
 
@@ -45,7 +44,7 @@
 }
 
 .column-3{
-  background-color: white;
+  background-color: #ffffff;
   margin-left: 1rem;
 }
 
@@ -75,6 +74,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background: linear-gradient(to bottom, #e5e5e5, rgba(229, 229, 229, 0.2)) !important; 
 }
 
 #add-repo-img{

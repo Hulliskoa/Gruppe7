@@ -13,6 +13,7 @@
                 <a href="/dashboard"><img id="logo-icon" src="/img/logo.png" alt="Logo"></a>
             </div>
             <div class="head-column">
+				<h3 class="dash-title">PROJECTS</h3>
 			</div>
             <div class="head-column">
 				<div class="dropdown">
@@ -35,7 +36,7 @@
 			EJS file allow us to use javascript within the HTML tags to populate with data from the arrays we send from server to client
 			------------->
 			<div class="column column-2">
-				<p class = "dash-titles">OWNED</p>
+				<p class = "dash-title">OWNED</p>
 				<div class="item add-repo" onclick="createNewRepo()" >
 					<div class="content">
 						<img id="add-repo-img" src="/img/plus.png">
@@ -65,7 +66,7 @@
 			</div>	
 
 			<div class="column column-3">
-				<p class = "dash-titles">COLLABORATOR</p>
+				<p class = "dash-title">COLLABORATOR</p>
 				<%repoID = 1%>
 				<% for(let i = 0; i < repoNames.length; i++){ %>
 					<%repoName = repoNames[i].name%>

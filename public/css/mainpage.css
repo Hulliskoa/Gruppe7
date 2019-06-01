@@ -3,17 +3,34 @@
     width: 100vw;
     height: 100vh;
     display: grid;
-    grid-template-columns: 20% 20% 20% 20% 20%;
+    grid-template-columns: 25% 25% 25% 25%;
     background: radial-gradient(circle 30rem, #ffffff, #e7e7e7);
     box-sizing: border-box;
-    padding-top: 4rem; /*added this to be able to se top of column content on mainpage */
+    z-index: 0;
 }
 
 .column{
-    
-    /*display: flex;
-    flex-direction: column;*/
+    background: #ffffff;
+    margin-left: 1rem;
+    margin-right: 1rem;
+
+}
+
+.column-1, .column-2, .column-3{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10rem;
+    height: 66vh;
     box-sizing: border-box;
+}
+
+.column-4{
+    margin-top: 5rem;
+    height: 88vh;
+}
+
+.column-1 .item{
+    background: linear-gradient(to bottom, #e0b7b7, rgba(224, 183, 183, 0.2));
 }
 
 /*Added by Truls: wanted to remove bulletpoints on the <li> tag*/
@@ -21,15 +38,36 @@
     list-style-type: none;
 }
 
+.main-title{
+    align-self: center;
+}
+
 .item{
-    border: 0.1rem solid black;
-    /*border-radius: 0.5rem;*/
-    background-color: rgba(240, 240, 240, 240);
-    margin: 0.6rem;
+    margin: 0.5rem;
+    overflow: hidden;/*Truls: added this so that text dont overflow when window is scaled*/
+	border-radius: 0.3rem;
+}
+
+.item:hover{
+    cursor: pointer;
 }
 
 .content{
     padding: 0 .5rem 0 .5rem;
+    margin: 0rem .5rem 0 .5rem;
+}
+
+.add-task{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to bottom, #e5e5e5, rgba(229, 229, 229, 0.2)) !important; 
+}
+
+#add-task-img{
+    display: block;
+    margin: auto;
+    height: 3rem;  
 }
 
 .progress{
