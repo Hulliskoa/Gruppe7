@@ -4,6 +4,9 @@ html, body{
 	margin: 0;
 	font-family: 'Ubuntu', sans-serif;
 }
+header{
+
+}
 
 /* HEADER */
 .head-container{
@@ -12,6 +15,7 @@ html, body{
 	top: 0;
 	left: 0;
 	right: 0;
+	z-index: 1;
 	display: grid;
 	grid-template-columns: 10% 80% 10%;;
   }

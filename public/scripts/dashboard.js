@@ -3,7 +3,6 @@ let main = document.getElementsByTagName("main");
 function post(formID) {
     // The rest of this code assumes you are not using a library.
       let form = document.getElementById(formID)
-      
     form.submit();
   }
 
@@ -18,7 +17,7 @@ function post(formID) {
       newItem.innerHTML = '<div class="popup-window">'+
             '<div onclick="exitTask()" class="popup-exit-button">X</div>'+
             '<div class="popup-column">'+
-            '<h2 id="popup-header">Create new github repository</h2>'+
+            '<h2 id="popup-header">Create new GitHub repository</h2>'+
             '<form action="/newRepo" method="POST">'+
               '<div id="group1" class="input-box">'+ 
                 '<input type="text" required>'+

@@ -6,7 +6,7 @@
   grid-template-columns: 10% 40% 40% 10%;
   background: radial-gradient(circle 30rem, #ffffff, #e7e7e7);
   box-sizing: border-box;
-
+  z-index: 0;
 }
 
 

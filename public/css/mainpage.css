@@ -1,12 +1,12 @@
 ﻿/* MAIN */
 .container{
-    margin-top: 4rem;
     width: 100vw;
     height: 100vh;
     display: grid;
     grid-template-columns: 20% 20% 20% 20% 20%;
     background: radial-gradient(circle 30rem, #ffffff, #e7e7e7);
     box-sizing: border-box;
+    padding-top: 4rem; /*added this to be able to se top of column content on mainpage */
 }
 
 .column{
