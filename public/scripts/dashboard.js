@@ -1,18 +1,17 @@
 let main = document.getElementsByTagName("main");
-let body = document.getElementsByTagName("body");
 
 function post(formID) {
     // The rest of this code assumes you are not using a library.
       let form = document.getElementById(formID)
-      document.body.style.cursor='wait'
+      
     form.submit();
   }
 
 
   function createNewRepo()
   {	
-  	body[0].style.overflow = "hidden"
-    main[0].style.filter = "blur(10px)";
+  	
+    	main[0].style.filter = "blur(10px)";
       let newItem = document.createElement("div");
       newItem.classList.add("popup-container");
       newItem.setAttribute("id", "popup");
@@ -37,7 +36,7 @@ function post(formID) {
   }
   
 function exitTask(){
-	body[0].style.overflow = "visible"
+	
   	main[0].style.filter = "blur(0)";
   	let popup = document.getElementById("popup");
   	popup.remove();
