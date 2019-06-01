@@ -14,10 +14,10 @@
                 <a href="/dashboard"><img id="logo-icon" src="/img/logo.png" alt="Logo"></a>
             </div>
             <div class="head-column">
-            </div>
+			</div>
             <div class="head-column">
 				<div class="dropdown">
-					<img class="dropbtn" id="profilePicture" src="<%=profilePicture%>">
+					<img class="dropdown-btn" id="profilePicture" src="<%=profilePicture%>">
 					<div class="dropdown-content">
 						<a class="dropdown-li" href="">User-guide</a>
 						<a class="dropdown-li" href="">Font-size</a>
@@ -30,22 +30,18 @@
     </header>
 	<main>
 		<div class="container">
-
-			<div class="column column-1">
-				
+			<div class="column column-1">	
 			</div>
 			<!----------- 
 			EJS file allow us to use javascript within the HTML tags to populate with data from the arrays we send from server to client
 			------------->
 			<div class="column column-2">
 				<p class = "dash-titles">OWNED</p>
-				<div class="item addRepo" onclick="createNewRepo()" >
+				<div class="item add-repo" onclick="createNewRepo()" >
 					<div class="content">
-						<img id="addRepoImg" src="/img/plus.png">
+						<img id="add-repo-img" src="/img/plus.png">
 					</div>			                       
 				</div>
-
-				
 				<%let repoName;%>
 				<%let columnClass;%>
 				<%let user = userName;%>
@@ -58,8 +54,7 @@
 						<div class="item" onclick="post('<%=repoID + owned%>')">
 							<div class="content">
 								<h4><%=repoNames[i].name%></h4>
-								<h5>Name</h5>
-								<p>Innhold</p>
+								<h5><%=user%></h5>
 								<form id=<%=repoID + owned%> action="/inputName" method="POST">
 									<input type="hidden" name="repo" value=<%=repoNames[i].name%>>
 								</form>
@@ -80,7 +75,6 @@
 							<div class="content">
 								<h4><%=repoNames[i].name%></h4>
 								<h5>Name</h5>
-								<p>Innhold</p>
 								<form id=<%=repoID + colab%> action="/inputName" method="POST">
 									<input type="hidden" name="repo" value=<%=repoNames[i].name%>>
 								</form>

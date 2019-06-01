@@ -1,4 +1,5 @@
 /* MAIN */
+
 .container{
   width: 100vw;
   min-height: 100vh; /*change from 100vh to auto so that background gradient goes all the way down */
@@ -9,39 +10,53 @@
   z-index: 0;
 }
 
-
 .dash-titles{
   align-items: center; 
   margin: auto;
   vertical-align: middle;
   grid-column-start: 1;
   grid-column-end: 3;
-  
 }
 
 .column{
   display: grid;
+  overflow-y: auto;
   grid-auto-rows: 7rem;
   grid-template-columns: 50% 50%;
-  margin-top: 6rem;
-  margin-bottom: 2rem;
+  margin-top: 10rem;
+  margin-bottom: 6rem;
+  height: 67vh;
   border-radius: 0.3rem;
   box-sizing: border-box;
-  padding: 0 1rem 0 1rem;
+  padding: 0 1rem 0rem 1rem;
 }
 
 .column-2{
   background-color: white;
   margin-right: 1rem;
 }
+
+.column-2>div:nth-child(even){
+  background: linear-gradient(to bottom, #e0b7b7, rgba(224, 183, 183, 0.2));
+}
+
+.column-2>div:nth-child(odd){
+  background: linear-gradient(to bottom, #9b96a5, rgba(155, 150, 165, 0.2));
+}
+
 .column-3{
   background-color: white;
   margin-left: 1rem;
 }
 
+.column-3>div:nth-child(even){
+  background: linear-gradient(to bottom, #b7e0c2, rgba(183, 224, 194, 0.2));
+}
+.column-3>div:nth-child(odd){
+  background: linear-gradient(to bottom, #4f6261, rgba(79, 98, 97, 0.2));
+}
+
 .item{
-  border: 0.1rem solid black;
-  background: linear-gradient(-180deg, #e0b7b7, #e0b7b7 41%);
   margin: 0.5rem;
   overflow: hidden;/*Truls: added this so that text dont overflow when window is scaled*/
 	border-radius: 0.3rem;
@@ -56,13 +71,13 @@
   margin: 0rem .5rem 0 .5rem;
 }
 
-.addRepo{
+.add-repo{
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-#addRepoImg{
+#add-repo-img{
   display: block;
   margin: auto;
   height: 3rem;  
@@ -73,8 +88,7 @@
 
 /* POP-UP create new repo */
 
-.popup-container
-{
+.popup-container{
     position: fixed;
     top: 0;
     left: 0;
@@ -84,49 +98,45 @@
     z-index: 1;
 }
 
-.popup-window
-{
-    background-color: white;
-    position: absolute;
-    top: 20%;
-    left: 20%;
-    width: 60%;
-    height: 70%;
-    z-index: 2;
-    /*font-family: "Roboto"; */ 
-    border-radius: 15px;
-    display: grid;
-    grid-template-columns: 95%;
-    padding: 0 2.5%;
+.popup-window{
+  background-color: white;
+  position: absolute;
+  top: 20%;
+  left: 20%;
+  width: 60%;
+  height: 70%;
+  z-index: 2;
+  /*font-family: "Roboto"; */ 
+  border-radius: 15px;
+  display: grid;
+  grid-template-columns: 95%;
+  padding: 0 2.5%;
 }
 
-.popup-column
-{
+.popup-column{
   display: flex;
   flex-direction: column;
 }
 
-#popup-header
-{
-    display: flex;
-    justify-content: center;
-    height: 10%;
+#popup-header{
+  display: flex;
+  justify-content: center;
+  height: 10%;
 }
 
 
 /* form starting stylings ------------------------------- */
 
-#group1
-{
-    height: 10%;
+#group1{
+  height: 10%;
 }
 
-.input-box
-{          
+.input-box{          
   position:relative; 
   margin-bottom: 2rem; 
 }
-input         {
+
+input{
   font-size:1.3rem;
   padding:3% 0.3rem 0.3rem 0.5rem;
   margin-bottom: 0.5rem;
@@ -135,9 +145,8 @@ input         {
   border-bottom:1px solid #757575;
 }
 
-input:focus     
-{ 
-    outline:none; 
+input:focus{ 
+  outline:none; 
 }
 
 #newRepoSubmit{
@@ -145,7 +154,7 @@ input:focus
 }
 
 /* LABEL ======================================= */
-label          {
+label{
   color:#999;
   font-size: 1.4rem;
   font-weight:normal;
@@ -156,69 +165,60 @@ label          {
 }
 
 /* active state */
-input:focus ~ label, input:valid ~ label    {
+input:focus ~ label, input:valid ~ label{
   opacity: 0;
 }
 
-#group2
-{
-    height: 10%;
+#group2{
+  height: 10%;
 }
 
-.input-dropdown
-{
-    padding-top: 3%;
-    position: relative;
-    width: 100%;
+.input-dropdown{
+  padding-top: 3%;
+  position: relative;
+  width: 100%;
 }
 
-select {
-    width: 100%;
-    padding: 2% 0;
-    border: none;
-    border-radius: 4px;
-    background-color: #f1f1f1;
-    margin-bottom: 1.25rem;
+select{
+  width: 100%;
+  padding: 2% 0;
+  border: none;
+  border-radius: 4px;
+  background-color: #f1f1f1;
+  margin-bottom: 1.25rem;
   }
 
-#group4
-{
-    height: 40%;
+#group4{
+  height: 40%;
 }
 
-.input-multiline
-{
-    width: 100%;
-    background-color: #f8f8f8;
-
+.input-multiline{
+  width: 100%;
+  background-color: #f8f8f8;
 }
 
-textarea
-{
-    width: 98%;
-    border: none;
-    background-color: #f8f8f8;
-    margin-bottom: 0.31 rem;
-    resize: none;
-    outline:none; 
-    padding: 0;
-    margin: 2% 0 0 2%;
-    font-size: 1 rem;
-    word-wrap: break-word;
+textarea{
+  width: 98%;
+  border: none;
+  background-color: #f8f8f8;
+  margin-bottom: 0.31 rem;
+  resize: none;
+  outline:none; 
+  padding: 0;
+  margin: 2% 0 0 2%;
+  font-size: 1 rem;
+  word-wrap: break-word;
 }
 
-
-::placeholder
-{
+::placeholder{
   font-size:  1.1 rem;
 }
 
-.popup-exit-button
-{
-    position: fixed;
-    z-index: 1;
-    top: 20.5%;
-    right: 15.699%;
-    font-size: 1.5rem;
-    cursor: pointer;
+.popup-exit-button{
+  position: fixed;
+  z-index: 1;
+  top: 20.5%;
+  right: 15.699%;
+  font-size: 1.5rem;
+  cursor: pointer;
 }

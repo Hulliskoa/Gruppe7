@@ -61,7 +61,7 @@ header{
 	display: block;
 }
 
-.dropbtn:hover{
+.dropdown-btn:hover{
 	cursor: pointer;
 }
 
