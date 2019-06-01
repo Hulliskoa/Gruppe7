@@ -1,6 +1,5 @@
 /* MAIN */
 .container{
-  margin-top: 4rem;
   width: 100vw;
   min-height: 100vh; /*change from 100vh to auto so that background gradient goes all the way down */
   display: grid;
@@ -11,7 +10,7 @@
 }
 
 
-.dashTitles{
+.dash-titles{
   align-items: center; 
   margin: auto;
   vertical-align: middle;
@@ -23,27 +22,29 @@
 .column{
   display: grid;
   grid-auto-rows: 7rem;
-  /*flex-direction: column;*/
-  box-sizing: border-box;
   grid-template-columns: 50% 50%;
-
+  margin-top: 6rem;
+  margin-bottom: 2rem;
+  border-radius: 0.3rem;
+  box-sizing: border-box;
+  padding: 0 1rem 0 1rem;
 }
 
 .column-2{
   background-color: white;
-  margin-top: 1rem;
+  margin-right: 1rem;
 }
 .column-3{
   background-color: white;
-  margin-top: 1rem;
+  margin-left: 1rem;
 }
 
 .item{
   border: 0.1rem solid black;
   background: linear-gradient(-180deg, #e0b7b7, #e0b7b7 41%);
-  margin: 0.6rem;
+  margin: 0.5rem;
   overflow: hidden;/*Truls: added this so that text dont overflow when window is scaled*/
-	border-radius: 3%;
+	border-radius: 0.3rem;
 }
 
 .item:hover{
@@ -56,8 +57,9 @@
 }
 
 .addRepo{
-    align-content: center;
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #addRepoImg{
