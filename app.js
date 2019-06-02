@@ -21,11 +21,10 @@ const port = 3000;
 const team = require('./users');// module containing static user object
 const languageDocs = require('./languageDoc')//module containing links to programming language documentation
 const helpers = require('./helpers/helpers')//module conatining premade functions that does no directly relate to the server
-const classes = require('./classes');//module containing all classes used in application
+const Task = require('./classes').Task;//module containing all classes used in application
 const tasks = require('./tasks')// module containing an array of all tasks created
 const mWare = require('./middleware/middleware')// module containing middleware used with http requests
 const api = require('./api');// module containing all functions for creating arrays of api queries
-
 // module for making HTTP calls to an api
 const request = require('request');
 
@@ -42,6 +41,7 @@ const redirect_uri = process.env.HOST + '/redirect';
 const repoNameOwner = []
 const access = {token: ""};
 const repoOwner = [];
+const taskArray = [];
 let apiUserRepos;
 let repositoryName;
 let commitMessage;
@@ -177,6 +177,10 @@ app.get('/mainpage', mWare.asyncMiddleware(async (req, res, next) => {
 }));
 
 app.post('/newTask', (req, res, next) => {
+   
+    taskArray.push(new Task(1,req.body.taskName, "Hulli", req.body.category, req.body.description));
+    
+    console.log(taskArray);
     //let id = randomString.generate(),
     //tasks.taskArray.push(new classes.task(id, req.body.title, req.body.owner, req.body.category, req.body.content))
     res.redirect('/mainpage');

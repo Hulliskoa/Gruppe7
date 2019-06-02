@@ -1,18 +1,19 @@
 
 let main = document.getElementsByTagName("main");
-//let colabDropDownArray = await httpGetAsync('http://localhost:3000/collaborators', dataCallback)
+let colabArray;
+
+
 
 
 function post(formID) {
       let form = document.getElementById(formID)
     form.submit();
-  }
+}
   
-  function createNewTask()
-  {
-     
-      
-
+async function createNewTask(){
+    
+    const response = await fetch('http://localhost:3000/collaborators');
+    const json = await response.json();
 
 
       main[0].style.filter = "blur(10px)";
@@ -23,66 +24,73 @@ function post(formID) {
       newItem.innerHTML = '<div class="popup-window">'+
             '<div onclick="exitTask()" class="popup-exit-button">X</div>'+
             '<div class="popup-column">'+
-            '<h2 id="popup-header">Ny oppgave</h2>'+
-            '<form>'+
+            '<h2 id="popup-header">New task</h2>'+
+            '<form id="newTask" action="/newTask" method="POST">'+
               '<div id="group1" class="input-box">'+ 
-                '<input type="text" required>'+
+                '<input type="text" name="taskName" required>'+
                 '<span class="highlight"></span>'+
                 '<span class="bar"></span>'+
                 '<label>Name</label>'+
               '</div>'+
              '<div id="group2" class="input-dropdown">'+
-              /* createDropDown(colabDropDownArray) +*/
+               createDropDown(json) +
              '</div>'+
              '<div id="group3" class="input-dropdown">'+
                 '<select id="category" name="category">'+
-                    '<option >Category</option>'+
-                    '<option >HTML</option>'+
-                    '<option >.js</option>'+
-                    '<option >JAVA</option>'+
-                    '<option >CSS</option>'+
+                    '<option value="" >Category</option>'+
+                    '<option value="Front-end">Front-end</option>'+
+                    '<option value="Back-end" =>Back-end</option>'+
+                    '<option value="Design">Design</option>'+
                     '</select>'+
              '</div>'+
               '<div id="group4" class="input-multiline">'+
-                '<textarea name="message" placeholder="Beskrivelse"></textarea>'+
+                '<textarea name="description" placeholder="Description"></textarea>'+
+              '</div>'+
+                '<div id="group5" class="group">'+
+                '<button onclick="postAndExit(newTask)" id="new-repo-submit">Create task</button>'+
               '</div>'+
             '</form>'+
             '</div>';
       document.body.appendChild(newItem);
-  }
 
+};
 
-  function exitTask(){
+function exitTask(){
     main[0].style.filter = "blur(0)";
     let popup = document.getElementById("popup");
     popup.remove();
+};
+
+
+function postAndExit(formID) {
+      let form = document.getElementById(formID)
+    form.submit();
+    exitTask();
 }
-/*
 
 function createDropDown(optionsArray){
-  let select = document.createElement("select")
+    let element = document.createElement("div")
+    let select = document.createElement("select")
+    let option = document.createElement("option")
+
+    element.appendChild(select);
+    select.name = "owner"
+    option.setAttribute.disabled = true;
+    option.setAttribute.selected = true;
+    option.textContent = "Task owner";
+    option.value = ""
+    select.appendChild(option)
+ 
     for(let i = 0; i < optionsArray.length; i++){
-      let option = document.createElement("option")
+      option = document.createElement("option")
       option.textContent = optionsArray[i];
       option.value = optionsArray[i]
       select.appendChild(option)
     };
 
-};
-//ajax request to nodejs server to get collaborators refrence https://medium.com/front-end-weekly/ajax-async-callback-promise-e98f8074ebd7
-async function httpGetAsync(theUrl, callback)
-{
-  return new Promise(() => (
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function() { 
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-            callback(xmlHttp.responseText);
-        }
-    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
-    xmlHttp.send(null);
-}))
+    return element.innerHTML;
 
-function dataCallback(data){
-  return data;
-}
-*/
+};
+
+
+

@@ -32,3 +32,4 @@ class Task{
     }
 }
 
+exports.Task = Task;
