@@ -37,7 +37,7 @@ const redirect_uri = process.env.HOST + '/redirect';
 //---------------------------
 
 // globale variables
-const repoNameOwner = []
+const repoNames = []
 const access = {token: ""};
 const repoOwner = [];
 const taskArray = [];
@@ -106,8 +106,8 @@ app.get('/logout', mWare.asyncMiddleware(async  (req, res, next) => {
 
 app.get('/dashboard', mWare.asyncMiddleware(async (req, res, next) =>{  
     
-    while(repoNameOwner.length > 0) {
-        repoNameOwner.pop();
+    while(repoNames.length > 0) {
+        repoNames.pop();
     }
     //getting username based on access token that was supplied by github oAuth during authorization
     apiUserInfo = await getParallel(api.getUserInfo(access.token));
@@ -115,13 +115,13 @@ app.get('/dashboard', mWare.asyncMiddleware(async (req, res, next) =>{
     apiUserRepos = await getParallel(api.getUserRepos(access.token))
     // pushing repo name and owner username into array to be able to check if authorized user is owner of repo or not
     for(let i = 0; i < apiUserRepos[0].length; i++){
-        repoNameOwner.push({
+        repoNames.push({
             name: apiUserRepos[0][i].name, 
             owner: apiUserRepos[0][i].owner.login});
       }
     // renders dashboard page and sends repoNameOwnerArray and username to the ejs file for further processing
     res.render('dashboard', {
-        repoNames: repoNameOwner, 
+        repoNames: repoNames, 
         userName: apiUserInfo[0].login,
         profilePicture: apiUserInfo[0].avatar_url
     });
@@ -146,7 +146,7 @@ app.post( '/newRepo', mWare.asyncMiddleware(async (req, res, next) => {
 app.get('/mainpage', mWare.asyncMiddleware(async (req, res, next) => {
     //checking the owner of selected repo and supplying it to the getMainContent function
     repoOwner.pop()
-    repoOwner.push(repoNameOwner[(repoNameOwner.findIndex(x => x.name === repositoryName))].owner)
+    repoOwner.push(repoNames[(repoNames.findIndex(x => x.name === repositoryName))].owner)
     //saves callback data from getMainContent() queries to be used when rendering mainpage
     let mainPageContent = await getParallel(api.getMainContent(access.token, repositoryName, repoOwner[0]));
     let collaborators =[];
@@ -167,16 +167,16 @@ app.get('/mainpage', mWare.asyncMiddleware(async (req, res, next) => {
         userName: apiUserInfo[0].login,
         collaborators: collaborators,
         profilePicture: apiUserInfo[0].avatar_url,
-        repoLanguage:Object.keys(mainPageContent[0]), 
+        repoLanguage: Object.keys(mainPageContent[0]), 
         docs: languageDocs, 
         commits: lastCommitMsg,
     });
 }));
 
-app.post('/newTask', (req, res, next) => {
-    taskArray.push(new Task(1,req.body.taskName, "Hulli", req.body.category, req.body.description));
-    //let id = randomString.generate(),
-    //tasks.taskArray.push(new classes.task(id, req.body.title, req.body.owner, req.body.category, req.body.content))
+app.post('/newTask', (req, res, next) => {    
+    let id = randomString.generate()
+    taskArray.push(new Task(id, req.body.taskName, req.body.owner, req.body.category, req.body.description, repositoryName));
+    console.log(taskArray)
     res.redirect('/mainpage');
 });
 
