@@ -1,14 +1,22 @@
+
 let main = document.getElementsByTagName("main");
+//let colabDropDownArray = await httpGetAsync('http://localhost:3000/collaborators', dataCallback)
+
 
 function post(formID) {
-    // The rest of this code assumes you are not using a library.
       let form = document.getElementById(formID)
     form.submit();
   }
   
   function createNewTask()
   {
+     
+      
+
+
+
       main[0].style.filter = "blur(10px)";
+      
       let newItem = document.createElement("div");
       newItem.setAttribute("id", "popup");
       newItem.classList.add("popup-container");
@@ -24,12 +32,7 @@ function post(formID) {
                 '<label>Name</label>'+
               '</div>'+
              '<div id="group2" class="input-dropdown">'+
-              '<select id="owner" name="owner">'+
-                '<option >Owner</option>'+
-                '<option >Richard</option>'+
-                '<option >Petter</option>'+
-                '<option >Anders</option>'+
-                '</select>'+
+              /* createDropDown(colabDropDownArray) +*/
              '</div>'+
              '<div id="group3" class="input-dropdown">'+
                 '<select id="category" name="category">'+
@@ -47,18 +50,39 @@ function post(formID) {
             '</div>';
       document.body.appendChild(newItem);
   }
-  
-function exitTask(){
+
+
+  function exitTask(){
     main[0].style.filter = "blur(0)";
     let popup = document.getElementById("popup");
     popup.remove();
 }
-  
-  
-  // Anonymous function. Always provoked 
-  /*
-  (function (){
-    
-        createNewTask();    
-  })();
-  */
+/*
+
+function createDropDown(optionsArray){
+  let select = document.createElement("select")
+    for(let i = 0; i < optionsArray.length; i++){
+      let option = document.createElement("option")
+      option.textContent = optionsArray[i];
+      option.value = optionsArray[i]
+      select.appendChild(option)
+    };
+
+};
+//ajax request to nodejs server to get collaborators refrence https://medium.com/front-end-weekly/ajax-async-callback-promise-e98f8074ebd7
+async function httpGetAsync(theUrl, callback)
+{
+  return new Promise(() => (
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText);
+        }
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+    xmlHttp.send(null);
+}))
+
+function dataCallback(data){
+  return data;
+}
+*/

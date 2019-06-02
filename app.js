@@ -41,6 +41,7 @@ const redirect_uri = process.env.HOST + '/redirect';
 // globale variables
 const repoNameOwner = []
 const access = {token: ""};
+const repoOwner = [];
 let apiUserRepos;
 let repositoryName;
 let commitMessage;
@@ -88,6 +89,16 @@ const getParallel = async function(urls) {
 app.get('/',  (req, res, next) => {
     res.render('login');
 });
+
+app.get('/collaborators', mWare.asyncMiddleware(async (req, res, next) => {
+    let mainPageContent = await getParallel(api.getMainContent(access.token, repositoryName, repoOwner));
+    let collaborators =[];
+    for(let i = 0; i < mainPageContent[1].length; i++){
+        collaborators.push(helpers.upperCase(mainPageContent[1][i].login));
+    }
+    console.log(collaborators)
+    res.send(collaborators);
+}));
 
 app.get('/logout', mWare.asyncMiddleware(async  (req, res, next) => {
     const checkAuth = await api.getParallel(api.getAuthorization(access.token));
@@ -137,9 +148,10 @@ app.post( '/newRepo', mWare.asyncMiddleware(async (req, res, next) => {
 */
 app.get('/mainpage', mWare.asyncMiddleware(async (req, res, next) => {
     //checking the owner of selected repo and supplying it to the getMainContent function
-    let repoOwner = repoNameOwner[(repoNameOwner.findIndex(x => x.name === repositoryName))].owner
+    repoOwner.pop()
+    repoOwner.push(repoNameOwner[(repoNameOwner.findIndex(x => x.name === repositoryName))].owner)
     //saves callback data from getMainContent() queries to be used when rendering mainpage
-    let mainPageContent = await getParallel(api.getMainContent(access.token, repositoryName, repoOwner));
+    let mainPageContent = await getParallel(api.getMainContent(access.token, repositoryName, repoOwner[0]));
     let collaborators =[];
     for(let i = 0; i < mainPageContent[1].length; i++){
         collaborators.push(helpers.upperCase(mainPageContent[1][i].login));
