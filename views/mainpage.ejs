@@ -46,7 +46,7 @@
 					</div>
 					<!--To-Do code-->
 					<%for(let i = 0; i < tasks.length; i++){%>
-						<%if(tasks[i].status == "to-do"){%>
+						<%if(tasks[i].status == "to-do" && tasks[i].repoName == repo){%>
 							<div class="item" id="<%=tasks[i].id%>" onclick="editTask(this.id)" ondrag="changeStatus(this.id)">
 								<div class="content">
 									<h4><%= tasks[i].title%></h4>
@@ -64,7 +64,7 @@
 				<div class="item-container">
 				<!--Ongoing code-->
 					<%for(let i = 0; i < tasks.length; i++){%>
-						<%if(tasks[i].status == "in progress"){%>
+						<%if(tasks[i].status == "in progress" && tasks[i].repoName == repo){%>
 							<div class="item" onclick="">
 								<div class="content">
 									<div hidden>tasks[i].status</div>
@@ -83,7 +83,7 @@
 				<div class="item-container">
 				<!--Finished code-->
 					<%for(let i = 0; i < tasks.length; i++){%>
-						<%if(tasks[i].status == "complete"){%>
+						<%if(tasks[i].status == "complete" && tasks[i].repoName == repo){%>
 							<div class="item">
 								<div class="content">
 									<h4><%= tasks[i].title%></h4>

@@ -31,7 +31,7 @@ async function editTask(task){
     let category = document.getElementById(task).getElementsByTagName('h5')[1].innerHTML
     let description = document.getElementById(task).getElementsByTagName('p')[0].innerHTML
     let taskID = document.getElementById(task).id;
-    let categoryArray = ["Front-end", "Back-end", "Design"];
+    let categoryArray = ["Front-end", "Back-end", "Design", "Other"];
     main[0].style.filter = "blur(10px)";
 
       //create new element within html document
@@ -46,7 +46,7 @@ async function editTask(task){
                     '<form id="editTask" action="/editTask" method="POST">'+
                       '<div id="group1" class="input-box">'+ 
                         '<input value='+taskID+' name="taskID" hidden>' +
-                        '<input type="text" value='+ title +' name="taskName" required>'+
+                        '<input type="text" value="'+ title +'" name="taskName" required>'+
                         '<span class="highlight"></span>'+
                         '<span class="bar"></span>' +
                         '<label>'+ title +'</label>'+
@@ -134,6 +134,7 @@ function predefinedDropDown(optionsArray, selectedValue, optionName, textContent
     element.appendChild(select);
     select.name = optionName;
     option.textContent = textContent;
+    option.setAttribute("disabled", "true");
     option.value = ""
     select.appendChild(option)
   

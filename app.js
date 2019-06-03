@@ -195,6 +195,14 @@ app.post('/editTask', (req, res, next) => {
     res.redirect('/mainpage');
 });
 
+app.post('/newTask', (req, res, next) => {    
+    let id = randomString.generate()
+    taskArray.push(new Task(id, req.body.taskName, req.body.owner, req.body.category, req.body.description, repositoryName, "to-do"));
+    console.log(taskArray)
+    res.redirect('/mainpage');
+});
+
+
 // GitHub Oauth authorization to be able to make authorized api request (reference: https://shiya.io/how-to-do-3-legged-oauth-with-github-a-general-guide-by-example-with-node-js/)
 app.get('/authorize', (req, res, next) => {
     req.session.csrf_string = randomString.generate();
