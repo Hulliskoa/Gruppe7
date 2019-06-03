@@ -2,7 +2,22 @@
 // fetch api https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
 let main = document.getElementsByTagName("main");
 
-  
+
+function filterAll(masterCheckbox){
+  let checkboxes  = document.getElementsByClassName("checkbox-filter")
+
+  if(masterCheckbox.checked == true){
+    for(let i = 0; i < checkboxes.length; i++){
+      checkboxes[i].checked = true;
+    }
+  }else{
+    for(let i = 0; i < checkboxes.length; i++){
+      checkboxes[i].checked = false;
+    }
+  }
+
+  filterCollaborators();
+}
 //filter for tasks based on collaborators
 function filterCollaborators(){
   let items = document.getElementsByClassName("item");
@@ -18,6 +33,7 @@ function filterCollaborators(){
       }
     }else{
       for(let i = 0; i < items.length; i++){
+        document.getElementsByClassName("checkbox-filter-master")[0].checked = false;
         if(items[i].getAttribute("value") == checkboxes[x].getAttribute('value')){
             items[i].style.display = "none";
           }else if(items[i].getAttribute("value") == "no-filter"){}
