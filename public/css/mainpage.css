@@ -13,7 +13,6 @@
     background: #ffffff;
     margin-left: 1rem;
     margin-right: 1rem;
-
 }
 
 .column-1, .column-2, .column-3{
@@ -30,19 +29,19 @@
 }
 
 .column-1 .item{
-    background: linear-gradient(to bottom, #e0b7b7, rgba(224, 183, 183, 0.2));
+    background: linear-gradient(to bottom, #ffaf52, rgba(255, 175, 82, 50%));
 }
 
 .column-2 .item{
-    background: linear-gradient(to bottom, #9b96a5, rgba(155, 150, 165, 0.2));
+    background: linear-gradient(to bottom, #a280e6, rgba(162, 128, 230, 50%));
 }
 
 .column-3 .item{
-    background: linear-gradient(to bottom, #b7e0c2, rgba(183, 224, 194, 0.2));
+    background: linear-gradient(to bottom, #5ba6ff, rgba(91, 166, 255, 50%));
 }
 
 .column-4 .item{
-    background: linear-gradient(to bottom, #4f6261, rgba(79, 98, 97, 0.2));
+    background: linear-gradient(to bottom, #b7e0c2, rgba(183, 224, 194, 80%));
     padding-bottom: 1rem;
 }
 
@@ -58,6 +57,7 @@
 .item{
     margin: 0.5rem;
     overflow: hidden;/*Truls: added this so that text dont overflow when window is scaled*/
+    border: 0.05rem solid lightgray;
 	border-radius: 0.3rem;
 }
 
