@@ -1,6 +1,6 @@
 
+// fetch api https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
 let main = document.getElementsByTagName("main");
-let colabArray;
 
 
 
@@ -12,10 +12,13 @@ function post(formID) {
 
 function changeStatus(task){
     let taskID = document.getElementById(task).id;
-    //const response = await fetch('http://localhost:3000/changeStatus?taskID=' + taskID);
-    
-    }
-  
+    //const response = await fetch('http://localhost:3000/changeStatus?taskID=' + taskID);    
+
+
+
+}
+
+
 
 async function createNewTask(){
     
@@ -59,7 +62,6 @@ async function createNewTask(){
             '</form>'+
             '</div>';
       document.body.appendChild(newItem);
-
 };
 
 function exitTask(){
