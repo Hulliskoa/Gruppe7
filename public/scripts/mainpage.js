@@ -9,7 +9,14 @@ function post(formID) {
       let form = document.getElementById(formID)
     form.submit();
 }
+
+function changeStatus(task){
+    let taskID = document.getElementById(task).id;
+    //const response = await fetch('http://localhost:3000/changeStatus?taskID=' + taskID);
+    
+    }
   
+
 async function createNewTask(){
     
     const response = await fetch('http://localhost:3000/collaborators');
@@ -66,7 +73,7 @@ function postAndExit(formID) {
       let form = document.getElementById(formID)
     form.submit();
     exitTask();
-}
+};
 
 function createDropDown(optionsArray){
     let element = document.createElement("div")
@@ -91,6 +98,7 @@ function createDropDown(optionsArray){
     return element.innerHTML;
 
 };
+
 
 
 

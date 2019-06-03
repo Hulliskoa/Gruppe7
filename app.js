@@ -131,18 +131,20 @@ app.post('/inputName', (req, res, next) => {
     repositoryName = req.body.repo;
     res.redirect('/mainpage');
 });
-/*
+
 //Create new repo on github
 app.post( '/newRepo', mWare.asyncMiddleware(async (req, res, next) => {
     let repoName = req.body.repoName;
-    let description = req.body.repoDescription;
+    let description = req.body.description;
+
     //let colabMembers = req.body.colabMembers;
     let privateBool = req.body.privateBool;
-    let newRepo = await getParallel(api.createNewRepo(access.token, username, repoName, privateBool));
+    let newRepo = await getParallel(api.createNewRepo(access.token, apiUserInfo[0].login, repoName, description, privateBool,"to-do"));
+    console.log(newRepo)
 
     res.redirect('/dashboard');
 }));
-*/
+
 app.get('/mainpage', mWare.asyncMiddleware(async (req, res, next) => {
     //checking the owner of selected repo and supplying it to the getMainContent function
     repoOwner.pop()
@@ -167,6 +169,7 @@ app.get('/mainpage', mWare.asyncMiddleware(async (req, res, next) => {
         userName: apiUserInfo[0].login,
         collaborators: collaborators,
         profilePicture: apiUserInfo[0].avatar_url,
+        tasks: taskArray,
         repoLanguage: Object.keys(mainPageContent[0]), 
         docs: languageDocs, 
         commits: lastCommitMsg,
@@ -175,7 +178,7 @@ app.get('/mainpage', mWare.asyncMiddleware(async (req, res, next) => {
 
 app.post('/newTask', (req, res, next) => {    
     let id = randomString.generate()
-    taskArray.push(new Task(id, req.body.taskName, req.body.owner, req.body.category, req.body.description, repositoryName));
+    taskArray.push(new Task(id, req.body.taskName, req.body.owner, req.body.category, req.body.description, repositoryName, "to-do"));
     console.log(taskArray)
     res.redirect('/mainpage');
 });

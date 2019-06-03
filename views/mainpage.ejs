@@ -44,38 +44,49 @@
 					</div>
 				</div>
 				<!--To-Do code-->
-				<div class="item">
-					<div class="content">
-						<h4>Title</h4>
-						<h5>Name</h5>
-						<h5>Category</h5>
-						<p>Description</p>
-					</div>
-				</div>
+				<%for(let i = 0; i < tasks.length; i++){%>
+					<%if(tasks[i].status == "to-do"){%>
+						<div class="item" id="<%=tasks[i].id%>" onclick="changeStatus(this.id)">
+							<div class="content">
+								<h4><%= tasks[i].title%></h4>
+								<h5><%= tasks[i].owner%></h5>
+								<h5><%= tasks[i].category%></h5>
+							</div>
+						</div>
+					<%}%>
+				<%}%>
 			</div>
 			<div class="column column-2">
 				<p class="main-title">IN PROGRESS</p>
 				<!--Ongoing code-->
-				<div class="item">
-					<div class="content">
-						<h4>Title</h4>
-						<h5>Name</h5>
-						<h5>Category</h5>
-						<p>Description</p>
-					</div>
-				</div>
+				<%for(let i = 0; i < tasks.length; i++){%>
+						<%if(tasks[i].status == "in progress"){%>
+							<div class="item" onclick="">
+								<div class="content">
+									<div hidden>tasks[i].status</div>
+									<h4><%= tasks[i].title%></h4>
+									<h5><%= tasks[i].owner%></h5>
+									<h5><%= tasks[i].category%></h5>
+									<p><%= tasks[i].description%></p>
+								</div>
+							</div>
+						<%}%>
+					<%}%>
 			</div>
 			<div class="column column-3">
 				<p class="main-title">COMPLETE</p>
 				<!--Finished code-->
-				<div class="item">
-					<div class="content">
-						<h4>Title</h4>
-						<h5>Name</h5>
-						<h5>Category</h5>
-						<p>Description</p>
-					</div>
-				</div>
+					<%for(let i = 0; i < tasks.length; i++){%>
+						<%if(tasks[i].status == "complete"){%>
+							<div class="item">
+								<div class="content">
+									<h4><%= tasks[i].title%></h4>
+									<h5><%= tasks[i].owner%></h5>
+									<h5><%= tasks[i].category%></h5>
+								</div>
+							</div>
+						<%}%>
+					<%}%>
 			</div>
 			<div class="column column-4">
 				<div class="item">

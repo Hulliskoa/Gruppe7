@@ -73,7 +73,7 @@ profilePicture: function (accessToken){
     ]
 },
 
-createNewRepo: function (accessToken, user, name, description, private){
+createNewRepo: function (accessToken, user, name, description, privateRepo){
    return [
         {//get the github profilepicture/user/repos
             url: 'https://api.github.com/' + user  +'/repos?' + qs.stringify({
@@ -82,7 +82,7 @@ createNewRepo: function (accessToken, user, name, description, private){
                         client_secret: process.env.CLIENT_SECRET,
                         name: name,
                         description: description,
-                        private: private
+                        private: privateRepo
                         
                 }),
             method: 'POST',
