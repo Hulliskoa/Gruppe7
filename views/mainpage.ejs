@@ -46,11 +46,12 @@
 				<!--To-Do code-->
 				<%for(let i = 0; i < tasks.length; i++){%>
 					<%if(tasks[i].status == "to-do"){%>
-						<div class="item" id="<%=tasks[i].id%>" onclick="changeStatus(this.id)">
+						<div class="item" id="<%=tasks[i].id%>" onclick="editTask(this.id)" ondrag="changeStatus(this.id)">
 							<div class="content">
 								<h4><%= tasks[i].title%></h4>
 								<h5><%= tasks[i].owner%></h5>
 								<h5><%= tasks[i].category%></h5>
+								<p><%= tasks[i].description%></p>
 							</div>
 						</div>
 					<%}%>
@@ -83,6 +84,7 @@
 									<h4><%= tasks[i].title%></h4>
 									<h5><%= tasks[i].owner%></h5>
 									<h5><%= tasks[i].category%></h5>
+									<p><%= tasks[i].description%></p>
 								</div>
 							</div>
 						<%}%>
