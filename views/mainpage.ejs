@@ -39,7 +39,7 @@
 				<p class="main-title">TO DO</p>
 				<div class="item-container">
 				<!--Code for the left side info-boxes-->
-					<div class="item add-task" onclick="createNewTask()">
+					<div class="item add-task" value="no-filter" onclick="createNewTask()">
 						<div class="content">
 							<img id="add-task-img" src="/img/plus.png">
 						</div>
@@ -47,7 +47,7 @@
 					<!--To-Do code-->
 					<%for(let i = 0; i < tasks.length; i++){%>
 						<%if(tasks[i].status == "to-do" && tasks[i].repoName == repo){%>
-							<div class="item" id="<%=tasks[i].id%>" onclick="editTask(this.id)" ondrag="changeStatus(this.id)">
+							<div class="item" value="<%= tasks[i].owner%>" id="<%=tasks[i].id%>"  onclick="editTask(this.id)" ondrag="changeStatus(this.id)">
 								<div class="content">
 									<h4><%= tasks[i].title%></h4>
 									<h5><%= tasks[i].owner%></h5>
@@ -65,7 +65,7 @@
 				<!--Ongoing code-->
 					<%for(let i = 0; i < tasks.length; i++){%>
 						<%if(tasks[i].status == "in progress" && tasks[i].repoName == repo){%>
-							<div class="item" onclick="">
+							<div class="item" value="<%= tasks[i].owner%>"  id="<%=tasks[i].id%>" onclick="editTask(this.id)">
 								<div class="content">
 									<div hidden>tasks[i].status</div>
 									<h4><%= tasks[i].title%></h4>
@@ -84,7 +84,7 @@
 				<!--Finished code-->
 					<%for(let i = 0; i < tasks.length; i++){%>
 						<%if(tasks[i].status == "complete" && tasks[i].repoName == repo){%>
-							<div class="item">
+							<div class="item" value="<%= tasks[i].owner%>" id="<%=tasks[i].id%>" onclick="editTask(this.id)">
 								<div class="content">
 									<h4><%= tasks[i].title%></h4>
 									<h5><%= tasks[i].owner%></h5>
@@ -97,29 +97,22 @@
 				</div>
 			</div>
 			<div class="column column-4">
-					<div class="item">
-						<div class="content">
+					<div class="item" value="no-filter">
+						<div class="content" >
 							<h4>Filter collaborators</h4>
-							
 								<%for (let i = 0; i < collaborators.length; i++){%>
-									<div class="checkbox-container">
 									<%if (collaborators.length == 0){%>
 									<li>No collaborators in repo</li>
 									<%}else{%>
-									<div class="checkbox-name">
-										<input class="filter-checkbox" type="checkbox">
-									</div>
-									<div class="filter-checkbox">
-										<p class="filter-checkbox"><%=collaborators[i]%></p>
-									</div>
-									<%console.log(collaborators[i])}%>
-									</div>
+									<li>
+										<input class="checkbox-filter" value="<%=collaborators[i]%>" onclick="filterCollaborators()" class="filter-checkbox" type="checkbox" checked/><%=collaborators[i]%>
+									</li>
+									<%}%>	
 								<%}%>
-							
 						</div>
 					</div>
-					<div class="item">
-						<div class="content">
+					<div class="item" value="no-filter">
+						<div class="content" >
 							<h4>Documentation for languages used in repository</h4>
 							<%for (let i = 0; i < repoLanguage.length; i++){%>
 								<%if (repoLanguage.length == 0){%>
@@ -130,7 +123,7 @@
 							<%}%>
 						</div>
 					</div>
-					<div class="item">
+					<div class="item" value="no-filter">
 						<div class="content">
 							<h4>Latest commits</h4>
 							<%for (let i = 0; i < commits.length; i++){%>

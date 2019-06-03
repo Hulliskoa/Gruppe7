@@ -3,8 +3,28 @@
 let main = document.getElementsByTagName("main");
 
   
+//filter for tasks based on collaborators
+function filterCollaborators(){
+  let items = document.getElementsByClassName("item");
+  let checkboxes  = document.getElementsByClassName("checkbox-filter")
 
-
+  for(let x = 0; x < checkboxes.length; x++){
+    if(checkboxes[x].checked == true){
+      for(let i = 0; i < items.length; i++){
+        if(items[i].getAttribute("value") == checkboxes[x].getAttribute('value')){
+          console.log()
+            items[i].style.display = "block";
+          }else if(items[i].getAttribute("value") == "no-filter"){}
+      }
+    }else{
+      for(let i = 0; i < items.length; i++){
+        if(items[i].getAttribute("value") == checkboxes[x].getAttribute('value')){
+            items[i].style.display = "none";
+          }else if(items[i].getAttribute("value") == "no-filter"){}
+      }
+    }
+  }
+}
 
 
 function post(formID) {
@@ -63,7 +83,7 @@ async function editTask(task){
                         '<input type="text" value="'+ title +'" name="taskName" required>'+
                         '<span class="highlight"></span>'+
                         '<span class="bar"></span>' +
-                        '<label>'+ title +'</label>'+
+                        '<label class="name-label">'+ title +'</label>'+
                       '</div>'+
                       '<div id="group2" class="input-dropdown">'+
                           predefinedDropDown(collaborators, owner, "owner", "Task owner") +
@@ -96,36 +116,36 @@ async function createNewTask(task){
       newItem.classList.add("popup-container");
       newItem.innerHTML = '<div class="popup-window">'+
             '<div class="popup-column">'+
-            '<div class="head-task-container">' +
-            '<div id="spacer"></div>' +
-                  '<img onclick="exitTask()" src="/img/close.png" class="popup-exit-button">'+
+              '<div class="head-task-container">' +
+                '<div id="spacer"></div>' +
+                '<img onclick="exitTask()" src="/img/close.png" class="popup-exit-button">'+
+              '</div>'+
+              '<h2 id="popup-header">New task</h2>'+
+              '<form id="newTask" action="/newTask" method="POST">'+
+                '<div id="group1" class="input-box">'+ 
+                  '<input type="text" name="taskName" required>'+
+                  '<span class="highlight"></span>'+
+                  '<span class="bar"></span>'+
+                  '<label class="name-label">Name</label>' +
                 '</div>'+
-            '<h2 id="popup-header">New task</h2>'+
-            '<form id="newTask" action="/newTask" method="POST">'+
-              '<div id="group1" class="input-box">'+ 
-                '<input type="text" name="taskName" required>'+
-                '<span class="highlight"></span>'+
-                '<span class="bar"></span>'+
-                '<label>Name</label>' +
-              '</div>'+
-             '<div id="group2" class="input-dropdown">'+
-               createDropDown(json) +
-             '</div>'+
-             '<div id="group3" class="input-dropdown">'+
-                '<select id="category" name="category">'+
-                    '<option value="" >Category</option>'+
-                    '<option value="Front-end">Front-end</option>'+
-                    '<option value="Back-end">Back-end</option>'+
-                    '<option value="Design">Design</option>'+
+                '<div id="group2" class="input-dropdown">'+
+                  createDropDown(json) +
+                '</div>'+
+                '<div id="group3" class="input-dropdown">'+
+                  '<select id="category" name="category">'+
+                      '<option value="" >Category</option>'+
+                      '<option value="Front-end">Front-end</option>'+
+                      '<option value="Back-end">Back-end</option>'+
+                      '<option value="Design">Design</option>'+
                     '</select>'+
-             '</div>'+
-              '<div id="group4" class="input-multiline">'+
-                '<textarea name="description" placeholder="Description"></textarea>'+
-              '</div>'+
-              '<div id="group5" class="group">'+
-                '<button onclick="postAndExit(newTask)" id="new-repo-submit">Create task</button>'+
-              '</div>'+
-            '</form>'+
+                '</div>'+
+                '<div id="group4" class="input-multiline">'+
+                  '<textarea name="description" placeholder="Description"></textarea>'+
+                '</div>'+
+                '<div id="group5" class="group">'+
+                  '<button onclick="postAndExit(newTask)" id="new-repo-submit">Create task</button>'+
+                '</div>'+
+              '</form>'+
             '</div>';
       document.body.appendChild(newItem);
 };
