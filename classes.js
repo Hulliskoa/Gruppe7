@@ -16,8 +16,11 @@ class Task{
     getOwner(){
         return this.owner
     }
-    getContent(){
-        return this.content;
+    getCategory(){
+        return this.category;
+    } 
+    getDescription(){
+        return this.description;
     }
     getRepoName(){
         return this.repoName;
@@ -28,20 +31,20 @@ class Task{
     setTitle(title){
         this.title = title;
     }
-    setStatus(title){
-        this.status = status;
-    }
     setOwner(owner){
         this.owner = owner;
     }
     setCategory(category){
         this.category = category;
     }
-    setContent(content){
-        this.content = content;
+    setDescription(description){
+        this.description = description;
     }
     setRepoName(content){
         this.repoName = repoName;
+    }
+     setStatus(title){
+        this.status = status;
     }
 }
 

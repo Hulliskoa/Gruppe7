@@ -183,6 +183,18 @@ app.post('/newTask', (req, res, next) => {
     res.redirect('/mainpage');
 });
 
+app.post('/editTask', (req, res, next) => {    
+    let id = randomString.generate()
+    let editedTask = taskArray[(taskArray.findIndex(x => x.id === req.body.taskID))]
+    editedTask.setTitle(req.body.taskName)
+    editedTask.setOwner(req.body.owner)
+    editedTask.setCategory(req.body.category)
+    editedTask.setTitle(req.body.taskName)
+    editedTask.setDescription(req.body.description)
+    console.log(editedTask)
+    res.redirect('/mainpage');
+});
+
 // GitHub Oauth authorization to be able to make authorized api request (reference: https://shiya.io/how-to-do-3-legged-oauth-with-github-a-general-guide-by-example-with-node-js/)
 app.get('/authorize', (req, res, next) => {
     req.session.csrf_string = randomString.generate();
