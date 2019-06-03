@@ -24,7 +24,7 @@ async function editTask(task){
     let category = document.getElementById(task).getElementsByTagName('h5')[1].innerHTML
     let description = document.getElementById(task).getElementsByTagName('p')[0].innerHTML
     let taskID = document.getElementById(task).id;
-    
+    let categoryArray = ["Front-end", "Back-end", "Design"]
       main[0].style.filter = "blur(10px)";
       
       let newItem = document.createElement("div");
@@ -33,7 +33,7 @@ async function editTask(task){
       newItem.innerHTML = '<div class="popup-window">'+
             '<div onclick="exitTask()" class="popup-exit-button">X</div>'+
             '<div class="popup-column">'+
-            '<h2 id="popup-header">New task</h2>'+
+            '<h2 id="popup-header">Edit task</h2>'+
             '<form id="editTask" action="/editTask" method="POST">'+
 
               '<div id="group1" class="input-box">'+ 
@@ -44,15 +44,10 @@ async function editTask(task){
                 '<label>'+ title +'</label>'+
               '</div>'+
              '<div id="group2" class="input-dropdown">'+
-               predefinedDropDown(json, owner) +
+               predefinedDropDown(json, owner, "owner", "Task owner") +
              '</div>'+
              '<div id="group3" class="input-dropdown">'+
-                '<select id="category" name="category">'+
-                    '<option value="" >Category</option>'+
-                    '<option value="Front-end">Front-end</option>'+
-                    '<option value="Back-end" =>Back-end</option>'+
-                    '<option value="Design">Design</option>'+
-                    '</select>'+
+                predefinedDropDown(categoryArray, category , "category", "Category") +
              '</div>'+
               '<div id="group4" class="input-multiline">'+
                 '<textarea name="description" placeholder="Description">'+ description +'</textarea>'+
@@ -76,7 +71,6 @@ async function createNewTask(task){
     
     const response = await fetch('http://localhost:3000/collaborators');
     const json = await response.json();
-    let taskID = document.getElementById(task).id;
 
       main[0].style.filter = "blur(10px)";
       
@@ -101,7 +95,7 @@ async function createNewTask(task){
                 '<select id="category" name="category">'+
                     '<option value="" >Category</option>'+
                     '<option value="Front-end">Front-end</option>'+
-                    '<option value="Back-end" =>Back-end</option>'+
+                    '<option value="Back-end">Back-end</option>'+
                     '<option value="Design">Design</option>'+
                     '</select>'+
              '</div>'+
@@ -129,20 +123,20 @@ function postAndExit(formID) {
     exitTask();
 };
 
-function predefinedDropDown(optionsArray, owner){
+function predefinedDropDown(optionsArray, selectedValue, optionName, textContent){
     let element = document.createElement("div")
     let select = document.createElement("select")
     let option = document.createElement("option")
 
     element.appendChild(select);
-    select.name = "owner"
-    option.textContent = "Task owner";
+    select.name = optionName;
+    option.textContent = textContent;
     option.value = ""
     select.appendChild(option)
-    console.log(owner)
+  
 
     for(let i = 0; i < optionsArray.length; i++){
-      if(optionsArray[i] == owner ){
+      if(optionsArray[i] == selectedValue){
       option = document.createElement("option")
       option.textContent = optionsArray[i];
       option.value = optionsArray[i]
