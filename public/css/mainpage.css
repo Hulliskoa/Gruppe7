@@ -10,39 +10,41 @@
 }
 
 .column{
-    background: #ffffff;
-    margin-left: 1rem;
-    margin-right: 1rem;
-}
-
-.column-1, .column-2, .column-3{
     display: flex;
     flex-direction: column;
-    margin-top: 10rem;
-    height: 66vh;
+    margin-top: 8rem;
+    height: 75vh;
     box-sizing: border-box;
+    background: #ffffff;
+}
+
+.column-1{
+    margin-left: 1rem;
 }
 
 .column-4{
-    margin-top: 5rem;
-    height: 88vh;
+    margin-right: 1rem;
 }
 
-.column-1 .item{
-    background: linear-gradient(to bottom, #ffaf52, rgba(255, 175, 82, 50%));
+.column-1 .item-container{
+    background: linear-gradient(to top, #4480ED, rgba(68, 128, 237, 40%));
 }
 
-.column-2 .item{
-    background: linear-gradient(to bottom, #a280e6, rgba(162, 128, 230, 50%));
+.column-2 .item-container{
+    background: linear-gradient(to top, #E76646, rgb(231, 102, 70, 40%));
 }
 
-.column-3 .item{
-    background: linear-gradient(to bottom, #5ba6ff, rgba(91, 166, 255, 50%));
+.column-3 .item-container{
+    background: linear-gradient(to top, #71DBC9, rgb(113, 219, 201, 40%));
+}
+
+.column-4 .item-container{
+    background: linear-gradient(to top, #E15C68, rgba(225, 92, 104, 40%));
+    margin-top: 3rem;
 }
 
 .column-4 .item{
-    background: linear-gradient(to bottom, #b7e0c2, rgba(183, 224, 194, 80%));
-    padding-bottom: 1rem;
+    padding-bottom: 0.5rem;
 }
 
 /*Added by Truls: wanted to remove bulletpoints on the <li> tag*/
@@ -54,11 +56,18 @@
     align-self: center;
 }
 
+.item-container{
+    overflow-y: auto;
+    height: 100vh;
+    margin: 0 1rem 3rem 1rem;
+}
+
 .item{
-    margin: 0.5rem;
     overflow: hidden;/*Truls: added this so that text dont overflow when window is scaled*/
+    margin: 1rem;
     border: 0.05rem solid lightgray;
-	border-radius: 0.3rem;
+    border-radius: 0.3rem;
+    background: #ffffff;
 }
 
 .item:hover{
@@ -74,7 +83,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(to bottom, #e5e5e5, rgba(229, 229, 229, 0.2)) !important; 
+    background: #ffffff;
 }
 
 #add-task-img{
