@@ -2,35 +2,44 @@
 // fetch api https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
 let main = document.getElementsByTagName("main");
 
+  
+
 
 
 
 function post(formID) {
-      let form = document.getElementById(formID)
-    form.submit();
+      let form = document.getElementById(formID).submit();
 }
 
 function postAndExit(formID) {
-    let form = document.getElementById(formID)
-    form.submit();
+    document.getElementById(formID).submit();
     exitTask();
+};
+
+function exitTask(){
+    main[0].style.filter = "blur(0)";
+    let popup = document.getElementById("popup");
+    let item = document.getElementsByClassName("popup-item")
+    popup.remove();
+    item[0].setAttribute("class", "item");
+    item[0].removeAttribute("class", "popup-item");
+    
 };
 // async function so that response from server is resolved before the rest of the function continues
 async function editTask(task){
     document.body.style.cursor="progress";
-    
-    //const colab = await fetch('http://localhost:3000/collaborators');
-    //const colabResponsJSON = await response.json();
-    //const selectedTaskJSON =  await response.json();
-
+   
     const response = await fetch('http://localhost:3000/collaborators');
-    const json = await response.json();
-
+    let collaborators = await response.json();
+    
+    
+    document.getElementById(task).setAttribute("class", "item popup-item")
     let title = document.getElementById(task).getElementsByTagName('h4')[0].innerHTML
     let owner = document.getElementById(task).getElementsByTagName('h5')[0].innerHTML
     let category = document.getElementById(task).getElementsByTagName('h5')[1].innerHTML
     let description = document.getElementById(task).getElementsByTagName('p')[0].innerHTML
     let taskID = document.getElementById(task).id;
+    let clickedElement = document.getElementById(task)
     let categoryArray = ["Front-end", "Back-end", "Design", "Other"];
     main[0].style.filter = "blur(10px)";
 
@@ -41,10 +50,13 @@ async function editTask(task){
         newItem.innerHTML = 
             '<div class="popup-window">'+
                 '<div class="popup-column">'+
+                '<div class="head-task-container">' +
                   '<img onclick="exitTask()" src="/img/close.png" class="popup-exit-button">'+
                   '<img id="delete-task-button" value="'+ taskID +'" onclick="deleteTask(this.id)" class="delete-icon" src="/img/delete.png">' +
+                '</div>'+
+                 
                   '<h2 id="popup-header">Edit task</h2>'+
-                    '<form id="editTask" action="/editTask" method="POST">'+
+                    '<form id="edit-task" action="/editTask" method="POST">'+
                       '<div id="group1" class="input-box">'+ 
                         '<input value='+taskID+' name="taskID" hidden>' +
                         '<input type="text" value="'+ title +'" name="taskName" required>'+
@@ -53,7 +65,7 @@ async function editTask(task){
                         '<label>'+ title +'</label>'+
                       '</div>'+
                       '<div id="group2" class="input-dropdown">'+
-                          predefinedDropDown(json, owner, "owner", "Task owner") +
+                          predefinedDropDown(collaborators, owner, "owner", "Task owner") +
                       '</div>'+
                       '<div id="group3" class="input-dropdown">'+
                           predefinedDropDown(categoryArray, category , "category", "Category") +
@@ -62,7 +74,7 @@ async function editTask(task){
                           '<textarea name="description" placeholder="Description">'+ description +'</textarea>'+
                       '</div>'+
                       '<div id="group5" class="group">'+
-                          '<button onclick="postAndExit(editTask)" id="new-repo-submit">Submit changes</button>'+
+                          '<button onclick="postAndExit(edit-task)" id="new-repo-submit">Submit changes</button>'+
                       '</div>'+
                     '</form>'+
                   '</div>' +
@@ -84,6 +96,9 @@ async function createNewTask(task){
       newItem.innerHTML = '<div class="popup-window">'+
             '<img onclick="exitTask()" src="/img/close.png" class="popup-exit-button">'+
             '<div class="popup-column">'+
+            '<div class="head-task-container">' +
+                  '<img onclick="exitTask()" src="/img/close.png" class="popup-exit-button">'+
+                '</div>'+
             '<h2 id="popup-header">New task</h2>'+
             '<form id="newTask" action="/newTask" method="POST">'+
               '<div id="group1" class="input-box">'+ 
@@ -119,24 +134,18 @@ function changeStatus(task){
     //const response = await fetch('http://localhost:3000/changeStatus?taskID=' + taskID);    
 }
 
-function exitTask(){
-    main[0].style.filter = "blur(0)";
-    let popup = document.getElementById("popup");
-    popup.remove();
-};
-
-async function deleteTask(task){
+function deleteTask(task){
 
   let taskID = document.getElementById(task).getAttribute('value');
-  await fetch('http://localhost:3000/deleteTask?taskID=' + taskID, {  
+  fetch('http://localhost:3000/deleteTask?taskID=' + taskID, {  
           method: 'POST'});
     main[0].style.filter = "blur(0)";
     let popup = document.getElementById("popup");
-    
     popup.remove();
+    let item = document.getElementsByClassName("popup-item")
+    item[0].remove();
     
 };
-
 
 function predefinedDropDown(optionsArray, selectedValue, optionName, textContent){
     let element = document.createElement("div")
@@ -169,8 +178,6 @@ function predefinedDropDown(optionsArray, selectedValue, optionName, textContent
     }
     return element.innerHTML;
 };
-
-
 
 function createDropDown(optionsArray){
     let element = document.createElement("div")

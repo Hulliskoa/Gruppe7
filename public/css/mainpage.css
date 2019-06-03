@@ -117,25 +117,25 @@
 /* Popup container--- */
 .popup-container
 {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     background-color: rgba(0,0,0,0.2);
-    width: 100%;
-    height: 100%;
+    min-width: 100vw;
+    min-height: 100vh;
+    align-items: center;
     z-index: 1;
 }
 
 .popup-window
 {
     background-color: white;
-    position: absolute;
     top: 20%;
-    left: 20%;
-    width: 40%;
-    height: 70%;
+    margin: auto;
+    margin-top: 5rem;
+    width: 20rem;
+    height: 30rem;
     z-index: 2;
-    /*font-family: "Roboto"; */ 
     border-radius: 15px;
     display: grid;
     grid-template-columns: 95%;
@@ -153,6 +153,14 @@
     display: flex;
     justify-content: center;
     height: 10%;
+}
+
+.head-task-container{
+    display: flex;
+    align-items: right;
+    justify-content: right;
+    margin-top: 0.5rem;
+    width: inherit;
 }
 
 
@@ -258,22 +266,19 @@ textarea
 
 .popup-exit-button
 {
-    position: absolute;
+    align-self: right;
     z-index: 1;
-    height: 2rem;
-    right: 1rem;
-    font-size: 1.5rem;
+    height: 1.5rem;
+    margin-top: 0.5rem;
     cursor: pointer;
 }
 
 
 .delete-icon
 {
-    position: absolute;
     z-index: 1;
-    height: 2rem;
-    right: 3rem;
-    font-size: 1.5rem;
+    height: 1.5rem;
+    margin-top: 0.5rem;
     cursor: pointer;
 }
 
@@ -281,7 +286,6 @@ textarea
 #group5 button
 {
   color: #ffffff;
-  position: absolute;
   font-weight: bold;
   text-decoration: none;
   padding: 1rem 3.5rem 1rem 3.5rem;
