@@ -37,30 +37,33 @@
 		<div class="container">
 			<div class="column column-1">
 				<p class="main-title">TO DO</p>
+				<div class="item-container">
 				<!--Code for the left side info-boxes-->
-				<div class="item add-task" onclick="createNewTask()">
-					<div class="content">
-						<img id="add-task-img" src="/img/plus.png">
-					</div>
-				</div>
-				<!--To-Do code-->
-				<%for(let i = 0; i < tasks.length; i++){%>
-					<%if(tasks[i].status == "to-do"){%>
-						<div class="item" id="<%=tasks[i].id%>" onclick="editTask(this.id)" ondrag="changeStatus(this.id)">
-							<div class="content">
-								<h4><%= tasks[i].title%></h4>
-								<h5><%= tasks[i].owner%></h5>
-								<h5 hidden><%= tasks[i].category%></h5>
-								<p hidden><%= tasks[i].description%></p>
-							</div>
+					<div class="item add-task" onclick="createNewTask()">
+						<div class="content">
+							<img id="add-task-img" src="/img/plus.png">
 						</div>
+					</div>
+					<!--To-Do code-->
+					<%for(let i = 0; i < tasks.length; i++){%>
+						<%if(tasks[i].status == "to-do"){%>
+							<div class="item" id="<%=tasks[i].id%>" onclick="editTask(this.id)" ondrag="changeStatus(this.id)">
+								<div class="content">
+									<h4><%= tasks[i].title%></h4>
+									<h5><%= tasks[i].owner%></h5>
+									<h5 hidden><%= tasks[i].category%></h5>
+									<p hidden><%= tasks[i].description%></p>
+								</div>
+							</div>
+						<%}%>
 					<%}%>
-				<%}%>
+				</div>
 			</div>
 			<div class="column column-2">
 				<p class="main-title">IN PROGRESS</p>
+				<div class="item-container">
 				<!--Ongoing code-->
-				<%for(let i = 0; i < tasks.length; i++){%>
+					<%for(let i = 0; i < tasks.length; i++){%>
 						<%if(tasks[i].status == "in progress"){%>
 							<div class="item" onclick="">
 								<div class="content">
@@ -73,9 +76,11 @@
 							</div>
 						<%}%>
 					<%}%>
+				</div>
 			</div>
 			<div class="column column-3">
 				<p class="main-title">COMPLETE</p>
+				<div class="item-container">
 				<!--Finished code-->
 					<%for(let i = 0; i < tasks.length; i++){%>
 						<%if(tasks[i].status == "complete"){%>
@@ -89,48 +94,50 @@
 							</div>
 						<%}%>
 					<%}%>
+				</div>
 			</div>
 			<div class="column column-4">
-				<div class="item">
-					<div class="content">
-						<h4>Repository collaborators</h4>
-						<%for (let i = 0; i < collaborators.length; i++){%>
-							<%if (collaborators.length == 0){%>
-							<li>No collaborators in repo</li>
-							<%}else{%>
-							<li><%=collaborators[i]%> </li>
+				<div class="item-container">
+					<div class="item">
+						<div class="content">
+							<h4>Repository collaborators</h4>
+							<%for (let i = 0; i < collaborators.length; i++){%>
+								<%if (collaborators.length == 0){%>
+								<li>No collaborators in repo</li>
+								<%}else{%>
+								<li><%=collaborators[i]%> </li>
+								<%}%>
 							<%}%>
-						<%}%>
+						</div>
 					</div>
-				</div>
-				<div class="item">
-					<div class="content">
-						<h4>Documentation for languages used in repository</h4>
-						<%for (let i = 0; i < repoLanguage.length; i++){%>
-							<%if (repoLanguage.length == 0){%>
-							<li>No programming languages used in repository</li>
-							<%}else{%>
-							<li><a class="docsLink" target="_blank" href="<%= docs[repoLanguage[i].toLowerCase()]%>"><%=repoLanguage[i]%></a></li>
+					<div class="item">
+						<div class="content">
+							<h4>Documentation for languages used in repository</h4>
+							<%for (let i = 0; i < repoLanguage.length; i++){%>
+								<%if (repoLanguage.length == 0){%>
+								<li>No programming languages used in repository</li>
+								<%}else{%>
+								<li><a class="docsLink" target="_blank" href="<%= docs[repoLanguage[i].toLowerCase()]%>"><%=repoLanguage[i]%></a></li>
+								<%}%>
 							<%}%>
-						<%}%>
+						</div>
 					</div>
-				</div>
-				<div class="item">
-					<div class="content">
-						<h4>Latest commits</h4>
-						<%for (let i = 0; i < commits.length; i++){%>
-							<%if (commits.length == 0){%>
-							<li>No commits so far</li>
-							<%}else{%>
-							<li><%=commits[i].message%> - by <%=commits[i].user%> </li>
+					<div class="item">
+						<div class="content">
+							<h4>Latest commits</h4>
+							<%for (let i = 0; i < commits.length; i++){%>
+								<%if (commits.length == 0){%>
+								<li>No commits so far</li>
+								<%}else{%>
+								<li><%=commits[i].message%> - by <%=commits[i].user%> </li>
+								<%}%>
 							<%}%>
-						<%}%>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>	
 	</main>
-
 	<footer></footer>
 	<script type="text/javascript" src="scripts/mainpage.js"></script>
 </body>
