@@ -97,17 +97,25 @@
 				</div>
 			</div>
 			<div class="column column-4">
-				<div class="item-container">
 					<div class="item">
 						<div class="content">
-							<h4>Repository collaborators</h4>
-							<%for (let i = 0; i < collaborators.length; i++){%>
-								<%if (collaborators.length == 0){%>
-								<li>No collaborators in repo</li>
-								<%}else{%>
-								<li><%=collaborators[i]%> </li>
+							<h4>Filter collaborators</h4>
+							
+								<%for (let i = 0; i < collaborators.length; i++){%>
+									<div class="checkbox-container">
+									<%if (collaborators.length == 0){%>
+									<li>No collaborators in repo</li>
+									<%}else{%>
+									<div class="checkbox-name">
+										<input class="filter-checkbox" type="checkbox">
+									</div>
+									<div class="filter-checkbox">
+										<p class="filter-checkbox"><%=collaborators[i]%></p>
+									</div>
+									<%console.log(collaborators[i])}%>
+									</div>
 								<%}%>
-							<%}%>
+							
 						</div>
 					</div>
 					<div class="item">

@@ -157,12 +157,16 @@
 
 .head-task-container{
     display: flex;
-    align-items: right;
-    justify-content: right;
+    align-items: center;
+    justify-content: center;
     margin-top: 0.5rem;
-    width: inherit;
+    width: 100%;
+
 }
 
+#spacer{
+    width: 100%;
+}
 
 /* form starting stylings ------------------------------- */
 
@@ -183,7 +187,6 @@ input 				{
   width:100%;
   border:none;
   border-bottom:1px solid #757575;
-
 }
 
 input:focus 		
@@ -208,9 +211,10 @@ label 				 {
   font-size: 1.4rem;
   font-weight:normal;
   position:absolute;
+  top: 1rem;
   pointer-events:none;
   left:1%;
-  top:70%;
+
 }
 
 /* active state */
@@ -266,8 +270,9 @@ textarea
 
 .popup-exit-button
 {
-    align-self: right;
+  
     z-index: 1;
+    
     height: 1.5rem;
     margin-top: 0.5rem;
     cursor: pointer;

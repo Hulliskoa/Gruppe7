@@ -51,8 +51,9 @@ async function editTask(task){
             '<div class="popup-window">'+
                 '<div class="popup-column">'+
                 '<div class="head-task-container">' +
-                  '<img onclick="exitTask()" src="/img/close.png" class="popup-exit-button">'+
+                  '<div id="spacer"></div>' +
                   '<img id="delete-task-button" value="'+ taskID +'" onclick="deleteTask(this.id)" class="delete-icon" src="/img/delete.png">' +
+                  '<img onclick="exitTask()" src="/img/close.png" class="popup-exit-button">'+
                 '</div>'+
                  
                   '<h2 id="popup-header">Edit task</h2>'+
@@ -94,9 +95,9 @@ async function createNewTask(task){
       newItem.setAttribute("id", "popup");
       newItem.classList.add("popup-container");
       newItem.innerHTML = '<div class="popup-window">'+
-            '<img onclick="exitTask()" src="/img/close.png" class="popup-exit-button">'+
             '<div class="popup-column">'+
             '<div class="head-task-container">' +
+            '<div id="spacer"></div>' +
                   '<img onclick="exitTask()" src="/img/close.png" class="popup-exit-button">'+
                 '</div>'+
             '<h2 id="popup-header">New task</h2>'+
@@ -105,7 +106,7 @@ async function createNewTask(task){
                 '<input type="text" name="taskName" required>'+
                 '<span class="highlight"></span>'+
                 '<span class="bar"></span>'+
-                '<label>Name</label>'+
+                '<label>Name</label>' +
               '</div>'+
              '<div id="group2" class="input-dropdown">'+
                createDropDown(json) +
@@ -121,7 +122,7 @@ async function createNewTask(task){
               '<div id="group4" class="input-multiline">'+
                 '<textarea name="description" placeholder="Description"></textarea>'+
               '</div>'+
-                '<div id="group5" class="group">'+
+              '<div id="group5" class="group">'+
                 '<button onclick="postAndExit(newTask)" id="new-repo-submit">Create task</button>'+
               '</div>'+
             '</form>'+
