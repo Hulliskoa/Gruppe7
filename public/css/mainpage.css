@@ -258,13 +258,25 @@ textarea
 
 .popup-exit-button
 {
-    position: fixed;
+    position: absolute;
     z-index: 1;
-    top: 20.5%;
-    right: 15.699%;
+    height: 2rem;
+    right: 1rem;
     font-size: 1.5rem;
     cursor: pointer;
 }
+
+
+.delete-icon
+{
+    position: absolute;
+    z-index: 1;
+    height: 2rem;
+    right: 3rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
 
 #group5 button
 {

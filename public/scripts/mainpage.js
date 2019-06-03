@@ -41,7 +41,8 @@ async function editTask(task){
         newItem.innerHTML = 
             '<div class="popup-window">'+
                 '<div class="popup-column">'+
-                  '<div onclick="exitTask()" class="popup-exit-button">X</div>'+
+                  '<img onclick="exitTask()" src="/img/close.png" class="popup-exit-button">'+
+                  '<img id="delete-task-button" value="'+ taskID +'" onclick="deleteTask(this.id)" class="delete-icon" src="/img/delete.png">' +
                   '<h2 id="popup-header">Edit task</h2>'+
                     '<form id="editTask" action="/editTask" method="POST">'+
                       '<div id="group1" class="input-box">'+ 
@@ -81,7 +82,7 @@ async function createNewTask(task){
       newItem.setAttribute("id", "popup");
       newItem.classList.add("popup-container");
       newItem.innerHTML = '<div class="popup-window">'+
-            '<div onclick="exitTask()" class="popup-exit-button">X</div>'+
+            '<img onclick="exitTask()" src="/img/close.png" class="popup-exit-button">'+
             '<div class="popup-column">'+
             '<h2 id="popup-header">New task</h2>'+
             '<form id="newTask" action="/newTask" method="POST">'+
@@ -124,6 +125,17 @@ function exitTask(){
     popup.remove();
 };
 
+async function deleteTask(task){
+
+  let taskID = document.getElementById(task).getAttribute('value');
+  await fetch('http://localhost:3000/deleteTask?taskID=' + taskID, {  
+          method: 'POST'});
+    main[0].style.filter = "blur(0)";
+    let popup = document.getElementById("popup");
+    
+    popup.remove();
+    
+};
 
 
 function predefinedDropDown(optionsArray, selectedValue, optionName, textContent){

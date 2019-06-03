@@ -184,7 +184,6 @@ app.post('/newTask', (req, res, next) => {
 });
 
 app.post('/editTask', (req, res, next) => {    
-    let id = randomString.generate()
     let editedTask = taskArray[(taskArray.findIndex(x => x.id === req.body.taskID))]
     editedTask.setTitle(req.body.taskName)
     editedTask.setOwner(req.body.owner)
@@ -198,9 +197,16 @@ app.post('/editTask', (req, res, next) => {
 app.post('/newTask', (req, res, next) => {    
     let id = randomString.generate()
     taskArray.push(new Task(id, req.body.taskName, req.body.owner, req.body.category, req.body.description, repositoryName, "to-do"));
-    console.log(taskArray)
     res.redirect('/mainpage');
 });
+
+app.post('/deleteTask', (req, res, next) => {    
+    taskID = req.query.taskID
+    taskArray.splice((taskArray.findIndex(x => x.id === taskID)), 1);
+    res.redirect('/mainpage');
+});
+
+
 
 
 // GitHub Oauth authorization to be able to make authorized api request (reference: https://shiya.io/how-to-do-3-legged-oauth-with-github-a-general-guide-by-example-with-node-js/)
