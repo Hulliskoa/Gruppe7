@@ -16,6 +16,14 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const port = 3000;
+const request = require('request'); // module for making HTTP calls to an api
+
+// modules used for GitHub OAuth 
+const session = require('express-session');
+const qs = require('querystring');
+const randomString = require('randomstring');
+const csrfString = randomString.generate();
+const redirect_uri = process.env.HOST + '/redirect';
 
 // local modules
 const team = require('./users');// module containing static user object
@@ -24,17 +32,7 @@ const helpers = require('./helpers/helpers')//module conatining premade function
 const Task = require('./classes').Task;//module containing the task class
 const mWare = require('./middleware/middleware')// module containing middleware used with http requests
 const api = require('./api');// module containing all functions for creating arrays of api queries
-// module for making HTTP calls to an api
-const request = require('request');
 
-// modules used for GitHub OAuth 
-const session = require('express-session');
-const qs = require('querystring');
-const url = require('url');
-const randomString = require('randomstring');
-const csrfString = randomString.generate();
-const redirect_uri = process.env.HOST + '/redirect';
-//---------------------------
 
 // globale variables
 const repoNames = []

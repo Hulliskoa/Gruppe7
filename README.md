@@ -1,3 +1,11 @@
+This app uses the GitHub api to authorize and fetch information about the user. 
+
+
+# Features
+- Connect your repository and kanban workflow in one place
+- Easily give your repository collaborators tasks
+
+
 # How to start app
 
 1. Clone repository to your local folder(this is optional if you already have a local copy of the repository)
@@ -8,6 +16,10 @@
 Server is now running on localhost:3000
 
 
+
+
+
+
 # Gruppe 7
 Prosjektstyringsapp
 - Truls Istre - Morten Olsen - Richard Greger - Ghulam Ahmad - Håkon Hess
@@ -15,6 +27,16 @@ Prosjektstyringsapp
 Link til Trello: https://trello.com/b/FLL4lMIf/prosjektstyringsapp
 
 Husk å ALLTID pulle ned fra repository før man gjør endringer lokalt! :)
+
+
+
+
+
+
+
+
+
+
 
 Ideer:
 - Kobles til GitHubs commit message?
