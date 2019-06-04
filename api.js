@@ -1,3 +1,4 @@
+
 const qs = require('querystring');
 
 module.exports = { // functions for creating dynamic api querys based on authenticated user ---------------
@@ -63,25 +64,31 @@ revokeGrant: function (accessToken){
     ]
 },
 
-profilePicture: function (accessToken){
-   return [
-        {//get the github profilepicture
-            url: 'https://api.github.com/users/?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
-            method: 'DELETE',
-            headers:{'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'},
-        }
-    ]
-},
-
-createNewRepo: function (accessToken, user, name, description, privateRepo){
-   return [
-        {//get the github profilepicture/user/repos
-            url: 'https://api.github.com/' + user  +'/repos?client_id='+process.env.CLIENT_ID+'&client_secret=' +process.env.CLIENT_SECRET +'&name=' + name +'&description=' + description + '&private=' + privateRepo,
+createNewRepo: function (accessToken, name, description, privateRepo){
+  return 
+          {//create new repository on github
+            url: 'https://api.github.com/user/repos?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
+            json: {                 
+                name: name,
+                description: description,
+                private: privateRepo,
+                },
             method: 'POST',
             headers:{'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'},
         }
+},
+
+repositoryStats: function (accessToken, owner, repo){
+   return [
+        {//get the github profilepicture/user/repos
+            url: 'https://api.github.com/repos/' + owner  +'/' + repo +'/stats/participation?client_id='+process.env.CLIENT_ID+'&client_secret=' +process.env.CLIENT_SECRET,
+            method: 'GET',
+            headers:{'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'},
+        },
+        
     ]
 }
+
 
 
 }

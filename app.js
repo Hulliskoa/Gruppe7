@@ -70,6 +70,15 @@ const requestAsync = async function(url) {
     });
 };
 
+const requestAsyncJsonParsed = async function(url) {
+    return new Promise((resolve, reject) => {
+        let req = request(url, (err, response, body) => {
+            if (err) return reject(err, response, body);
+            resolve(body);
+        });
+    });
+};
+
 //function for doing a sequence of api querys based on arrays passed to it - reference: https://gist.github.com/bschwartz757/5d1ff425767fdc6baedb4e5d5a5135c8
 const getParallel = async function(urls) {
     try {
@@ -134,25 +143,28 @@ app.post( '/newRepo', mWare.asyncMiddleware(async (req, res, next) => {
     let description = req.body.description;
 
     //let colabMembers = req.body.colabMembers;
-    let privateBool = req.body.privateBool;
-    let newRepo = await getParallel(api.createNewRepo(access.token, apiUserInfo[0].login, repoName, description, privateBool,"to-do"));
-    console.log(newRepo)
+    let privateBool = (req.body.privateBool == "on") ? true : false;
+    // creates new repo with the github API
+    await requestAsyncJsonParsed(api.createNewRepo(access.token, repoName, description, privateBool));
 
     res.redirect('/dashboard');
 }));
 
 app.get('/mainpage', mWare.asyncMiddleware(async (req, res, next) => {
-    //checking the owner of selected repo and supplying it to the getMainContent function
     repoOwner.pop()
+    //checking the owner of selected repo and supplying it to the getMainContent function
     repoOwner.push(repoNames[(repoNames.findIndex(x => x.name === repositoryName))].owner)
     //saves callback data from getMainContent() queries to be used when rendering mainpage
     let mainPageContent = await getParallel(api.getMainContent(access.token, repositoryName, repoOwner[0]));
+    // saves number of commits done in repository per week
+    let repositoryStats = await getParallel(api.repositoryStats(access.token, repoOwner[0], repositoryName))
     let collaborators =[];
     for(let i = 0; i < mainPageContent[1].length; i++){
         collaborators.push(helpers.upperCase(mainPageContent[1][i].login));
     }
-    //push 5 last commit messages and user who committed as an objects to latestCommiMsg array.
+    // check if there are 5 or more commits in repo before doing for loop array.push
     let checkNumberOfCommits = (mainPageContent[2].length < 5) ? mainPageContent[2].length : 5
+    //push 5 last commit messages and user who committed as an objects to latestCommiMsg array.
     const lastCommitMsg = [];
     for(let i = 0; i < checkNumberOfCommits; i++){
         lastCommitMsg.push({
@@ -169,6 +181,7 @@ app.get('/mainpage', mWare.asyncMiddleware(async (req, res, next) => {
         repoLanguage: Object.keys(mainPageContent[0]), 
         docs: languageDocs, 
         commits: lastCommitMsg,
+        repositoryStats: repositoryStats[0].all[repositoryStats[0].all.length - 1]
     });
 }));
 

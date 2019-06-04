@@ -3,7 +3,7 @@
     width: 100vw;
     height: 100vh;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 25% 25% 25% 25%;
     background: radial-gradient(circle 30rem, #ffffff, #e7e7e7);
     box-sizing: border-box;
     z-index: 0;
@@ -47,7 +47,6 @@
     padding-bottom: 0.5rem;
 }
 
-/*Added by Truls: wanted to remove bulletpoints on the <li> tag*/
 .column li {
     list-style-type: none;
 }
@@ -250,12 +249,6 @@ textarea
     word-wrap: break-word;
 }
 
-
-::placeholder
-{
-  font-size:  1.1 rem;
-}
-
 .popup-exit-button
 {
   
@@ -304,3 +297,10 @@ textarea
 {
     vertical-align:middle;
 }
+
+/*CHECKBOXES*/
+.checkbox-container input{
+    width: 1rem;
+    margin: 0;
+}
+

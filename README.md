@@ -8,7 +8,7 @@ This app uses the GitHub api to authorize and fetch information about the user.
 - easy access to documentation for programming languages used in repository
 
 
-# How to start app
+# How to start app locally
 
 1. Clone repository to your local folder(this is optional if you already have a local copy of the repository)
 2. $ "cd path\to\folder" which contains the app
@@ -24,7 +24,7 @@ Server is now running on localhost:3000
 
 # Gruppe 7
 Prosjektstyringsapp
-- Truls Istre - Morten Olsen - Richard Greger - Ghulam Ahmad - Håkon Hess
+- Truls Istre - Morten Olsen - Richard Greger - Ghulam Ahmad - Håkon Hess - Ingrid Victoria
 
 Link til Trello: https://trello.com/b/FLL4lMIf/prosjektstyringsapp
 

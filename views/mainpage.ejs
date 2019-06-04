@@ -21,7 +21,7 @@
             </div>
             <div class="head-column">
 				<div class="dropdown">
-					<img class="dropbtn" id="profilePicture" src="<%=profilePicture%>">
+					<img class="dropbtn" id="profile-picture" src="<%=profilePicture%>">
 					<div class="dropdown-content">
 						<div class="dropdown-li" onclick="showGuide()">User-guide</div>
 						<div class="dropdown-li" onclick="showAccess()">Accessibility</div>
@@ -100,14 +100,18 @@
 						<div class="content" >
 							<h4>Filter collaborators</h4>
 							<li>
-								<input class="checkbox-filter-master" onclick="filterAll(this)" class="filter-checkbox" type="checkbox" checked/>Select all
+								<div class="checkbox-container">
+									<input class="checkbox-filter-master" onclick="filterAll(this)" class="filter-checkbox" type="checkbox" checked/>Select all
+								</div>
 							</li>
 								<%for (let i = 0; i < collaborators.length; i++){%>
 									<%if (collaborators.length == 0){%>
 									<li>No collaborators in repo</li>
 									<%}else{%>
 									<li>
-										<input class="checkbox-filter" value="<%=collaborators[i]%>" onclick="filterCollaborators()" class="filter-checkbox" type="checkbox" checked/><%=collaborators[i]%>
+										<div class="checkbox-container">
+   											<input class="checkbox-filter" value="<%=collaborators[i]%>" onclick="filterCollaborators()" type="checkbox" checked/><%=collaborators[i]%>
+   										</div>
 									</li>
 									<%}%>	
 								<%}%>
@@ -135,6 +139,13 @@
 								<li id="commits"><%=commits[i].user%>: <%=commits[i].message%></li>
 								<%}%>
 							<%}%>
+						</div>
+					</div>
+
+					<div class="item" value="no-filter">
+						<div class="content">
+							<h4>Repository stats</h4>
+							<li>Number of commits last week: <%=repositoryStats%></li>
 						</div>
 					</div>
 				</div>

@@ -1,7 +1,7 @@
-// fetch api https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+
 let main = document.getElementsByTagName("main");
 
-
+// function for the select all checkbox on mainpage
 function filterAll(masterCheckbox){
   let checkboxes  = document.getElementsByClassName("checkbox-filter")
 
@@ -18,11 +18,14 @@ function filterAll(masterCheckbox){
 }
 //filter for tasks based on collaborators
 function filterCollaborators(){
+  let numberOfCheckedBoxes = 0;
   let items = document.getElementsByClassName("item");
   let checkboxes  = document.getElementsByClassName("checkbox-filter")
+  let masterCheckbox = document.getElementsByClassName("checkbox-filter-master")[0]
 
   for(let x = 0; x < checkboxes.length; x++){
     if(checkboxes[x].checked == true){
+      numberOfCheckedBoxes++
       for(let i = 0; i < items.length; i++){
         if(items[i].getAttribute("value") == checkboxes[x].getAttribute('value')){
           console.log()
@@ -38,6 +41,11 @@ function filterCollaborators(){
       }
     }
   }
+  // check if all checkboxes are checked
+    if(numberOfCheckedBoxes == checkboxes.length){
+      masterCheckbox.checked = true;
+    }
+  
 }
 
 
@@ -50,6 +58,7 @@ function postAndExit(formID) {
     exitTask();
 };
 
+// function for exiting popup and reverting mainpage back to normal
 function exitTask(){
     main[0].style.filter = "blur(0)";
     let popup = document.getElementById("popup");
@@ -59,11 +68,12 @@ function exitTask(){
     item[0].removeAttribute("class", "popup-item");
     
 };
-// async function so that response from server is resolved before the rest of the function continues
+
+// function for editing an existing task. async function so that response from server is resolved before the rest of the function continues
 async function editTask(task){
     document.body.style.cursor="progress";
    
-    const response = await fetch('http://localhost:3000/collaborators');
+    const response = await fetch('http://localhost:3000/collaborators'); // fetch api https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
     let collaborators = await response.json();
     
     
@@ -119,9 +129,11 @@ async function editTask(task){
         document.body.appendChild(newItem);
         document.body.style.cursor="default";
 }
+
+// function for creating a new task in the kanban board
 async function createNewTask(task){
-    
-    const response = await fetch('http://localhost:3000/collaborators');
+    //get request to server to get collaborators in repo within dropdown
+    const response = await fetch('http://localhost:3000/collaborators'); // fetch api https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
     const json = await response.json();
 
       main[0].style.filter = "blur(10px)";
@@ -169,9 +181,10 @@ async function createNewTask(task){
 
 function changeStatus(task){
     let taskID = document.getElementById(task).id;
-    //const response = await fetch('http://localhost:3000/changeStatus?taskID=' + taskID);    
+  
 }
 
+//function for sending a post request to server and delete specified task with taskID sendt as a parameter in the url
 function deleteTask(task){
 
   let taskID = document.getElementById(task).getAttribute('value');
@@ -185,6 +198,7 @@ function deleteTask(task){
     
 };
 
+// function for creating a dropdown with the specific tasks information already selected
 function predefinedDropDown(optionsArray, selectedValue, optionName, textContent){
     let element = document.createElement("div")
     let select = document.createElement("select")
@@ -219,6 +233,7 @@ function predefinedDropDown(optionsArray, selectedValue, optionName, textContent
     return element.innerHTML;
 };
 
+//function for creating a dropdown based on specified array
 function createDropDown(optionsArray){
     let element = document.createElement("div")
     let select = document.createElement("select")
