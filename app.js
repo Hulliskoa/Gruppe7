@@ -178,7 +178,7 @@ app.get('/mainpage', mWare.asyncMiddleware(async (req, res, next) => {
 
 app.post('/newTask', (req, res, next) => {    
     let id = randomString.generate()
-    taskArray.push(new Task(id, req.body.taskName, req.body.owner, req.body.category, req.body.description, repositoryName, "to-do"));
+    taskArray.push(new Task(id, req.body.taskName, req.body.owner, req.body.category, req.body.description, repositoryName, req.body.dueDate, "to-do"));
     console.log(taskArray)
     res.redirect('/mainpage');
 });

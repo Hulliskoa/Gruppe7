@@ -3,7 +3,7 @@
     width: 100vw;
     height: 100vh;
     display: grid;
-    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     background: radial-gradient(circle 30rem, #ffffff, #e7e7e7);
     box-sizing: border-box;
     z-index: 0;
@@ -12,8 +12,8 @@
 .column{
     display: flex;
     flex-direction: column;
-    margin-top: 8rem;
-    height: 75vh;
+    margin-top: 5rem;
+    height: 85vh;
     box-sizing: border-box;
     background: #ffffff;
 }
@@ -64,7 +64,7 @@
 
 .item{
     overflow: hidden;/*Truls: added this so that text dont overflow when window is scaled*/
-    margin: 1rem;
+    margin: .5rem;
     border: 0.05rem solid lightgray;
     border-radius: 0.3rem;
     background: #ffffff;
@@ -133,8 +133,8 @@
     top: 20%;
     margin: auto;
     margin-top: 5rem;
-    width: 20rem;
-    height: 30rem;
+    width: 50rem;
+    height: 40rem;
     z-index: 2;
     border-radius: 15px;
     display: grid;
@@ -184,7 +184,7 @@ input 				{
   font-size:1.3rem;
   padding:3% 0.3rem 0.3rem 0.5rem;
   margin-bottom: 0.5rem;
-  width:100%;
+  width:50%;
   border:none;
   border-bottom:1px solid #757575;
 }
@@ -201,7 +201,7 @@ input:focus
 
 #group4
 {
-      height: 6rem;
+      height: 5rem;
 }
 
 
@@ -231,8 +231,8 @@ input:focus ~ label, input:valid ~ label 		{
     width: 100%;
 }
 
-select {
-    width: 100%;
+.select-task {
+    width: 50%;
     padding: 2% 0;
     border: none;
     border-radius: 4px;
@@ -245,13 +245,12 @@ select {
 .input-multiline
 {
     width: 100%;
-    background-color: #f8f8f8;
 
 }
 
 textarea
 {
-    width: 100%;
+    width: 60%;
     height: inherit;
     border: none; 
     background-color: #f1f1f1;

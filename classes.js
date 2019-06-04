@@ -1,6 +1,6 @@
 class Task{
 
-    constructor(id, title, owner, category, description, repoName, status){
+    constructor(id, title, owner, category, description, repoName, dueDate, status){
         this.id = id;
         this.title = title;
         this.owner = owner;
@@ -8,6 +8,7 @@ class Task{
         this.description = description;
         this.repoName = repoName;
         this.status = status
+        this.dueDate = dueDate;
     }
 
     getTitle(){
@@ -28,6 +29,9 @@ class Task{
     getStatus(){
         return this.status;
     } 
+    getDueDate(){
+        return this.dueDate;
+    } 
     setTitle(title){
         this.title = title;
     }
@@ -43,8 +47,11 @@ class Task{
     setRepoName(content){
         this.repoName = repoName;
     }
-     setStatus(title){
+    setStatus(title){
         this.status = status;
+    }
+    setDueDate(title){
+        this.dueDate = dueDate;
     }
 }
 

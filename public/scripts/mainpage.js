@@ -1,4 +1,3 @@
-
 // fetch api https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
 let main = document.getElementsByTagName("main");
 
@@ -15,7 +14,6 @@ function filterAll(masterCheckbox){
       checkboxes[i].checked = false;
     }
   }
-
   filterCollaborators();
 }
 //filter for tasks based on collaborators
@@ -109,6 +107,7 @@ async function editTask(task){
                       '</div>'+
                       '<div id="group4" class="input-multiline">'+
                           '<textarea name="description" placeholder="Description">'+ description +'</textarea>'+
+                          '<input class="calendar-input" name="dueDate" type="date">' +
                       '</div>'+
                       '<div id="group5" class="group">'+
                           '<button onclick="postAndExit(edit-task)" id="new-repo-submit">Submit changes</button>'+
@@ -148,7 +147,7 @@ async function createNewTask(task){
                   createDropDown(json) +
                 '</div>'+
                 '<div id="group3" class="input-dropdown">'+
-                  '<select id="category" name="category">'+
+                  '<select class="category select-task" name="category">'+
                       '<option value="" >Category</option>'+
                       '<option value="Front-end">Front-end</option>'+
                       '<option value="Back-end">Back-end</option>'+
@@ -157,10 +156,12 @@ async function createNewTask(task){
                 '</div>'+
                 '<div id="group4" class="input-multiline">'+
                   '<textarea name="description" placeholder="Description"></textarea>'+
+                  '<input class="calendar-input" name="dueDate" type="date">' +
                 '</div>'+
                 '<div id="group5" class="group">'+
                   '<button onclick="postAndExit(newTask)" id="new-repo-submit">Create task</button>'+
                 '</div>'+
+
               '</form>'+
             '</div>';
       document.body.appendChild(newItem);
@@ -188,7 +189,9 @@ function predefinedDropDown(optionsArray, selectedValue, optionName, textContent
     let element = document.createElement("div")
     let select = document.createElement("select")
     let option = document.createElement("option")
-
+    
+    
+    select.setAttribute('class','select-task')
     element.appendChild(select);
     select.name = optionName;
     option.textContent = textContent;
@@ -199,17 +202,17 @@ function predefinedDropDown(optionsArray, selectedValue, optionName, textContent
 
     for(let i = 0; i < optionsArray.length; i++){
         if(optionsArray[i] == selectedValue){
-        option = document.createElement("option")
-        option.textContent = optionsArray[i];
-        option.value = optionsArray[i]
-        option.setAttribute("selected", "true");
-        select.appendChild(option)
+          option = document.createElement("option")
+          option.textContent = optionsArray[i];
+          option.value = optionsArray[i]
+          option.setAttribute("selected", "true");
+          select.appendChild(option)
         
         }else{
-        option = document.createElement("option")
-        option.textContent = optionsArray[i];
-        option.value = optionsArray[i]
-        select.appendChild(option)
+          option = document.createElement("option")
+          option.textContent = optionsArray[i];
+          option.value = optionsArray[i]
+          select.appendChild(option)
         
         };
     }
@@ -221,7 +224,9 @@ function createDropDown(optionsArray){
     let select = document.createElement("select")
     let option = document.createElement("option")
 
+
     element.appendChild(select);
+    select.setAttribute('class','select-task')
     select.name = "owner"
     option.setAttribute("disabled","true");
     option.setAttribute("selected", "true");
@@ -239,7 +244,4 @@ function createDropDown(optionsArray){
     return element.innerHTML;
 
 };
-
-
-
 
