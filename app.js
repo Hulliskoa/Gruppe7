@@ -26,7 +26,6 @@ const csrfString = randomString.generate();
 const redirect_uri = process.env.HOST + '/redirect';
 
 // local modules
-const team = require('./users');// module containing static user object
 const languageDocs = require('./languageDoc')//module containing links to programming language documentation
 const helpers = require('./helpers/helpers')//module conatining premade functions that does no directly relate to the server
 const Task = require('./classes').Task;//module containing the task class
@@ -34,7 +33,7 @@ const mWare = require('./middleware/middleware')// module containing middleware 
 const api = require('./api');// module containing all functions for creating arrays of api queries
 
 
-// globale variables
+// global variables
 const repoNames = []
 const access = {token: ""};
 const repoOwner = [];
@@ -45,7 +44,6 @@ let commitMessage;
 let members;
 let assignemnts;
 let apiUserInfo;
-//----------------
 
 
 app.set('view engine', 'ejs')
