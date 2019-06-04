@@ -18,6 +18,10 @@
     background: #ffffff;
 }
 
+.column .item-container{
+    border-radius: .3rem;
+}
+
 .column-1{
     margin-left: 1rem;
 }
@@ -38,18 +42,18 @@
     background: linear-gradient(to top, #71DBC9, rgb(113, 219, 201, 40%));
 }
 
-.column-4 .item-container{
-    background: linear-gradient(to top, #E15C68, rgba(225, 92, 104, 40%));
-    margin-top: 3rem;
-}
-
 .column-4 .item{
+    overflow-y: auto;
     padding-bottom: 0.5rem;
 }
 
 /*Added by Truls: wanted to remove bulletpoints on the <li> tag*/
 .column li {
     list-style-type: none;
+}
+
+.column #commits{
+    margin-bottom: .2rem;
 }
 
 .main-title{
@@ -110,8 +114,6 @@
     margin-top: 10%;
     padding: .5rem;
 }
-
-
 
 
 /* Popup container--- */
@@ -209,10 +211,10 @@ input:focus
 .name-label			 {
   color:#999;
   font-size: 1.4rem;
-  font-weight:normal;
-  position:absolute;
+  font-weight: normal;
+  position: absolute;
   top: 1rem;
-  pointer-events:none;
+  pointer-events: none;
   left:1%;
 
 }

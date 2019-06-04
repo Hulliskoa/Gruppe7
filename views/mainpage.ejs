@@ -133,7 +133,7 @@
 								<%if (commits.length == 0){%>
 								<li>No commits so far</li>
 								<%}else{%>
-								<li><%=commits[i].message%> - by <%=commits[i].user%> </li>
+								<li id="commits"><%=commits[i].user%>: <%=commits[i].message%></li>
 								<%}%>
 							<%}%>
 						</div>
