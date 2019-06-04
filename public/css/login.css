@@ -22,15 +22,15 @@
 	text-decoration: none;
 	padding: 1rem 3.5rem 1rem 3.5rem;
 	margin: 2.5rem 0 1.5rem 0;
-	border: solid #e8eef2;
+	border: 0.05rem solid #e8eef2;
 	border-radius: 0.5rem;
-	background: #b7e0c2;
+	background: #71dbc9;
 }
 
 #login-button:hover{
-	background: #a7ccb1;
+	background: #6accbc;
 }
 
 #login-button:active{
-	box-shadow: inset .1rem .1rem 5rem #b7e0c2;
+	box-shadow: inset .1rem .1rem 5rem #71dbc9;
 }

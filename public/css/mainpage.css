@@ -83,19 +83,6 @@
     margin: 0rem .5rem 0 .5rem;
 }
 
-.add-task{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #ffffff;
-}
-
-#add-task-img{
-    display: block;
-    margin: auto;
-    height: 3rem;  
-}
-
 .progress{
     display: flex;
     flex-direction: row;

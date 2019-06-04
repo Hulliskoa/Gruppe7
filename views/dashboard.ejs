@@ -19,10 +19,9 @@
 				<div class="dropdown">
 					<img class="dropdown-btn" id="profilePicture" src="<%=profilePicture%>">
 					<div class="dropdown-content">
-						<a class="dropdown-li" href="">User-guide</a>
-						<a class="dropdown-li" href="">Font-size</a>
-						<a class="dropdown-li" href="">Colorblindness</a>
-						<a class="dropdown-li" href="/logout">Sign out</a>
+						<li class="dropdown-li" onclick="showGuide()">User-guide</li>
+						<li class="dropdown-li" onclick="showAccess()">Accessibility</li>
+						<li class="dropdown-li" onclick="">Sign out</li>
 				  </div>
 				</div> 
             </div>
@@ -37,9 +36,9 @@
 			------------->
 			<div class="column column-2">
 				<p class = "dash-title">OWNED</p>
-				<div class="item add-repo" onclick="createNewRepo()" >
+				<div class="item add" onclick="createNewRepo()" >
 					<div class="content">
-						<img id="add-repo-img" src="/img/plus.png">
+						<img id="add-img" src="/img/plus.png">
 					</div>			                       
 				</div>
 				<%let repoName;%>
@@ -91,7 +90,7 @@
 		</div>
 	</main>
 	<footer></footer>
-	
+	<script type="text/javascript" src="scripts/index.js"></script>
 	<script type="text/javascript" src="scripts/dashboard.js"></script>
 </body>
 </html>

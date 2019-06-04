@@ -56,19 +56,6 @@
   margin: 0rem .5rem 0 .5rem;
 }
 
-.add-repo{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #ffffff; 
-}
-
-#add-repo-img{
-  display: block;
-  margin: auto;
-  height: 3rem;  
-}
-
 /* END MAIN */
 
 

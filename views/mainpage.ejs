@@ -23,10 +23,9 @@
 				<div class="dropdown">
 					<img class="dropbtn" id="profilePicture" src="<%=profilePicture%>">
 					<div class="dropdown-content">
-						<a class="dropdown-li" href="">User-guide</a>
-						<a class="dropdown-li" href="">Font-size</a>
-						<a class="dropdown-li" href="">Colorblindness</a>
-						<a class="dropdown-li" href="/logout">Sign out</a>
+						<div class="dropdown-li" onclick="showGuide()">User-guide</div>
+						<div class="dropdown-li" onclick="showAccess()">Accessibility</div>
+						<div class="dropdown-li" onclick="">Sign out</div>
 					</div>
 				</div> 
             </div> 
@@ -39,9 +38,9 @@
 				<p class="main-title">TO DO</p>
 				<div class="item-container">
 				<!--Code for the left side info-boxes-->
-					<div class="item add-task" value="no-filter" onclick="createNewTask()">
+					<div class="item add" value="no-filter" onclick="createNewTask()">
 						<div class="content">
-							<img id="add-task-img" src="/img/plus.png">
+							<img id="add-img" src="/img/plus.png">
 						</div>
 					</div>
 					<!--To-Do code-->
@@ -101,8 +100,8 @@
 						<div class="content" >
 							<h4>Filter collaborators</h4>
 							<li>
-										<input class="checkbox-filter-master" onclick="filterAll(this)" class="filter-checkbox" type="checkbox" checked/>Select all
-									</li>
+								<input class="checkbox-filter-master" onclick="filterAll(this)" class="filter-checkbox" type="checkbox" checked/>Select all
+							</li>
 								<%for (let i = 0; i < collaborators.length; i++){%>
 									<%if (collaborators.length == 0){%>
 									<li>No collaborators in repo</li>
@@ -143,6 +142,7 @@
 		</div>	
 	</main>
 	<footer></footer>
+	<script type="text/javascript" src="scripts/index.js"></script>
 	<script type="text/javascript" src="scripts/mainpage.js"></script>
 </body>
 </html>
