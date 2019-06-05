@@ -38,7 +38,7 @@
 		<div class="container">
 			<div class="column column-1">
 				<p class="main-title">TO DO</p>
-				<div class="item-container" ondragover="dragOver()" ondragenter="dragEnter()" ondrop="dragDrop()">
+				<div id="to-do" class="item-container" ondragover="dragOver()" ondragenter="dragEnter()" ondrop="dragDrop()">
 
 				<!--Code for the left side info-boxes-->
 					<div class="item add" value="no-filter" onclick="createNewTask()">
@@ -63,10 +63,10 @@
 			</div>
 			<div class="column column-2">
 				<p class="main-title">IN PROGRESS</p>
-				<div class="item-container" ondragover="dragOver()" ondragenter="dragEnter()" ondrop="dragDrop()">
+				<div id="in-progress" class="item-container" ondragover="dragOver()" ondragenter="dragEnter()" ondrop="dragDrop()">
 				<!--Ongoing code-->
 					<%for(let i = 0; i < tasks.length; i++){%>
-						<%if(tasks[i].status == "in progress" && tasks[i].repoName == repo){%>
+						<%if(tasks[i].status == "in-progress" && tasks[i].repoName == repo){%>
 							<div class="item" draggable="true" ondragstart="dragStart(event)" value="<%= tasks[i].owner%>"  id="<%=tasks[i].id%>" onclick="editTask(this.id)">
 								<div class="content">
 									<div hidden>tasks[i].status</div>
@@ -82,7 +82,7 @@
 			</div>
 			<div class="column column-3">
 				<p class="main-title">COMPLETE</p>
-				<div class="item-container" ondragover="dragOver()" ondragenter="dragEnter()" ondrop="dragDrop()">
+				<div id="complete" class="item-container" ondragover="dragOver()" ondragenter="dragEnter()" ondrop="dragDrop()">
 				<!--Finished code-->
 					<%for(let i = 0; i < tasks.length; i++){%>
 						<%if(tasks[i].status == "complete" && tasks[i].repoName == repo){%>

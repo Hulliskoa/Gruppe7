@@ -319,8 +319,10 @@ function dragLeave()
 function dragDrop()
 {
     selectedTarget = event.currentTarget;
-    
+    let status = selectedTarget.id;
     selectedTarget.appendChild(selectedElement);
+    let taskID = selectedElement.id
+    fetch(host + '/changeTaskStatus?taskID=' + taskID +'&status=' + status ,{method:"POST"})
 
     /*  Hvis vi vil styre hvor elementene havner
         

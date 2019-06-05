@@ -44,13 +44,13 @@ class Task{
     setDescription(description){
         this.description = description;
     }
-    setRepoName(content){
+    setRepoName(repoName){
         this.repoName = repoName;
     }
-    setStatus(title){
+    setStatus(status){
         this.status = status;
     }
-    setDueDate(title){
+    setDueDate(dueDate){
         this.dueDate = dueDate;
     }
 }

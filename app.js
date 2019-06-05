@@ -229,6 +229,12 @@ app.post('/deleteTask', (req, res, next) => {
     res.redirect('/mainpage');
 });
 
+app.post('/changeTaskStatus', (req, res, next) => {    
+    taskID = req.query.taskID;
+    let status = req.query.status;
+    taskArray[taskArray.findIndex(x => x.id === taskID)].setStatus(status)
+    res.redirect('/mainpage');
+});
 
 
 
