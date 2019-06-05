@@ -1,4 +1,3 @@
-
 let main = document.getElementsByTagName("main");
 
 // function for the select all checkbox on mainpage
@@ -340,4 +339,5 @@ function dragDrop()
         console.log(column3.childNodes.length);
     }
     */
+
 }

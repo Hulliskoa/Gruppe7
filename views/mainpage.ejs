@@ -37,7 +37,8 @@
 		<div class="container">
 			<div class="column column-1">
 				<p class="main-title">TO DO</p>
-				<div class="item-container">
+				<div class="item-container" ondragover="dragOver()" ondragenter="dragEnter()" ondrop="dragDrop()">
+
 				<!--Code for the left side info-boxes-->
 					<div class="item add" value="no-filter" onclick="createNewTask()">
 						<div class="content">
@@ -47,7 +48,7 @@
 					<!--To-Do code-->
 					<%for(let i = 0; i < tasks.length; i++){%>
 						<%if(tasks[i].status == "to-do" && tasks[i].repoName == repo){%>
-							<div class="item" value="<%= tasks[i].owner%>" id="<%=tasks[i].id%>"  onclick="editTask(this.id)" ondrag="changeStatus(this.id)">
+							<div class="item" draggable="true" ondragstart="dragStart(event)" value="<%= tasks[i].owner%>" id="<%=tasks[i].id%>"  onclick="editTask(this.id)">
 								<div class="content">
 									<h4><%= tasks[i].title%></h4>
 									<h5><%= tasks[i].owner%></h5>
@@ -61,11 +62,11 @@
 			</div>
 			<div class="column column-2">
 				<p class="main-title">IN PROGRESS</p>
-				<div class="item-container">
+				<div class="item-container" ondragover="dragOver()" ondragenter="dragEnter()" ondrop="dragDrop()">
 				<!--Ongoing code-->
 					<%for(let i = 0; i < tasks.length; i++){%>
 						<%if(tasks[i].status == "in progress" && tasks[i].repoName == repo){%>
-							<div class="item" value="<%= tasks[i].owner%>"  id="<%=tasks[i].id%>" onclick="editTask(this.id)">
+							<div class="item" draggable="true" ondragstart="dragStart(event)" value="<%= tasks[i].owner%>"  id="<%=tasks[i].id%>" onclick="editTask(this.id)">
 								<div class="content">
 									<div hidden>tasks[i].status</div>
 									<h4><%= tasks[i].title%></h4>
@@ -80,11 +81,11 @@
 			</div>
 			<div class="column column-3">
 				<p class="main-title">COMPLETE</p>
-				<div class="item-container">
+				<div class="item-container" ondragover="dragOver()" ondragenter="dragEnter()" ondrop="dragDrop()">
 				<!--Finished code-->
 					<%for(let i = 0; i < tasks.length; i++){%>
 						<%if(tasks[i].status == "complete" && tasks[i].repoName == repo){%>
-							<div class="item" value="<%= tasks[i].owner%>" id="<%=tasks[i].id%>" onclick="editTask(this.id)">
+							<div class="item" draggable="true" ondragstart="dragStart(event)" value="<%= tasks[i].owner%>" id="<%=tasks[i].id%>" onclick="editTask(this.id)">
 								<div class="content">
 									<h4><%= tasks[i].title%></h4>
 									<h5><%= tasks[i].owner%></h5>
