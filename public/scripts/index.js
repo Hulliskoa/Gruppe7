@@ -63,14 +63,11 @@ function colorBlind(buttonClicked){
   if(buttonClicked.value == "on"){
       buttonClicked.setAttribute("value", "off");
       colorBlindStylesheet[0].disabled = false;
-      onOff = "off";
       document.getElementById("colorblind-button").innerHTML = "ON" 
   }else{
       buttonClicked.setAttribute("value", "on")
       colorBlindStylesheet[0].disabled = true;
-      onOff = "on";
       document.getElementById("colorblind-button").innerHTML = "OFF" 
   }
-  fetch(host + '/colorblind?colorblind=' + onOff,{  
-          method: 'POST'})
+
 }

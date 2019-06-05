@@ -23,7 +23,6 @@ const session = require('express-session');
 const qs = require('querystring');
 const randomString = require('randomstring');
 const csrfString = randomString.generate();
-const redirect_uri = process.env.HOST + '/redirect';
 
 // local modules
 const languageDocs = require('./languageDoc')//module containing links to programming language documentation
@@ -32,8 +31,8 @@ const Task = require('./classes').Task;//module containing the task class
 const mWare = require('./middleware/middleware')// module containing middleware used with http requests
 const api = require('./api');// module containing all functions for creating arrays of api queries
 
-
 // global variables
+const redirect_uri = process.env.HOST + '/redirect';
 const repoNames = []
 const access = {token: ""};
 const repoOwner = [];
@@ -44,8 +43,6 @@ let commitMessage;
 let members;
 let assignemnts;
 let apiUserInfo;
-let colorBlindMode = ["off"];
-
 
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -133,14 +130,6 @@ app.get('/dashboard', mWare.asyncMiddleware(async (req, res, next) =>{
         githubProfile: apiUserInfo[0].html_url
     });
 }));
-
-app.post( '/colorblind', mWare.asyncMiddleware(async (req, res, next) => {
-    
-    colorBlindMode.pop();
-    colorBlindMode.push(req.query.colorblind) 
-    res.send("recieved")
-}));
-
 
 app.post('/inputName', (req, res, next) => {
     repositoryName = req.body.repo;
