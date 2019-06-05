@@ -33,13 +33,13 @@
 .column-2{
   background: linear-gradient(to top, #4480ed, rgba(68, 128, 237, 40%));
   margin-right: 1rem;
-  border-bottom: 1rem solid #4480ED;
+  border-bottom: 0.5rem solid #4480ED;
 }
 
 .column-3{
   background: linear-gradient(to top, #71dbc9, rgba(113, 219, 201, 40%));
   margin-left: 1rem;
-  border-bottom: 1rem solid #71dbc9;
+  border-bottom: 0.5rem solid #71dbc9;
 }
 
 .item{

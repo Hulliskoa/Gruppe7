@@ -71,9 +71,12 @@ const requestAsync = async function(url) {
 };
 
 const requestPost = async function(url) {
+       return new Promise((resolve, reject) => {
         let req = request(url, (err, response, body) => {
             if (err) return reject(err, response, body);
+            resolve(body);
         });
+    });
     };
 
 //function for doing a sequence of api querys based on arrays passed to it - reference: https://gist.github.com/bschwartz757/5d1ff425767fdc6baedb4e5d5a5135c8
