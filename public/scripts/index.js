@@ -1,10 +1,5 @@
 //https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB
 
-function signOut(){
-	window.location.href = '/';
-}
-
-
 function post(formID) {
     // The rest of this code assumes you are not using a library.
       let form = document.getElementById(formID)
@@ -48,4 +43,12 @@ function showAccess(){
                         '<p>Her skal det stå hva vi står for når det gjelder fargeblindhet</p>' +
                       '</div>';
   document.body.appendChild(newItem);
+}
+
+function linkGitHub(){
+  window.open("https://www.github.com", "_blank");
+}
+
+function signOut(){
+	window.location.href = '/';
 }
