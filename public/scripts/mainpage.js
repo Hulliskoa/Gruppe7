@@ -72,7 +72,7 @@ function exitTask(){
 async function editTask(task){
     document.body.style.cursor="progress";
    
-    const response = await fetch('http://localhost:3000/collaborators'); // fetch api https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+    const response = await fetch(host + '/collaborators'); // fetch api https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
     let collaborators = await response.json();
     
     
@@ -132,7 +132,7 @@ async function editTask(task){
 // function for creating a new task in the kanban board
 async function createNewTask(task){
     //get request to server to get collaborators in repo within dropdown
-    const response = await fetch('http://localhost:3000/collaborators'); // fetch api https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+    const response = await fetch(host + '/collaborators'); // fetch api https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
     const json = await response.json();
 
       main[0].style.filter = "blur(10px)";
@@ -187,7 +187,7 @@ function changeStatus(task){
 function deleteTask(task){
 
   let taskID = document.getElementById(task).getAttribute('value');
-  fetch('http://localhost:3000/deleteTask?taskID=' + taskID, {  
+  fetch(host + '/deleteTask?taskID=' + taskID, {  
           method: 'POST'});
     main[0].style.filter = "blur(0)";
     let popup = document.getElementById("popup");
@@ -339,4 +339,5 @@ function dragDrop()
         console.log(column3.childNodes.length);
     }
     */
+
 }

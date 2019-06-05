@@ -44,6 +44,7 @@ let commitMessage;
 let members;
 let assignemnts;
 let apiUserInfo;
+let colorBlindMode = [];
 
 
 app.set('view engine', 'ejs')
@@ -95,7 +96,7 @@ app.get('/',  (req, res, next) => {
 
 app.get('/collaborators', mWare.asyncMiddleware(async (req, res, next) => {
     let mainPageContent = await getParallel(api.getMainContent(access.token, repositoryName, repoOwner));
-    let collaborators =[];
+    let collaborators = [];
     for(let i = 0; i < mainPageContent[1].length; i++){
         collaborators.push(helpers.upperCase(mainPageContent[1][i].login));
     }
@@ -135,6 +136,13 @@ app.get('/dashboard', mWare.asyncMiddleware(async (req, res, next) =>{
     });
 }));
 
+app.post( '/colorblind', mWare.asyncMiddleware(async (req, res, next) => {
+    
+    colorBlindMode.pop();
+    colorBlindMode.push(req.query.colorblind) 
+}));
+
+
 app.post('/inputName', (req, res, next) => {
     repositoryName = req.body.repo;
     res.redirect('/mainpage');
@@ -152,6 +160,8 @@ app.post( '/newRepo', mWare.asyncMiddleware(async (req, res, next) => {
 
     res.redirect('/dashboard');
 }));
+
+
 
 app.get('/mainpage', mWare.asyncMiddleware(async (req, res, next) => {
     repoOwner.pop()
