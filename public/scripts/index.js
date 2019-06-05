@@ -45,8 +45,8 @@ function showAccess(){
   document.body.appendChild(newItem);
 }
 
-function linkGitHub(){
-  window.open("https://www.github.com", "_blank");
+function linkGitHub(url){
+  window.open(url, "_blank");
 }
 
 function signOut(){

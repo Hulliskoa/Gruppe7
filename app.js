@@ -115,17 +115,20 @@ app.get('/dashboard', mWare.asyncMiddleware(async (req, res, next) =>{
     apiUserInfo = await getParallel(api.getUserInfo(access.token));
     // getting repositories user owns and collaborates on through the github api
     apiUserRepos = await getParallel(api.getUserRepos(access.token))
+    console.log(apiUserInfo[0].html_url)
     // pushing repo name and owner username into array to be able to check if authorized user is owner of repo or not
     for(let i = 0; i < apiUserRepos[0].length; i++){
         repoNames.push({
             name: apiUserRepos[0][i].name, 
-            owner: apiUserRepos[0][i].owner.login});
+            owner: apiUserRepos[0][i].owner.login
+            })
       }
     // renders dashboard page and sends repoNameOwnerArray and username to the ejs file for further processing
     res.render('dashboard', {
         repoNames: repoNames, 
         userName: apiUserInfo[0].login,
-        profilePicture: apiUserInfo[0].avatar_url
+        profilePicture: apiUserInfo[0].avatar_url,
+        githubProfile: apiUserInfo[0].html_url
     });
 }));
 
@@ -153,6 +156,7 @@ app.get('/mainpage', mWare.asyncMiddleware(async (req, res, next) => {
     repoOwner.push(repoNames[(repoNames.findIndex(x => x.name === repositoryName))].owner)
     //saves callback data from getMainContent() queries to be used when rendering mainpage
     let mainPageContent = await getParallel(api.getMainContent(access.token, repositoryName, repoOwner[0]));
+
     // saves number of commits done in repository per week
     let repositoryStats = await getParallel(api.repositoryStats(access.token, repoOwner[0], repositoryName))
     let collaborators =[];
