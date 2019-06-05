@@ -56,6 +56,14 @@ function signOut(){
 }
 
 function colorBlind(buttonClicked){
+  let stylesheets = document.styleSheets;
+
+  for(let i = 0; i < stylesheets.length; i++) {
+    var sheet = stylesheets[i];
+    sheet.disabled = (sheet.href.indexOf(host + '/css/colorblindStyle.css') !== -1) ? false : true;
+  }
+
+
   let onOff;
   if(buttonClicked.value == "on"){
     buttonClicked.setAttribute("value", "off")
