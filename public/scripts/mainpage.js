@@ -96,7 +96,7 @@ async function editTask(task){
                 '<div class="popup-column">'+
                 '<div class="head-task-container">' +
                   '<div id="spacer"></div>' +
-                  '<img id="delete-task-button" value="'+ taskID +'" onclick="deleteTask(this.id)" class="delete-icon" src="/img/delete.png">' +
+                  '<img id="delete-task-button" value="'+ taskID +'" onclick="confirmDeletion(this.id)" class="delete-icon" src="/img/delete.png">' +
                   '<img onclick="exitTask()" src="/img/close.png" class="popup-exit-button">'+
                 '</div>'+
                  
@@ -260,3 +260,25 @@ function createDropDown(optionsArray){
 
 };
 
+
+
+function confirmDeletion(task){
+    //get request to server to get collaborators in repo within dropdown
+      
+      let newItem = document.createElement("div");
+      newItem.setAttribute("id", "popup");
+      newItem.classList.add("popup-container");
+      newItem.innerHTML = '<div class="popup-window">'+
+            '<div class="popup-column">'+
+              '<div class="head-task-container">' +
+                '<div id="spacer"></div>' +
+                '<img onclick="exitTask()" src="/img/close.png" class="popup-exit-button">'+
+              '</div>'+
+              '<h2 id="popup-header">Delete task</h2>'+
+                '<div id="group5" class="group">'+
+                  '<button onclick="deleteTask(' + task + ')" id="new-repo-submit">Confirm deletion</button>'+
+                '</div>'+
+              '</form>'+
+            '</div>';
+      document.body.appendChild(newItem);
+};
