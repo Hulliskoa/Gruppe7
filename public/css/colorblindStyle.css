@@ -1,0 +1,134 @@
+
+/* HEADER */
+.head-container{
+	
+  color: black !important;
+  }
+
+.container{
+  background: #000000 !important; 
+}
+/* DROPDOWN MENU */
+.dropdown-content{
+	background-color: #ffffff !important;
+}
+
+.dropdown-li:hover {
+	background: #b7e0c2 !important;
+}
+
+.drop-popup-window{
+	background-color: rgb(255, 255, 255);
+}
+/* END HEADER */
+
+.add{
+  color: #F7C446
+  background: #000000 !important; 
+}
+
+.item{
+  border: solid 0.3rem black !important;
+}
+
+.item-container{
+  background: #F7C446 !important;
+  border-color: black !important;
+  border: solid 0.3rem black
+}
+
+
+.column-1 .item:hover{
+	background: #000000 !important;
+  color: #F7C446
+}
+
+.column-1 .item:active{
+	box-shadow: inset .1rem .1rem 5rem #000000;
+}
+
+.column-2 .item:hover{
+	background: #000000 !important;
+  color: #F7C446 !important;
+}
+
+.column-3 .item:hover{
+	background: #000000 !important;
+  color: #F7C446 !important;
+}
+
+/*Breadcrumbs */
+/* Style the list */
+
+/* Display list items side by side */
+
+
+/* Add a slash symbol (/) before/behind each list item */
+.breadcrumb li+li:before {
+  color: black;
+  
+}
+
+/* Add a color to all links inside the list */
+.breadcrumb li a {
+  color: #0275d8;
+}
+
+/* Add a color on mouse-over */
+.breadcrumb li a:hover {
+  color: #01447e;
+}
+
+/*POPUP*/
+
+.popup-container
+{
+   
+    background-color: rgba(225,255,255,0.2) !important;
+
+}
+
+.popup-window
+{
+    background-color: black !important;
+    color:  #F7C446 !important;
+}
+
+
+
+/* form starting stylings ------------------------------- */
+
+input 				{
+  border-bottom:1px solid #757575;
+}
+
+
+.name-label			 {
+  color:#999;
+}
+
+
+.select-task {
+    background-color: #f1f1f1;
+  }
+
+
+
+textarea
+{
+    background-color: #f1f1f1;
+}
+
+
+#group5 button
+{
+  color: #ffffff;
+  border: solid #e8eef2;
+
+
+}
+
+#group5 button:hover
+{
+  background: #a7ccb1;
+}

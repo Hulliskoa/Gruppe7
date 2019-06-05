@@ -68,6 +68,64 @@
 
 /* END MAIN */
 
+/*POPUP new repo*/
 
+.popup-window-repo
+{
+    background-color: white;
+    top: 20%;
+    margin: auto;
+    margin-top: 5rem;
+    width: 50rem;
+    height: 40rem;
+    z-index: 2;
+    border-radius: 15px;
+    display: grid;
+    grid-template-columns: 100%;
+    padding: 0 2.5%;
+    grid-template-rows: 5% 20% 75%;
+}
 
+.new-repo-forms{
+  display: grid;
+  grid-template-rows: 30% 40% 30%;
+}
+#description-area{
+  display: grid;
+  grid-template-columns: 70% 30%
+}
+#description-area textarea{
+  height: 100%;
+  width: 100%
+  border-radius: .3rem;
+}
+.checkboxes-new-repo input{
+  width: 10%;
+}
+
+#description-area li{
+  height: 0.5rem;
+  margin: 0.5rem;
+  width: 100%;
+  list-style-type: none;
+}
+
+#group4 button{
+  margin-top: 2rem;
+  color: #ffffff;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  text-decoration: none;
+  border: solid #e8eef2;
+  border-radius: 0.5rem;
+  background: #b7e0c2;
+}
+
+#group4 button:hover{
+  background: #a7ccb1;
+}
+
+#group4 button:active{
+    box-shadow: inset .1rem .1rem 5rem #b7e0c2;
+}
 

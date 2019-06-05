@@ -15,7 +15,7 @@ html, body{
 	right: 0;
 	z-index: 1;
 	display: grid;
-	grid-template-columns: 10% 80% 10%;;
+	grid-template-columns: 10% 15% 50% 15% 10%;
   }
   
 .head-column{
@@ -130,9 +130,9 @@ html, body{
 
 .column-3 .item:active{
 	box-shadow: inset .1rem .1rem 5rem #ffffff;
-}
 
-/*POPUP*/
+}
+/*POPUP mainpage and dropdown*/
 
 .popup-container
 {
@@ -182,7 +182,6 @@ html, body{
     height: 3rem;
     margin-top: 0.5rem;
     width: 100%;
-
 }
 
 #spacer{
@@ -329,3 +328,4 @@ textarea
 {
     box-shadow: inset .1rem .1rem 5rem #b7e0c2;
 }
+

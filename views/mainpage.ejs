@@ -14,12 +14,16 @@
 	<header>
 		<div class="head-container">
             <div class="head-column">
-                <!--ORDENTLIG LINK MÅ INN I HREF-->
+                
                 <a href="/dashboard"><img id="logo-icon" src="/img/logo-notext.png" alt="Logo"></a>
             </div>
             <div class="head-column">
+			</div>
+            <div class="head-column">
 				<h3 class="dash-title">TASKS</h3>
             </div>
+            <div class="head-column">
+			</div>
             <div class="head-column">
 				<div class="dropdown">
 					<img class="dropbtn" id="profile-picture" src="<%=profilePicture%>">
@@ -35,6 +39,9 @@
         </div>
 	</header>
 	<main>
+		<!----------- 
+			EJS file allow us to use javascript within the HTML tags to populate with data from the arrays we send from server to client
+			------------->
 		<div class="container">
 			<div class="column column-1">
 				<p class="main-title">TO DO</p>

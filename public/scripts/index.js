@@ -58,11 +58,11 @@ function showGuide(){
                         '<h2 class="dropdown-popup-title">User-Guide</h2>' +
                         '<div class="block-1">' +
                           '<h4>Projects</h4>' +
-                          '<p>Her skal det stå hva som skjer på dashbordet</p>' +
+                          '<p>This page gives you an overview of all repositories you have access to work on</p>' +
                         '</div>' +
                         '<div class="block-2">' +
                           '<h4>Tasks</h4>' +
-                          '<p>Her skal det stå om hva som skjer på mainsiden</p>' +
+                          '<p>This page lets you create tasks and keep track of the progress of these tasks</p>' +
                         '</div>' +
                       '</div>';
   document.body.appendChild(newItem);
