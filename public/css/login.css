@@ -10,7 +10,7 @@
 
 #logo{	
 	margin-top: 8rem;
-	width: 20rem;
+	width: 22rem;
 }
 
 #login-button{ 
@@ -21,7 +21,7 @@
 	font-weight: bold;
 	text-decoration: none;
 	padding: 1rem 3.5rem 1rem 3.5rem;
-	margin: 2.5rem 0 1.5rem 0;
+	margin: 3rem 0 1rem 0;
 	border: 0.05rem solid #e8eef2;
 	border-radius: 0.5rem;
 	background: #71dbc9;
