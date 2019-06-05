@@ -70,14 +70,11 @@ const requestAsync = async function(url) {
     });
 };
 
-const requestAsyncJsonParsed = async function(url) {
-    return new Promise((resolve, reject) => {
+const requestPost = async function(url) {
         let req = request(url, (err, response, body) => {
             if (err) return reject(err, response, body);
-            resolve(body);
         });
-    });
-};
+    };
 
 //function for doing a sequence of api querys based on arrays passed to it - reference: https://gist.github.com/bschwartz757/5d1ff425767fdc6baedb4e5d5a5135c8
 const getParallel = async function(urls) {
@@ -99,9 +96,9 @@ app.get('/collaborators', mWare.asyncMiddleware(async (req, res, next) => {
     for(let i = 0; i < mainPageContent[1].length; i++){
         collaborators.push(helpers.upperCase(mainPageContent[1][i].login));
     }
-    console.log(collaborators)
     res.send(collaborators);
 }));
+
 app.get('/logout', mWare.asyncMiddleware(async  (req, res, next) => {
     const checkAuth = await api.getParallel(api.getAuthorization(access.token));
     console.log(checkAuth)
@@ -145,7 +142,7 @@ app.post( '/newRepo', mWare.asyncMiddleware(async (req, res, next) => {
     //let colabMembers = req.body.colabMembers;
     let privateBool = (req.body.privateBool == "on") ? true : false;
     // creates new repo with the github API
-    await requestAsyncJsonParsed(api.createNewRepo(access.token, repoName, description, privateBool));
+    await requestPost(api.createNewRepo(access.token, repoName, description, privateBool));
 
     res.redirect('/dashboard');
 }));

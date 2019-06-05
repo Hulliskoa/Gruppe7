@@ -65,17 +65,14 @@ revokeGrant: function (accessToken){
 },
 
 createNewRepo: function (accessToken, name, description, privateRepo){
-  return 
-          {//create new repository on github
-            url: 'https://api.github.com/user/repos?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
-            json: {                 
-                name: name,
-                description: description,
-                private: privateRepo,
-                },
+  return [
+        {//create new repository on github
+            url: 'https://api.github.com/user/repos?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET ,
+            json:{name: name, description: description, private: privateRepo},
             method: 'POST',
             headers:{'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'},
         }
+    ]
 },
 
 repositoryStats: function (accessToken, owner, repo){
