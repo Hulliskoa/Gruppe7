@@ -44,7 +44,7 @@ let commitMessage;
 let members;
 let assignemnts;
 let apiUserInfo;
-let colorBlindMode = [];
+let colorBlindMode = ["off"];
 
 
 app.set('view engine', 'ejs')
@@ -104,8 +104,7 @@ app.get('/collaborators', mWare.asyncMiddleware(async (req, res, next) => {
 }));
 
 app.get('/logout', mWare.asyncMiddleware(async  (req, res, next) => {
-    const checkAuth = await api.getParallel(api.getAuthorization(access.token));
-    console.log(checkAuth)
+    //const checkAuth = await api.getParallel(api.getAuthorization(access.token));
     res.redirect('/');
 }));
 
@@ -119,7 +118,6 @@ app.get('/dashboard', mWare.asyncMiddleware(async (req, res, next) =>{
     apiUserInfo = await getParallel(api.getUserInfo(access.token));
     // getting repositories user owns and collaborates on through the github api
     apiUserRepos = await getParallel(api.getUserRepos(access.token))
-    console.log(apiUserInfo[0].html_url)
     // pushing repo name and owner username into array to be able to check if authorized user is owner of repo or not
     for(let i = 0; i < apiUserRepos[0].length; i++){
         repoNames.push({
@@ -140,6 +138,7 @@ app.post( '/colorblind', mWare.asyncMiddleware(async (req, res, next) => {
     
     colorBlindMode.pop();
     colorBlindMode.push(req.query.colorblind) 
+    res.send("recieved")
 }));
 
 
@@ -189,8 +188,9 @@ app.get('/mainpage', mWare.asyncMiddleware(async (req, res, next) => {
     res.render('mainpage', {
         repo: repositoryName, 
         userName: apiUserInfo[0].login,
-        collaborators: collaborators,
+        githubProfile: apiUserInfo[0].html_url,
         profilePicture: apiUserInfo[0].avatar_url,
+        collaborators: collaborators,
         tasks: taskArray,
         repoLanguage: Object.keys(mainPageContent[0]), 
         docs: languageDocs, 
