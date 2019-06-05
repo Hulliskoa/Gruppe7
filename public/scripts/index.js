@@ -8,18 +8,24 @@ function showAccess(){
   main[0].style.filter = "blur(10px)";
 
   let newItem = document.createElement("div");
-  newItem.setAttribute("class", "drop-popup");
-  newItem.classList.add("drop-popup-container");
-  newItem.innerHTML = '<div class="drop-popup-window">' +
+  newItem.classList.add("popup-container");
+  newItem.setAttribute("id", "popup");
+  newItem.innerHTML = '<div class="popup-window">' +
                       '<div class="head-task-container">' +
                           '<div id="spacer"></div>' +
-                          
-                        '</div>'+ 
-                        '<h2>Accessibility</h2>' + 
-                        '<h3>Font-size</h3>' + 
-                        '<p>Her skal det stå hvordan det fungerer med font-size</p>' +
-                        '<h3>Colorblind?</h3>' +
-                        '<p>Click here for colorblind mode <button id="colorblind-button" value="Off" onclick="colorBlind(this)">OFF</button></p>' +
+                          '<img onclick="exitTask()" src="img/close.png" class="popup-exit-button">'+
+                        '</div>'+
+                        '<div>'+
+                        '<h2 class="dropdown-popup-title">Accessibility</h2>' + 
+                        '</div>' +
+                          '<div class="block-1">' +
+                            '<h3>Font-size</h3>' + 
+                            '<p>The font size of this page adjusts based on the font size set in your browser settings.</p>' +
+                          '</div>' +
+                          '<div class="block-2">' +
+                            '<h3>Colorblind?</h3>' +
+                            '<p>Click here for colorblind mode <button id="colorblind-button" value="Off" onclick="colorBlind(this)">OFF</button></p>' +
+                          '</div>' +
                       '</div>';
   document.body.appendChild(newItem);
 }
@@ -42,17 +48,22 @@ function showGuide(){
   main[0].style.filter = "blur(10px)";
 
   let newItem = document.createElement("div");
-  newItem.classList.add("drop-popup-container");
-  newItem.innerHTML = '<div class="drop-popup-window">' + 
+  newItem.classList.add("popup-container");
+  newItem.setAttribute("id", "popup");
+  newItem.innerHTML = '<div class="popup-window">' + 
                         '<div class="head-task-container">' +
                           '<div id="spacer"></div>' +
-                          '<img onclick="exitTask()" src="/img/close.png" class="popup-exit-button">'+
+                          '<img onclick="exitTask()" src="img/close.png" class="popup-exit-button">'+
                         '</div>'+ 
-                        '<h2>User-Guide</h2>' +
-                        '<h4>Projects</h4>' +
-                        '<p>Her skal det stå hva som skjer på dashbordet</p>' +
-                        '<h4>Tasks</h4>' +
-                        '<p>Her skal det stå om hva som skjer på mainsiden</p>' +
+                        '<h2 class="dropdown-popup-title">User-Guide</h2>' +
+                        '<div class="block-1">' +
+                          '<h4>Projects</h4>' +
+                          '<p>Her skal det stå hva som skjer på dashbordet</p>' +
+                        '</div>' +
+                        '<div class="block-2">' +
+                          '<h4>Tasks</h4>' +
+                          '<p>Her skal det stå om hva som skjer på mainsiden</p>' +
+                        '</div>' +
                       '</div>';
   document.body.appendChild(newItem);
 }
@@ -70,4 +81,11 @@ function colorBlind(buttonClicked){
       document.getElementById("colorblind-button").innerHTML = "OFF" 
   }
 
+}
+
+function exitTask(){
+  
+    main[0].style.filter = "blur(0)";
+    let popup = document.getElementById("popup");
+    popup.remove();
 }

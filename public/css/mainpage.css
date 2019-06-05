@@ -133,3 +133,215 @@
     margin: 0;
 }
 
+/*Popups - kanban*/
+.popup-container
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.2);
+    min-width: 100vw;
+    min-height: 100vh;
+    align-items: center;
+    z-index: 1;
+}
+
+.popup-window-task
+{
+    background-color: white;
+    top: 20%;
+    margin: auto;
+    margin-top: 5rem;
+    width: 50rem;
+    height: 40rem;
+    z-index: 2;
+    border-radius: 15px;
+    display: grid;
+    grid-template-columns: 100%;
+    padding: 0 2.5%;
+    grid-template-rows: 2% 20% 78% ;
+}
+
+#popup-header
+{
+    display: flex;
+    justify-content: center;
+    height: 10%;
+}
+
+.head-task-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 3rem;
+    margin-top: 0.5rem;
+    width: 100%;
+
+}
+.delete-icon
+{
+    z-index: 1;
+    height: 2rem;
+    margin-top: 0.5rem;
+    cursor: pointer;
+}
+
+.popup-exit-button
+{
+  
+    z-index: 1;
+    height: 2rem;
+    margin-top: 0.5rem;
+    cursor: pointer;
+}
+
+
+#spacer{
+    width: 100%;
+}
+
+
+/* form starting stylings ------------------------------- */
+
+
+
+.task-form{
+  display: grid;
+  grid-template-rows: 10% 12% 20% 35% 10%;
+}
+
+.group{
+  margin: 0;
+}
+
+.input-box input{
+  font-size:1.3rem;
+  height: 100%;
+  width:50%;
+  border:none;
+  border-bottom:1px solid #757575;
+}
+
+.input-box input:focus{ 
+    outline:none; 
+}
+
+.input-box label{
+  color:#999;
+  font-size: 1.4rem;
+  font-weight: normal;
+  pointer-events: none;
+  left:1%;
+}
+
+
+.input-box input:focus ~ label, input:valid ~ label{
+  opacity: 0;
+}
+
+
+
+.input-dropdown{
+    position: relative;
+    width: 100%;
+
+}
+
+.input-dropdown select{
+    width: 50%;
+    border: none;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+    margin-bottom: 1.25rem;
+    font-family: 'Ubuntu', sans-serif;
+  }
+
+#group4{
+  display: grid;
+  grid-template-columns: 60% 40%;
+  height: 100%;
+}
+
+.input-multiline{
+    width: 100%;
+
+}
+.duedate-group{
+  display: grid;
+  text-align: center;
+  align-items: center;
+  grid-template-rows: 20% 20%;
+}
+
+.input-multiline textarea{
+    width: 90%;
+    height: 100%;
+    border: none; 
+
+    background-color: #f1f1f1;
+    font-family: 'Ubuntu', sans-serif;
+    resize: none;
+    outline:none; 
+    padding: .5rem;
+    word-wrap: break-word;
+}
+#group5{
+  display: grid;
+  margin: 0;
+
+}
+#group5 button{
+  margin-top: 2rem;
+  color: #ffffff;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  text-decoration: none;
+  border: solid #e8eef2;
+  border-radius: 0.5rem;
+  background: #b7e0c2;
+}
+
+#group5 button:hover{
+  background: #a7ccb1;
+}
+
+#group5 button:active{
+    box-shadow: inset .1rem .1rem 5rem #b7e0c2;
+}
+
+
+.calendar-input::-webkit-clear-button {
+    display: none;
+}
+
+/* Removes the spin button */
+.calendar-input::-webkit-inner-spin-button { 
+    display: none;
+}
+
+/* Always display the drop down caret */
+.calendar-input::-webkit-calendar-picker-indicator {
+    color: #2c3e50;
+}
+
+
+/* A few custom styles for date inputs */
+.calendar-input {
+    appearance: none;
+    -webkit-appearance: none;
+    color: #95a5a6;
+    font-family: "Helvetica", arial, sans-serif;
+    font-size: 18px;
+    border:1px solid #ecf0f1;
+    background:#ecf0f1;
+    padding:5px;
+    display: inline-block !important;
+    visibility: visible !important;
+}
+
+.calendar-input focus {
+    color: #95a5a6;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+}

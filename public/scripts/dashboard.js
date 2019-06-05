@@ -34,11 +34,5 @@ function post(formID) {
       document.body.appendChild(newItem);
   }
   
-function exitTask(){
-	
-  	main[0].style.filter = "blur(0)";
-  	let popup = document.getElementById("popup");
-  	popup.remove();
-}
 
 

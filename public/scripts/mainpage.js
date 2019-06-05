@@ -57,25 +57,11 @@ function postAndExit(formID) {
     exitTask();
 };
 
-// function for exiting popup and reverting mainpage back to normal
-function exitTask(){
-    main[0].style.filter = "blur(0)";
-    let popup = document.getElementById("popup");
-    let item = document.getElementsByClassName("popup-item")
-    popup.remove();
-    item[0].setAttribute("class", "item");
-    item[0].removeAttribute("class", "popup-item");
-    
-};
-
 // function for editing an existing task. async function so that response from server is resolved before the rest of the function continues
 async function editTask(task){
     document.body.style.cursor="progress";
-   
     const response = await fetch(host + '/collaborators'); // fetch api https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
     let collaborators = await response.json();
-    
-    
     document.getElementById(task).setAttribute("class", "item popup-item")
     let title = document.getElementById(task).getElementsByTagName('h4')[0].innerHTML
     let owner = document.getElementById(task).getElementsByTagName('h5')[0].innerHTML
@@ -89,13 +75,14 @@ async function editTask(task){
       //create new element within html document
         let newItem = document.createElement("div");
         newItem.setAttribute("id", "popup");
+        newItem.setAttribute("value", taskID);
         newItem.classList.add("popup-container");
         newItem.innerHTML = 
             '<div class="popup-window">'+
-                '<div class="popup-column">'+
+                
                 '<div class="head-task-container">' +
                   '<div id="spacer"></div>' +
-                  '<img id="delete-task-button" value="'+ taskID +'" onclick="confirmDeletion(this.id)" class="delete-icon" src="/img/delete.png">' +
+                  '<img id="delete-task-button" onclick="confirmDeletion()" class="delete-icon" src="/img/delete.png">' +
                   '<img onclick="exitTask()" src="/img/close.png" class="popup-exit-button">'+
                 '</div>'+
                  
@@ -122,12 +109,12 @@ async function editTask(task){
                           '<button onclick="postAndExit(edit-task)" id="new-repo-submit">Submit changes</button>'+
                       '</div>'+
                     '</form>'+
-                  '</div>' +
+                
             '</div>';
 
         document.body.appendChild(newItem);
         document.body.style.cursor="default";
-}
+};
 
 // function for creating a new task in the kanban board
 async function createNewTask(task){
@@ -140,39 +127,41 @@ async function createNewTask(task){
       let newItem = document.createElement("div");
       newItem.setAttribute("id", "popup");
       newItem.classList.add("popup-container");
-      newItem.innerHTML = '<div class="popup-window">'+
-            '<div class="popup-column">'+
+      newItem.innerHTML = 
+            '<div class="popup-window-task">'+
               '<div class="head-task-container">' +
                 '<div id="spacer"></div>' +
                 '<img onclick="exitTask()" src="/img/close.png" class="popup-exit-button">'+
               '</div>'+
               '<h2 id="popup-header">New task</h2>'+
-              '<form id="newTask" action="/newTask" method="POST">'+
-                '<div id="group1" class="input-box">'+ 
+              '<form class="task-form" id="newTask" action="/newTask" method="POST">'+
+                '<div id="group1" class="input-box group">'+ 
                   '<input type="text" name="taskName" required>'+
                   '<span class="highlight"></span>'+
                   '<span class="bar"></span>'+
-                  '<label class="name-label">Name</label>' +
+                  '<label class="name-label">Task name</label>' +
                 '</div>'+
-                '<div id="group2" class="input-dropdown">'+
+                '<div id="group2" class="input-dropdown group">'+
                   createDropDown(json) +
                 '</div>'+
-                '<div id="group3" class="input-dropdown">'+
-                  '<select class="category select-task" name="category">'+
+                '<div id="group3" class="input-dropdown group">'+
+                  '<select class="category select-task group" name="category">'+
                       '<option value="" >Category</option>'+
                       '<option value="Front-end">Front-end</option>'+
                       '<option value="Back-end">Back-end</option>'+
                       '<option value="Design">Design</option>'+
                     '</select>'+
                 '</div>'+
-                '<div id="group4" class="input-multiline">'+
+                '<div id="group4" class="input-multiline group">'+
                   '<textarea name="description" placeholder="Description"></textarea>'+
-                  '<input class="calendar-input" name="dueDate" type="date">' +
+                  '<div class="duedate-group">' +
+                    '<p>Due date</p>'+
+                    '<input class="calendar-input" name="dueDate" type="date">' +
+                  '</div>'+
                 '</div>'+
                 '<div id="group5" class="group">'+
                   '<button onclick="postAndExit(newTask)" id="new-repo-submit">Create task</button>'+
                 '</div>'+
-
               '</form>'+
             '</div>';
       document.body.appendChild(newItem);
@@ -181,20 +170,46 @@ async function createNewTask(task){
 function changeStatus(task){
     let taskID = document.getElementById(task).id;
   
-}
+};
 
 //function for sending a post request to server and delete specified task with taskID sendt as a parameter in the url
-function deleteTask(task){
-
-  let taskID = document.getElementById(task).getAttribute('value');
+function deleteTask(){
+  let selectedTask = document.getElementsByClassName("popup-item");
+  let taskID = selectedTask[0].getAttribute('value');
   fetch(host + '/deleteTask?taskID=' + taskID, {  
           method: 'POST'});
     main[0].style.filter = "blur(0)";
     let popup = document.getElementById("popup");
     popup.remove();
     let item = document.getElementsByClassName("popup-item")
+    let confirmation = document.getElementById("popup-confirmation")
     item[0].remove();
-    
+    confirmation.remove()
+};
+
+function confirmDeletion(){
+      let newItem = document.createElement("div");
+      let selectedTask = document.getElementsByClassName("popup-item");
+      newItem.setAttribute("id", "popup-confirmation");
+      newItem.classList.add("popup-container");
+      newItem.innerHTML = '<div class="popup-window">'+
+            '<div class="popup-column">'+
+              '<div class="head-task-container">' +
+                '<div id="spacer"></div>' +
+                '<img onclick="closeConfirmation()" src="/img/close.png" class="popup-exit-button">'+
+              '</div>'+
+              '<h2 id="popup-header">Delete task</h2>'+
+                '<div id="group5" class="group">'+
+                  '<button onclick="deleteTask()" id="new-repo-submit">Confirm deletion</button>'+
+                '</div>'+
+              '</form>'+
+            '</div>';
+      document.body.appendChild(newItem);
+};
+
+function closeConfirmation(){
+  let confirmation = document.getElementById("popup-confirmation")
+  confirmation.remove()
 };
 
 // function for creating a dropdown with the specific tasks information already selected
@@ -208,7 +223,6 @@ function predefinedDropDown(optionsArray, selectedValue, optionName, textContent
     element.appendChild(select);
     select.name = optionName;
     option.textContent = textContent;
-    option.setAttribute("disabled", "true");
     option.value = ""
     select.appendChild(option)
   
@@ -261,26 +275,7 @@ function createDropDown(optionsArray){
 
 
 
-function confirmDeletion(task){
-    //get request to server to get collaborators in repo within dropdown
-      
-      let newItem = document.createElement("div");
-      newItem.setAttribute("id", "popup");
-      newItem.classList.add("popup-container");
-      newItem.innerHTML = '<div class="popup-window">'+
-            '<div class="popup-column">'+
-              '<div class="head-task-container">' +
-                '<div id="spacer"></div>' +
-                '<img onclick="exitTask()" src="/img/close.png" class="popup-exit-button">'+
-              '</div>'+
-              '<h2 id="popup-header">Delete task</h2>'+
-                '<div id="group5" class="group">'+
-                  '<button onclick="deleteTask(' + task + ')" id="new-repo-submit">Confirm deletion</button>'+
-                '</div>'+
-              '</form>'+
-            '</div>';
-      document.body.appendChild(newItem);
-};
+
 
 // Drag and drop
 

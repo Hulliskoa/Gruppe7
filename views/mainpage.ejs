@@ -52,7 +52,7 @@
 							<div class="item" draggable="true" ondragstart="dragStart(event)" value="<%= tasks[i].owner%>" id="<%=tasks[i].id%>"  onclick="editTask(this.id)">
 								<div class="content">
 									<h4><%= tasks[i].title%></h4>
-									<h5><%= tasks[i].owner%></h5>
+									<h5 hidden><%= tasks[i].owner%></h5>
 									<h5 hidden><%= tasks[i].category%></h5>
 									<p hidden><%= tasks[i].description%></p>
 								</div>
@@ -71,7 +71,7 @@
 								<div class="content">
 									<div hidden>tasks[i].status</div>
 									<h4><%= tasks[i].title%></h4>
-									<h5><%= tasks[i].owner%></h5>
+									<h5 hidden><%= tasks[i].owner%></h5>
 									<h5 hidden><%= tasks[i].category%></h5>
 									<p hidden><%= tasks[i].description%></p>
 								</div>
@@ -89,7 +89,7 @@
 							<div class="item" draggable="true" ondragstart="dragStart(event)" value="<%= tasks[i].owner%>" id="<%=tasks[i].id%>" onclick="editTask(this.id)">
 								<div class="content">
 									<h4><%= tasks[i].title%></h4>
-									<h5><%= tasks[i].owner%></h5>
+									<h5 hidden><%= tasks[i].owner%></h5>
 									<h5 hidden><%= tasks[i].category%></h5>
 									<p hidden><%= tasks[i].description%></p>
 								</div>
