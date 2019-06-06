@@ -66,5 +66,9 @@
   margin: 0;
 }
 
+.popup-input-container{
+	margin: 3vh 2vw 4vh 2vw !important;
+}
+
 /* END MAIN - DASHBOARD */
 
