@@ -142,7 +142,7 @@ async function createNewTask(task){
                   '<input type="text" name="taskName" required>'+
                   '<span class="highlight"></span>'+
                   '<span class="bar"></span>'+
-                  '<label class="name-label">Task name</label>' +
+                  '<label class="name-label">Task name (required)</label>' +
                 '</div>'+
                 '<div id="group2" class="input-dropdown group">'+
                   createDropDown(json) +
