@@ -329,7 +329,7 @@ function dragDrop()
     selectedTarget = event.currentTarget;
     selectedTarget.appendChild(selectedElement);
     let status = selectedTarget.id;
-    let taskID = selectedElement.id
+''    let taskID = selectedElement.id
     fetch(host + '/changeTaskStatus?taskID=' + taskID +'&status=' + status ,{method:"POST"})
 
     /*  Hvis vi vil styre hvor elementene havner

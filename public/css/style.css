@@ -95,6 +95,8 @@ html, body{
 }
 /* END HEADER */
 
+/* COMMON STYLES FOR MAIN-CONTAINER */
+
 .add{
   display: flex;
   justify-content: center;
@@ -105,7 +107,7 @@ html, body{
 #add-img{
   display: block;
   margin: auto;
-  height: 3rem;  
+  height: 6rem;  
 }
 
 .column-1 .item:hover{
@@ -132,200 +134,84 @@ html, body{
 	box-shadow: inset .1rem .1rem 5rem #ffffff;
 
 }
-/*POPUP mainpage and dropdown*/
+/* END COMMON STYLES FOR MAIN-CONTAINER */
 
-.popup-container
-{
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: rgba(0,0,0,0.2);
-    min-width: 100vw;
-    min-height: 100vh;
-    align-items: center;
-    z-index: 1;
+/* POP-UP ELEMENTS */
+
+.popup-container{
+	position: absolute;
+	top: 0;
+	left: 0;
+	min-width: 100vw;
+	min-height: 100vh;
+	align-items: center;
+	z-index: 1;
+	background: rgba(0,0,0,0.2);
 }
 
-.popup-window
-{
-    background-color: white;
-    top: 20%;
-    margin: auto;
-    margin-top: 5rem;
-    width: 50rem;
-    height: 40rem;
-    z-index: 2;
-    border-radius: 15px;
-    display: grid;
-    grid-template-columns: 100%;
-    padding: 0 2.5%;
-    grid-template-rows: 2% 20% 20% 20%;
+.popup-window{
+	margin: 20vh 20vw 0 20vw;
+	border-radius: .3rem;
+	background: #ffffff;
 }
 
-.popup-column
-{
-  display: flex;
-  flex-direction: column;
-}
-
-#popup-header
-{
-    display: flex;
-    justify-content: center;
-    height: 10%;
-}
-
-.head-task-container{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 3rem;
-    margin-top: 0.5rem;
-    width: 100%;
-}
-
-#spacer{
-    width: 100%;
-}
-
-.dropdown-popup-title{
+.popup-head-container{
+	display: grid;
+	grid-template-columns: 10% 80% 10%;
 	text-align: center;
-	height: 1rem;
 }
 
-
-/* form starting stylings ------------------------------- */
-
-#group1
-{
-      height: 2rem;
+.popup-exit-button{
+	width: 3vw;
+	margin-left: 2vw;
 }
 
-.input-box
-{ 			   
-  position:relative; 
-  margin-bottom: 2rem; 
-}
-input 				{
-  font-size:1.3rem;
-  padding:3% 0.3rem 0.3rem 0.5rem;
-  margin-bottom: 0.5rem;
-  width:50%;
-  border:none;
-  border-bottom:1px solid #757575;
+.popup-input-container{
+	margin: 5vh 2vw 2vh 2vw;
 }
 
-input:focus 		
-{ 
-    outline:none; 
+.popup-input{
+	font-size:1.3rem;
+	width:50%;
+	padding-bottom: 0.2rem;
+  border: none;
+  border-bottom: 0.05rem solid #757575;
 }
 
-#group2
-{
-    height: 2rem;
+.popup-description-container{
+	display: grid;
+	grid-template-columns: 70% 30%;
+	margin: 0 2vw 0 2vw;
 }
 
-#group4
-{
-      height: 5rem;
+.popup-description-container li{
+	list-style-type: none;
 }
 
-
-.name-label			 {
-  color:#999;
-  font-size: 1.4rem;
-  font-weight: normal;
-  position: absolute;
-  top: 1rem;
-  pointer-events: none;
-  left:1%;
-
+.popup-description{
+	height: 20vh;
+	font-size: 1rem;
 }
 
-
-input:focus ~ label, input:valid ~ label 		{
-  opacity: 0;
+.popup-checkbox-container{
+	margin-left: 2vw;
 }
 
-
-
-.input-dropdown
-{
-    padding-top: 3%;
-    position: relative;
-    width: 100%;
+.popup-checkbox{
+	
 }
 
-.select-task {
-    width: 50%;
-    padding: 2% 0;
-    border: none;
-    border-radius: 4px;
-    background-color: #f1f1f1;
-    margin-bottom: 1.25rem;
-    font-family: 'Ubuntu', sans-serif;
-  }
-
-
-.input-multiline
-{
-    width: 100%;
-
+.popup-button-container{
+	padding: 5vh 2vw 5vh 2vw;
 }
 
-textarea
-{
-    width: 60%;
-    height: inherit;
-    border: none; 
-    background-color: #f1f1f1;
-    font-family: 'Ubuntu', sans-serif;
-    resize: none;
-    outline:none; 
-    padding: .5rem;
-    word-wrap: break-word;
+.popup-button{
+	width: 100%;
+	height: 6vh;
+	font-size: 1rem;
+	background: #71dbc9;
 }
 
-.popup-exit-button
-{
-  
-    z-index: 1;
-    height: 2rem;
-    margin-top: 0.5rem;
-    cursor: pointer;
+.popup-button:hover{
+	background: #6accbc;
 }
-
-
-.delete-icon
-{
-    z-index: 1;
-    height: 2rem;
-    margin-top: 0.5rem;
-    cursor: pointer;
-}
-
-
-#group5 button
-{
-  color: #ffffff;
-  font-weight: bold;
-  text-decoration: none;
-  padding: 1rem 3.5rem 1rem 3.5rem;
-  margin: 2.5rem 0 1.5rem 0;
-  border: solid #e8eef2;
-  border-radius: 0.5rem;
-  background: #b7e0c2;
-  right: 2.5rem;
-
-}
-
-#group5 button:hover
-{
-  background: #a7ccb1;
-}
-
-#group5 button:active
-{
-    box-shadow: inset .1rem .1rem 5rem #b7e0c2;
-}
-
