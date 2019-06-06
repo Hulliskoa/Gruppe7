@@ -163,6 +163,21 @@ html*{
 .dropdown-popup-title{
   color: #F7C446 !important;
 }
+.popup-exit-button{
+  filter: invert(100%) !important;
+}
+
+.popup-delete-button{
+  filter: invert(100%) !important;
+}
+
+#add-img{
+  filter: invert(100%) !important;
+}
+
+.add:hover {
+  background: grey !important;
+}
 
 
 /* form starting stylings ------------------------------- */
@@ -273,7 +288,7 @@ textarea
 /* Popup container--- */
 .popup-container{
   background-color: rgba(0,0,0,0.2)!important;
-  color: orange!important;
+  color: #F7C446 !important;
 }
 
 .popup-window{

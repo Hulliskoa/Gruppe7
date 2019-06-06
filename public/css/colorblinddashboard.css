@@ -18,7 +18,9 @@ Main colors
 
 
 /* MAIN */
-
+.popup-exit-button{
+  filter: invert(100%) !important;
+}
 .container{
    /* background: radial-gradient(circle 30rem, #ffffff, #e7e7e7); */
     background: black!important;
@@ -78,4 +80,10 @@ Main colors
       box-shadow: inset .1rem .1rem 5rem rgb(100, 100, 100)!important;
   }
   
+#add-img{
+  filter: invert(100%);
+}
   
+.add:hover {
+  background: grey !important;
+}

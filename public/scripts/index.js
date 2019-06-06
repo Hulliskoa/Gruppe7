@@ -23,15 +23,11 @@ function post(formID) {
 function colorOfButtons(){
   if(colorBlindStylesheet[0].disabled == true){
    
-     exitButtonSrc = "/img/close.png"
-    deleteButtonSrc = "/img/delete.png"
     colorBlindButtonValue = "off"
     colorBlindButtonText = "Turn high contrast on";
 
   }else{
-    console.log(colorBlindStylesheet[0].disabled)
-     exitButtonSrc = "/img/close-colorblind.png";
-    deleteButtonSrc = "/img/delete-colorblind.png";
+
     colorBlindButtonValue = "on";
     colorBlindButtonText = "Turn high contrast off"; 
 }
@@ -47,7 +43,7 @@ function showAccess(){
                         '<div class="popup-head-column popup-head-column-1"></div>' +
                         '<h2 class="popup-head-column popup-head-column-2">Accessibility</h2>' + 
                         '<div class="popup-head-column popup-head-column-3">' +
-                          '<img onclick="exitTask()" src='+exitButtonSrc+' class="popup-exit-button">'+
+                          '<img onclick="exitTask()" src="img/close.png" class="popup-exit-button">'+
                         '</div>' +
                       '</div>'+
                       '<div class="popup-content">' +
@@ -90,14 +86,13 @@ function colorBlind(buttonClicked){
   if(buttonClicked.value == "on"){
      
       colorButton.setAttribute("value", "off")
-      exitButton[0].setAttribute("src", "img/close.png")
       colorBlindStylesheet[0].disabled = true;
+      console.log(colorBlindStylesheet[0].disabled)
       document.getElementById("colorblind-button").innerHTML = "Turn high contrast on" 
      colorblindPost("disabled")
    
   }else{
       colorButton.setAttribute("value", "on")
-      exitButton[0].setAttribute("src", "img/close-colorblind.png")
       colorBlindStylesheet[0].disabled = false;
       document.getElementById("colorblind-button").innerHTML = "Turn high contrast off" 
       colorblindPost("")
@@ -105,8 +100,7 @@ function colorBlind(buttonClicked){
 }
 
 async function colorblindPost(query){
-  await fetch(host + "/colorblind?colorblind=" + query, {
-        method: "POST"})
+  await fetch(host + "/colorblind?colorblind=" + query)
 };
 
 //function for exiting popups

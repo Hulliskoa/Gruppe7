@@ -102,8 +102,9 @@ app.get('/',  (req, res, next) => {
 });
 
 //route used for setting colorblind style on page
-app.post('/colorblind', (req, res, next) => {    
+app.get('/colorblind', (req, res, next) => {    
     colorblind = req.query.colorblind;
+    console.log(colorblind)
 });
 
 app.get('/dashboard', mWare.asyncMiddleware(async (req, res, next) =>{  

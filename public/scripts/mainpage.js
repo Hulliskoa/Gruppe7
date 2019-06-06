@@ -111,6 +111,7 @@ async function editTask(task){
                             '</div>';
         document.body.appendChild(newItem);
         document.body.style.cursor="default";
+        colorOfButtons()
 };
 
 // function for creating a new task in the kanban board
