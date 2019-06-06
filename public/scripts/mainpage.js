@@ -204,8 +204,8 @@ function confirmDeletion(){
                               '<div class="popup-head-column popup-head-column-3"></div>' +
                             '</div>' +
                             '<div class="popup-button-delete-container">'+
-                              '<button class="popup-button popup-button-delete no" onclick="closeConfirmation()">No</button>'+
-                              '<button class="popup-button popup-button-delete yes" onclick="deleteTask()">Yes</button>'+
+                              '<button class="popup-button popup-button-delete yes" onclick="deleteTask()">Delete</button>'+
+                              '<button class="popup-button popup-button-delete no" onclick="closeConfirmation()">Keep</button>'+
                             '</div>'+
                           '</div>';
       document.body.appendChild(newItem);

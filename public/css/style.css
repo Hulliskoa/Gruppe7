@@ -169,9 +169,17 @@ html, body{
 	width: 3vw;
 }
 
+.popup-exit-button:hover{
+	cursor: pointer;
+}
+
 .popup-delete-button{
 	width: 2vw;
 	padding-bottom: 1.5vh;
+}
+
+.popup-delete-button:hover{
+	cursor: pointer;
 }
 
 .popup-input-container{
@@ -249,11 +257,8 @@ html, body{
 	width: 10vw;
 }
 
-.no{
-	margin: 0 2vw 0 4vw;
-}
-
 .yes{
+	margin: 0 2vw 0 4vw;
 	background: #E76646;
 }
 

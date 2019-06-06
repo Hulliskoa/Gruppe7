@@ -27,7 +27,7 @@ function showAccess(){
                         '<div class="popup-head-column popup-head-column-1"></div>' +
                         '<h2 class="popup-head-column popup-head-column-2">Accessibility</h2>' + 
                         '<div class="popup-head-column popup-head-column-3">' +
-                          '<img onclick="exitTask()" src="/img/close.png" class="popup-exit-button-delete">'+
+                          '<img onclick="exitTask()" src="/img/close.png" class="popup-exit-button">'+
                         '</div>' +
                       '</div>'+
                       '<div class="popup-content">' +
