@@ -197,10 +197,6 @@ html, body{
 	margin-left: 2vw;
 }
 
-.popup-checkbox{
-	
-}
-
 .popup-button-container{
 	padding: 5vh 2vw 5vh 2vw;
 }
@@ -215,4 +211,20 @@ html, body{
 
 .popup-button:hover{
 	background: #6accbc;
+}
+
+.popup-content{
+	margin: 0 2vw 0 2vw;
+}
+
+.popup-content h3{
+
+}
+
+.popup-content p{
+	padding-bottom: 5vh;
+}
+
+#colorblind-button{
+	background: #71dbc9;
 }

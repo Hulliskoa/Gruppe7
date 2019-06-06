@@ -23,21 +23,18 @@ function showAccess(){
   newItem.classList.add("popup-container");
   newItem.setAttribute("id", "popup");
   newItem.innerHTML = '<div class="popup-window">' +
-                      '<div class="head-task-container">' +
-                          '<div id="spacer"></div>' +
-                          '<img onclick="exitTask()" src="img/close.png" class="popup-exit-button">'+
-                        '</div>'+
-                        '<div>'+
-                        '<h2 class="dropdown-popup-title">Accessibility</h2>' + 
+                      '<div class="popup-head-container">' +
+                        '<div class="popup-head-column popup-head-column-1"></div>' +
+                        '<h2 class="popup-head-column popup-head-column-2">Accessibility</h2>' + 
+                        '<div class="popup-head-column popup-head-column-3">' +
+                          '<img onclick="exitTask()" src="/img/close.png" class="popup-exit-button">'+
                         '</div>' +
-                          '<div class="block-1">' +
-                            '<h3>Font-size</h3>' + 
-                            '<p>The font size of this page adjusts based on the font size set in your browser settings.</p>' +
-                          '</div>' +
-                          '<div class="block-2">' +
-                            '<h3>Colorblind?</h3>' +
-                            '<p>Click here for colorblind mode <button id="colorblind-button" value="off" onclick="colorBlind(this)">OFF</button></p>' +
-                          '</div>' +
+                      '</div>'+
+                      '<div class="popup-content">' +
+                        '<h3>Font-size</h3>' + 
+                        '<p>The font size of this page adjusts based on the font size set in your browser settings.</p>' +
+                        '<h3>Colorblind?</h3>' +
+                        '<p>Click here for colorblind mode <button id="colorblind-button" value="off" onclick="colorBlind(this)">OFF</button></p>' +
                       '</div>';
   document.body.appendChild(newItem);
 }
@@ -49,19 +46,18 @@ function showGuide(){
   newItem.classList.add("popup-container");
   newItem.setAttribute("id", "popup");
   newItem.innerHTML = '<div class="popup-window">' + 
-                        '<div class="head-task-container">' +
-                          '<div id="spacer"></div>' +
-                          '<img onclick="exitTask()" src="img/close.png" class="popup-exit-button">'+
-                        '</div>'+ 
-                        '<h2 class="dropdown-popup-title">User-Guide</h2>' +
-                        '<div class="block-1">' +
-                          '<h4>Projects</h4>' +
-                          '<p>This page gives you an overview of all repositories you have access to work on</p>' +
-                        '</div>' +
-                        '<div class="block-2">' +
-                          '<h4>Tasks</h4>' +
-                          '<p>This page lets you create tasks and keep track of the progress of your project</p>' +
-                        '</div>' +
+                        '<div class="popup-head-container">' +
+                          '<div class="popup-head-column popup-head-column-1"></div>' +
+                          '<h2 class="popup-head-column popup-head-column-2">User-Guide</h2>' + 
+                          '<div class="popup-head-column popup-head-column-3">' +
+                            '<img onclick="exitTask()" src="/img/close.png" class="popup-exit-button">'+
+                          '</div>' +
+                        '</div>'+
+                      '<div class="popup-content">' +
+                        '<h3>Projects</h3>' + 
+                        '<p>The project site is representing every repository you hav eon GitHub</p>' +
+                        '<h3>Tasks</h3>' +
+                        '<p>The Task site represents all the tasks in your repository. Its represented in a KanBan style with three columns</p>' +
                       '</div>';
   document.body.appendChild(newItem);
 }
