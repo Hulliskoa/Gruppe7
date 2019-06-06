@@ -155,6 +155,10 @@ html, body{
 	background: #ffffff;
 }
 
+.popup-window-delete{
+	margin: 40vh 35vw 0 35vw;
+}
+
 .popup-head-container{
 	display: grid;
 	grid-template-columns: 10% 80% 10%;
@@ -163,7 +167,11 @@ html, body{
 
 .popup-exit-button{
 	width: 3vw;
-	margin-left: 2vw;
+}
+
+.popup-delete-button{
+	width: 2vw;
+	padding-bottom: 1.5vh;
 }
 
 .popup-input-container{
@@ -208,11 +216,11 @@ html, body{
 }
 
 .popup-calendar-container{
-	margin-left: 5vw;
+	margin-left: 2vw;
 }
 
 .popup-calendar{
-	padding: 0.2rem 0 0.2rem 0;
+	padding: 0.2vh 0 0.2vh 0;
 	border: 0.05rem solid #757575;
 	border-radius: 0.2rem;
 }
@@ -233,12 +241,28 @@ html, body{
 	background: #6accbc;
 }
 
-.popup-content{
-	margin: 0 2vw 0 2vw;
+.popup-button-delete-container{
+	padding: 2vh 0vw 3vh 0vw;
 }
 
-.popup-content h3{
+.popup-button-delete{
+	width: 10vw;
+}
 
+.no{
+	margin: 0 2vw 0 4vw;
+}
+
+.yes{
+	background: #E76646;
+}
+
+.yes:hover{
+	background: #da6042;
+}
+
+.popup-content{
+	margin: 0 2vw 0 2vw;
 }
 
 .popup-content p{

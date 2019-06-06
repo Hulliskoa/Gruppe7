@@ -83,6 +83,7 @@ async function editTask(task){
                                 '<div class="popup-head-column popup-head-column-1"></div>' +
                                 '<h2 class="popup-head-column popup-head-column-2">Edit task</h2>' + 
                                 '<div class="popup-head-column popup-head-column-3">' +
+                                  '<img onclick="confirmDeletion()" src="/img/delete.png" class="popup-delete-button">'+
                                   '<img onclick="exitTask()" src="/img/close.png" class="popup-exit-button">'+
                                 '</div>' +
                               '</div>' +
@@ -196,18 +197,17 @@ function confirmDeletion(){
       let selectedTask = document.getElementsByClassName("popup-item");
       newItem.setAttribute("id", "popup-confirmation");
       newItem.classList.add("popup-container");
-      newItem.innerHTML = '<div class="popup-window">'+
-            '<div class="popup-column">'+
-              '<div class="head-task-container">' +
-                '<div id="spacer"></div>' +
-                '<img onclick="closeConfirmation()" src="/img/close.png" class="popup-exit-button">'+
-              '</div>'+
-              '<h2 id="popup-header">Delete task</h2>'+
-                '<div id="group5" class="group">'+
-                  '<button onclick="deleteTask()" id="new-repo-submit">Confirm deletion</button>'+
-                '</div>'+
-              '</form>'+
-            '</div>';
+      newItem.innerHTML = '<div class="popup-window popup-window-delete">'+
+                            '<div class="popup-head-container">' +
+                              '<div class="popup-head-column popup-head-column-1"></div>' +
+                              '<h2 class="popup-head-column popup-head-column-2">Delete task</h2>' + 
+                              '<div class="popup-head-column popup-head-column-3"></div>' +
+                            '</div>' +
+                            '<div class="popup-button-delete-container">'+
+                              '<button class="popup-button popup-button-delete no" onclick="closeConfirmation()">No</button>'+
+                              '<button class="popup-button popup-button-delete yes" onclick="deleteTask()">Yes</button>'+
+                            '</div>'+
+                          '</div>';
       document.body.appendChild(newItem);
 };
 
