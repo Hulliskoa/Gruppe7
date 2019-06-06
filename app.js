@@ -31,25 +31,26 @@ const Task = require('./classes').Task;//module containing the task class
 const mWare = require('./middleware/middleware')// module containing middleware used with http requests
 const api = require('./api');// module containing all functions for creating arrays of api queries
 
-// global variables
-const redirect_uri = 'http://'+ hostname + ':3000' + '/redirect';
-console.log(redirect_uri)
-const repoNames = []
-const access = {token: ""};
-const repoOwner = [];
-const taskArray = [];
-let apiUserRepos;
-let repositoryName;
-let commitMessage;
-let members;
-let assignemnts;
-let apiUserInfo;
-let colorblind = "disabled"
+// global variables github information
+const repoNames = [] //used to store the repository names of repositories user can access
+const access = {token: ""};//used to store the access token from github oAuth callback
+let apiUserInfo;//used to store all user info about user that logged in (username, profile picture, github profile url)
+let apiUserRepos;//used to store users repositories
+const repoOwner = [];//used to store the repository owner for rendering projects page
+let repositoryName;//used to store selected repository 
+const taskArray = [];//task objects ar pushed to this array when a new task is created
+let commitMessage;//used to store selected repository commitmessages
+let members;//used to store selected repository collaborators
+
+//global variables
+const redirect_uri = 'http://'+ hostname + ':3000' + '/redirect';//uri for github oauth redirect
+let colorblind = "disabled" // used to store colorblind state.
+
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
 
-
+//these variables should be stored more securely, 
 const CLIENT_ID = "a7bd17430ccafbea1df9" 
 const CLIENT_SECRET = "85f152b50698af03f7553426df5887574bfd1b23"
 
@@ -204,6 +205,7 @@ app.post('/newTask', (req, res, next) => {
     console.log("Task created");
     res.redirect('/mainpage');
 });
+
 //edits task by using the setters specified in the task class in classes.js
 app.post('/editTask', (req, res, next) => {    
     let editedTask = taskArray[(taskArray.findIndex(x => x.id === req.body.taskID))]
@@ -273,7 +275,7 @@ app.get('/authorize', (req, res, next) => {
                         state: req.session.csrf_string 
                 })
             },
-            //gets the token from the api callback and saves to an object it for later use
+            //gets the token from the api callback and saves to the user session and an object for later use
             (error, response, body) => {
                     console.log('Your Access Token: ');
                     console.log(qs.parse(body));

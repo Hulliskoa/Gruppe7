@@ -1,4 +1,4 @@
-let main = document.getElementsByTagName("main");
+
 
 // function for the select all checkbox on mainpage
 function filterAll(masterCheckbox){
