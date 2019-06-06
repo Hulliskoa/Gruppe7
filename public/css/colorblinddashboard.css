@@ -1,0 +1,94 @@
+/* 
+
+colorblinddashboard.css
+
+
+saved some code in comments for future use
+!important means I changed it
+if it looks unchanged, or commented out the code may be reusable
+
+Main colors
+  rgb(100, 100, 100); //grey
+  orange;
+  black;
+  white;
+
+*/
+
+
+
+/* MAIN */
+
+.container{
+   /* background: radial-gradient(circle 30rem, #ffffff, #e7e7e7); */
+    background: black!important;
+   }
+  
+  .dash-title{
+    }
+  
+  .column{
+    }
+  
+  .column-2{
+    /* background: linear-gradient(to top, #4480ed, rgba(68, 128, 237, 40%)); */
+    background: black!important;
+    border-bottom: 0.5rem solid orange!important;
+  }
+  
+  .column-3{
+    /* background: linear-gradient(to top, #71dbc9, rgba(113, 219, 201, 40%)); */
+    border-bottom: 0.5rem solid orange;
+  }
+  
+  .item{
+    background: orange!important;
+  }
+  
+  .item:hover{
+  }
+  
+  .content{
+  }
+  
+  .content h4{
+  }
+  
+  .content h5{
+  }
+  
+  /* END MAIN */
+  
+  /*POPUP new repo*/
+  
+  .popup-window-repo{
+      background-color: black!important;
+}
+  
+  .new-repo-forms{
+}
+  #description-area{
+  }
+  #description-area textarea{
+  }
+  .checkboxes-new-repo input{
+  }
+  
+  #description-area li{
+  }
+  
+  #group4 button{
+    color: orange!important;
+    border: solid white!important;
+    background: black!important;
+  }
+  
+  #group4 button:hover{
+    background: rgb(100, 100, 100)!important;
+  }
+  
+  #group4 button:active{
+      box-shadow: inset .1rem .1rem 5rem rgb(100, 100, 100)!important;
+  }
+  
+  
