@@ -60,20 +60,9 @@ Main colors
 .popup-window{
     background-color: black!important;
     border: solid .3rem #ffffff;
+    color: #F7C446 ;
 }
 
-#popup-header
-{
-  color: #F7C446 !important;
-}
-
-.head-task-container{
-  color: #F7C446 !important;
-}
-
-.dropdown-popup-title{
-  color: #F7C446 !important;
-}
 
   #group4 button{
     color: #F7C446 !important;
