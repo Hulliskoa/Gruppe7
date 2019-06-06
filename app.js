@@ -128,7 +128,7 @@ app.post('/inputName', (req, res, next) => {
 });
 
 //Create new repo on github
-app.post( '/newRepo', mWare.asyncMiddleware(async (req, res, next) => {
+app.post('/newRepo', mWare.asyncMiddleware(async (req, res, next) => {
     let repoName = req.body.repoName;
     let description = req.body.description;
 
@@ -164,7 +164,7 @@ app.get('/mainpage', mWare.asyncMiddleware(async (req, res, next) => {
             message: mainPageContent[2][i].commit.message,
             user: mainPageContent[2][i].commit.committer.name});
         }
-    
+
     res.render('mainpage', {
         repo: repositoryName, 
         userName: apiUserInfo[0].login,
@@ -192,7 +192,8 @@ app.get('/collaborators', mWare.asyncMiddleware(async (req, res, next) => {
 //Creates a new task when client submits new task form.
 app.post('/newTask', (req, res, next) => {    
     let id = randomString.generate()
-    taskArray.push(new Task(id, req.body.taskName, req.body.owner, req.body.category, req.body.description, repositoryName, "to-do"));
+    taskArray.push(new Task(id, req.body.taskName, req.body.owner, req.body.category, req.body.description, repositoryName, req.body.dueDate, "to-do"));
+    console.log("Task created");
     res.redirect('/mainpage');
 });
 //edits task by using the setters specified in the task class in classes.js
