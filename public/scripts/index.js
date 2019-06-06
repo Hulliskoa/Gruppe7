@@ -73,13 +73,18 @@ function colorBlind(buttonClicked){
       buttonClicked.setAttribute("value", "off");
       colorBlindStylesheet[0].disabled = true;
       document.getElementById("colorblind-button").innerHTML = "OFF" 
-      fetch()
+      fetch(host + "/colorblind?colorblind=disabled", {
+        method: "POST"
+      })
   }else{
       buttonClicked.setAttribute("value", "on")
       colorBlindStylesheet[0].disabled = false;
       document.getElementById("colorblind-button").innerHTML = "ON" 
-  }
+      fetch(host + "/colorblind?colorblind=", {
+        method: "POST"
+  })
 
+}
 }
 
 //function for exiting popups

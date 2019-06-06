@@ -43,7 +43,7 @@ let commitMessage;
 let members;
 let assignemnts;
 let apiUserInfo;
-
+let colorblind = "disabled"
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
@@ -96,6 +96,9 @@ app.get('/logout', mWare.asyncMiddleware(async  (req, res, next) => {
     res.redirect('/');
 }));
 
+app.post('/colorblind', (req, res, next) => {    
+    colorblind = req.query.colorblind;
+});
 
 app.get('/dashboard', mWare.asyncMiddleware(async (req, res, next) =>{  
     //removes reponames from repoNames array so that duplicates doesnt appear when refreshing page
@@ -118,7 +121,8 @@ app.get('/dashboard', mWare.asyncMiddleware(async (req, res, next) =>{
         repoNames: repoNames, 
         userName: apiUserInfo[0].login,
         profilePicture: apiUserInfo[0].avatar_url,
-        githubProfile: apiUserInfo[0].html_url
+        githubProfile: apiUserInfo[0].html_url,
+        colorblind: colorblind
     });
 }));
 
@@ -175,7 +179,8 @@ app.get('/mainpage', mWare.asyncMiddleware(async (req, res, next) => {
         repoLanguage: Object.keys(mainPageContent[0]), 
         docs: languageDocs, 
         commits: lastCommitMsg,
-        repositoryStats: repositoryStats[0].all[repositoryStats[0].all.length - 1]
+        repositoryStats: repositoryStats[0].all[repositoryStats[0].all.length - 1],
+        colorblind: colorblind
     });
 }));
 
