@@ -23,7 +23,7 @@ function post(formID) {
             '<h2 id="popup-header">Create new GitHub repository</h2>'+
             '<form id="new-repo-form1" class="new-repo-forms" onsubmit="submit-button.disabled" action="/newRepo" method="POST">'+
               '<div id="group1" class="input-box group">'+ 
-                '<input type="text" name="repoName"  placeholder="Repository name.." required>'+
+                '<input type="text" name="repoName"  placeholder="Repository name.. (required)" required>'+
               '</div>'+
               '<div id="description-area" class="group">'+
                 '<textarea name="description" placeholder="Description.." form="new-repo-form1"></textarea>'+

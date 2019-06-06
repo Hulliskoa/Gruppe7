@@ -43,7 +43,7 @@ let commitMessage;
 let members;
 let assignemnts;
 let apiUserInfo;
-
+let colorblind = "disabled"
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
@@ -96,6 +96,9 @@ app.get('/logout', mWare.asyncMiddleware(async  (req, res, next) => {
     res.redirect('/');
 }));
 
+app.post('/colorblind', (req, res, next) => {    
+    colorblind = req.query.colorblind;
+});
 
 app.get('/dashboard', mWare.asyncMiddleware(async (req, res, next) =>{  
     //removes reponames from repoNames array so that duplicates doesnt appear when refreshing page
@@ -118,7 +121,8 @@ app.get('/dashboard', mWare.asyncMiddleware(async (req, res, next) =>{
         repoNames: repoNames, 
         userName: apiUserInfo[0].login,
         profilePicture: apiUserInfo[0].avatar_url,
-        githubProfile: apiUserInfo[0].html_url
+        githubProfile: apiUserInfo[0].html_url,
+        colorblind: colorblind
     });
 }));
 
@@ -128,7 +132,7 @@ app.post('/inputName', (req, res, next) => {
 });
 
 //Create new repo on github
-app.post( '/newRepo', mWare.asyncMiddleware(async (req, res, next) => {
+app.post('/newRepo', mWare.asyncMiddleware(async (req, res, next) => {
     let repoName = req.body.repoName;
     let description = req.body.description;
 
@@ -164,7 +168,7 @@ app.get('/mainpage', mWare.asyncMiddleware(async (req, res, next) => {
             message: mainPageContent[2][i].commit.message,
             user: mainPageContent[2][i].commit.committer.name});
         }
-    
+
     res.render('mainpage', {
         repo: repositoryName, 
         userName: apiUserInfo[0].login,
@@ -175,7 +179,8 @@ app.get('/mainpage', mWare.asyncMiddleware(async (req, res, next) => {
         repoLanguage: Object.keys(mainPageContent[0]), 
         docs: languageDocs, 
         commits: lastCommitMsg,
-        repositoryStats: repositoryStats[0].all[repositoryStats[0].all.length - 1]
+        repositoryStats: repositoryStats[0].all[repositoryStats[0].all.length - 1],
+        colorblind: colorblind
     });
 }));
 
@@ -192,7 +197,8 @@ app.get('/collaborators', mWare.asyncMiddleware(async (req, res, next) => {
 //Creates a new task when client submits new task form.
 app.post('/newTask', (req, res, next) => {    
     let id = randomString.generate()
-    taskArray.push(new Task(id, req.body.taskName, req.body.owner, req.body.category, req.body.description, repositoryName, "to-do"));
+    taskArray.push(new Task(id, req.body.taskName, req.body.owner, req.body.category, req.body.description, repositoryName, req.body.dueDate, "to-do"));
+    console.log("Task created");
     res.redirect('/mainpage');
 });
 //edits task by using the setters specified in the task class in classes.js
