@@ -75,7 +75,7 @@ const requestPost = async function(url) {
             resolve(body);
         });
     });
-    };
+};
 
 //function for doing a sequence of api querys based on arrays passed to it - reference: https://gist.github.com/bschwartz757/5d1ff425767fdc6baedb4e5d5a5135c8
 const getParallel = async function(urls) {

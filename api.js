@@ -64,11 +64,11 @@ revokeGrant: function (accessToken){
     ]
 },
 
-createNewRepo: function (accessToken, name, description, privateRepo){
+createNewRepo: function (accessToken, name, description, privateRepo, readme){
   return [
         {//create new repository on github
             url: 'https://api.github.com/user/repos?client_id=' + process.env.CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET ,
-            json:{name: name, description: description, private: privateRepo},
+            json:{name: name, description: description, private: privateRepo, auto_init: readme},
             method: 'POST',
             headers:{'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'},
         }
