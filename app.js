@@ -49,6 +49,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
 let CLIENT_ID = "a7bd17430ccafbea1df9"
 let CLIENT_SECRET = "85f152b50698af03f7553426df5887574bfd1b23"
+const hostname = '127.0.0.1';
+const port = 3000;
 
 app.use(
     session({
@@ -242,7 +244,7 @@ app.get('/authorize', (req, res, next) => {
       const githubAuthUrl =
         'https://github.com/login/oauth/authorize?' +
         qs.stringify({
-            client_id: process.env.CLIENT_ID,
+            client_id: CLIENT_ID
             redirect_uri: redirect_uri,
             state: req.session.csrf_string,
             scope: 'public_repo, read:user'//public_repo gives the server access to query data from users public repos. read:user gives the app access to read profile info. 
@@ -262,8 +264,8 @@ app.get('/authorize', (req, res, next) => {
               url:
                     'https://github.com/login/oauth/access_token?' +
                     qs.stringify({
-                        client_id: process.env.CLIENT_ID,
-                        client_secret: process.env.CLIENT_SECRET,
+                        client_id: CLIENT_ID,
+                        client_secret: CLIENT_SECRET,
                         code: code,
                         redirect_uri: redirect_uri,
                         state: req.session.csrf_string 
@@ -283,8 +285,6 @@ app.get('/authorize', (req, res, next) => {
         }
 });
 
-
-app.listen(port, () => {
-  console.log('Server listening at port ' + port);
+app.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
 });
-
