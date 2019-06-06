@@ -130,42 +130,43 @@ async function createNewTask(task){
       let newItem = document.createElement("div");
       newItem.setAttribute("id", "popup");
       newItem.classList.add("popup-container");
-      newItem.innerHTML = 
-            '<div class="popup-window-task">'+
-              '<div class="head-task-container">' +
-                '<div id="spacer"></div>' +
-                '<img onclick="exitTask()" src="/img/close.png" class="popup-exit-button">'+
-              '</div>'+
-              '<h2 id="popup-header">New task</h2>'+
-              '<form class="task-form" id="newTask" action="/newTask" method="POST">'+
-                '<div id="group1" class="input-box group">'+ 
-                  '<input type="text" name="taskName" required>'+
-                  '<span class="highlight"></span>'+
-                  '<span class="bar"></span>'+
-                  '<label class="name-label">Task name (required)</label>' +
-                '</div>'+
-                '<div id="group2" class="input-dropdown group">'+
-                  createDropDown(json) +
-                '</div>'+
-                '<div id="group3" class="input-dropdown group">'+
-                  '<select class="category select-task group" name="category">'+
-                      '<option value="" >Category</option>'+
-                      '<option value="Front-end">Front-end</option>'+
-                      '<option value="Back-end">Back-end</option>'+
-                      '<option value="Design">Design</option>'+
-                    '</select>'+
-                '</div>'+
-                '<div id="group4" class="input-multiline group">'+
-                  '<textarea name="description" placeholder="Description"></textarea>'+
-                  '<div class="duedate-group">' +
-                    '<input placeholder="Due Date" class="calendar-input" onfocusout="changeInputType(this)" onfocus="changeInputType(this)" name="dueDate" type="text">' +
-                  '</div>'+
-                '</div>'+
-                '<div id="group5" class="group">'+
-                  '<button onclick="postAndExit(newTask)" id="new-repo-submit">Create task</button>'+
-                '</div>'+
-              '</form>'+
-            '</div>';
+      newItem.innerHTML = '<div class="popup-window">'+
+                            '<div class="popup-head-container">' +
+                              '<div class="popup-head-column popup-head-column-1"></div>' +
+                              '<h2 class="popup-head-column popup-head-column-2">New task</h2>' + 
+                              '<div class="popup-head-column popup-head-column-3">' +
+                                '<img onclick="exitTask()" src="/img/close.png" class="popup-exit-button">'+
+                              '</div>' +
+                            '</div>' +
+                            '<form class="task-form" id="newTask" action="/newTask" method="POST">'+
+                              '<div id="group1" class="input-box group">'+ 
+                                '<input type="text" name="taskName" placeholder="Title (required)" required>'+
+                                '<span class="highlight"></span>'+
+                                '<span class="bar"></span>'+
+                                '<label class="name-label">Task name (required)</label>' +
+                              '</div>'+
+                              '<div id="group2" class="input-dropdown group">'+
+                                createDropDown(json) +
+                              '</div>'+
+                              '<div id="group3" class="input-dropdown group">'+
+                                '<select class="category select-task group" name="category">'+
+                                    '<option value="" >Category</option>'+
+                                    '<option value="Front-end">Front-end</option>'+
+                                    '<option value="Back-end">Back-end</option>'+
+                                    '<option value="Design">Design</option>'+
+                                  '</select>'+
+                              '</div>'+
+                              '<div id="group4" class="input-multiline group">'+
+                                '<textarea name="description" placeholder="Description"></textarea>'+
+                                '<div class="duedate-group">' +
+                                  '<input placeholder="Due Date" class="calendar-input" onfocusout="changeInputType(this)" onfocus="changeInputType(this)" name="dueDate" type="text">' +
+                                '</div>'+
+                              '</div>'+
+                              '<div id="group5" class="group">'+
+                                '<button onclick="postAndExit(newTask)" id="new-repo-submit">Create task</button>'+
+                              '</div>'+
+                            '</form>'+
+                          '</div>';
 
       document.body.appendChild(newItem);
 };
@@ -329,7 +330,7 @@ function dragDrop()
     selectedTarget = event.currentTarget;
     selectedTarget.appendChild(selectedElement);
     let status = selectedTarget.id;
-''    let taskID = selectedElement.id
+    let taskID = selectedElement.id
     fetch(host + '/changeTaskStatus?taskID=' + taskID +'&status=' + status ,{method:"POST"})
 
     /*  Hvis vi vil styre hvor elementene havner

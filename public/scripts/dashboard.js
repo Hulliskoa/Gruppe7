@@ -24,7 +24,7 @@ function post(formID) {
                             '</div>'+
                             '<form id="new-repo-form1" class="new-repo-forms" onsubmit="submit-button.disabled" action="/newRepo" method="POST">'+
                               '<div class="popup-input-container">'+ 
-                                '<input class="popup-input" type="text" name="repoName"  placeholder="Repository name.. (required)" required>'+
+                                '<input class="popup-input" type="text" name="repoName"  placeholder="Repository name (required)" required>'+
                               '</div>'+
                               '<div class="popup-description-container">'+
                                 '<textarea class="popup-description" name="description" placeholder="Description.." form="new-repo-form1"></textarea>'+
