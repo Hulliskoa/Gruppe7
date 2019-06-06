@@ -47,6 +47,10 @@
     padding-bottom: 0.5rem;
 }
 
+.column-4 h4{
+    margin: .5rem 0 .5rem 0;
+}
+
 .column li {
     list-style-type: none;
 }
