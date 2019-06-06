@@ -73,6 +73,7 @@ function colorBlind(buttonClicked){
       buttonClicked.setAttribute("value", "off");
       colorBlindStylesheet[0].disabled = true;
       document.getElementById("colorblind-button").innerHTML = "OFF" 
+      fetch()
   }else{
       buttonClicked.setAttribute("value", "on")
       colorBlindStylesheet[0].disabled = false;
