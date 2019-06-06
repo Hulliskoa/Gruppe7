@@ -22,10 +22,10 @@ function post(formID) {
 }
 function colorOfButtons(){
   if(colorBlindStylesheet[0].disabled == true){
-  
+   
      exitButtonSrc = "/img/close.png"
     deleteButtonSrc = "/img/delete.png"
-    colorBlindButtonValue = "on"
+    colorBlindButtonValue = "off"
     colorBlindButtonText = "Turn high contrast on";
 
   }else{
@@ -85,14 +85,19 @@ function showGuide(){
 
 //Enables and disables the colorblind stylesheet
 function colorBlind(buttonClicked){
-  let onOff;
+   let colorButton = document.getElementById("colorblind-button")
+   let exitButton = document.getElementsByClassName("popup-exit-button")
   if(buttonClicked.value == "on"){
-      document.getElementById("colorblind-button").setAttribute("value", "off")
+     
+      colorButton.setAttribute("value", "off")
+      exitButton[0].setAttribute("src", "img/close.png")
       colorBlindStylesheet[0].disabled = true;
       document.getElementById("colorblind-button").innerHTML = "Turn high contrast on" 
      colorblindPost("disabled")
+   
   }else{
-    document.getElementById("colorblind-button").setAttribute("value", "on")
+      colorButton.setAttribute("value", "on")
+      exitButton[0].setAttribute("src", "img/close-colorblind.png")
       colorBlindStylesheet[0].disabled = false;
       document.getElementById("colorblind-button").innerHTML = "Turn high contrast off" 
       colorblindPost("")
