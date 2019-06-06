@@ -135,8 +135,6 @@ app.post('/inputName', (req, res, next) => {
 app.post('/newRepo', mWare.asyncMiddleware(async (req, res, next) => {
     let repoName = req.body.repoName;
     let description = req.body.description;
-
-    //let colabMembers = req.body.colabMembers;
     let privateBool = (req.body.privateBool == "on") ? true : false;
     // creates new repo with the github API
     await requestPost(api.createNewRepo(access.token, repoName, description, privateBool));
