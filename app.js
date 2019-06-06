@@ -15,7 +15,6 @@ require('dotenv').config(); //Github Oauth APP client id and client secret is st
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const port = 3000;
 const request = require('request'); // module for making HTTP calls to an api
 
 // modules used for GitHub OAuth 
