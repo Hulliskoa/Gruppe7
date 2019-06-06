@@ -1,7 +1,6 @@
-
-const qs = require('querystring');
 let CLIENT_ID = "a7bd17430ccafbea1df9"
 let CLIENT_SECRET = "85f152b50698af03f7553426df5887574bfd1b23"
+
 module.exports = { // functions for creating dynamic api querys based on authenticated user ---------------
 	
 getUserInfo: function (accessToken){
