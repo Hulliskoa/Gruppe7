@@ -67,13 +67,13 @@ html*{
   
 /* DROPDOWN MENU */
 .dropdown-content{
-	background-color: black!important;
-  box-shadow: grey 0.1rem 0.3rem .5rem 0rem!important;
-  border: 0.2rem solid white!important;
+	background-color: black !important;
+  box-shadow: grey 0.1rem 0.3rem .5rem 0rem !important;
+  border: 0.2rem solid white !important;
 }
 
 .dropdown-li {
-  color: #F7C446!important;
+  color: #F7C446 !important;
 	}
 
 .dropdown:hover .dropdown-content {
@@ -136,134 +136,85 @@ html*{
 }
 /*POPUP mainpage and dropdown*/
 
-.popup-container
-{
+.popup-container{
     background-color: rgba(0,0,0,0.2)!important;
 }
 
-.popup-window
-{
+.popup-window{
     background-color: black!important;
-    border-radius: 15px;
+    border: solid .3rem #ffffff;
 }
 
-#colorblind-button
-{
-  background-color: black!important;
-  color: white!important;
-  border-color: white!important;
-  
-}
-
-.popup-column
-{
+#colorblind-button{
+  background-color: black !important;
+  color: white !important;
+  border-color: white !important;  
 }
 
 #popup-header
 {
-  color: orange!important;
+  color: #F7C446 !important;
 }
 
 .head-task-container{
-  color: orange!important;
-}
-
-#spacer{
+  color: #F7C446 !important;
 }
 
 .dropdown-popup-title{
-  color: orange!important;
+  color: #F7C446 !important;
 }
 
 
 /* form starting stylings ------------------------------- */
 
-#group1 .input
-{
-  background-color: black!important; 
-}
-
-.input-box
-{ 			  
- 
-}
-input 				{
-  border: 0.1rem solid white!important;
-  background-color: black!important;
-  color: orange!important;
+input{
+  border: 0.1rem solid white !important;
+  background-color: black !important;
+  color: #F7C446 !important;
   border-bottom:1px solid #757575;
 }
 
-input:focus 		
-{ 
+input:focus{ 
   background-color: rgb(100, 100, 100)!important;
 }
 
-select
-{
-  color: orange!important;
-  background-color: black!important;
+select{
+  color: #F7C446 !important;
+  background-color: black !important;
 }
-
-#group4
-{
-}
-
 
 .name-label			 {
   color:rgb(100, 100, 100)!important;;
 }
 
 
-input:focus ~ label, input:valid ~ label 		{
+input:focus ~ label, input:valid ~ label{
 }
 
-
-
-.input-dropdown
-{
-}
 
 .select-task {
    border: 0.1rem solid white!important; 
-  }
-
-
-.input-multiline
-{
 }
 
 textarea
 {
     border: 0.1rem solid white!important; 
     background-color: black!important;
-    color: orange!important;
+    color: #F7C446 !important;
 }
-
-.popup-exit-button
-{
-}
-
-
-.delete-icon
-{
-}
-
 
 #group5 button
 {
-  color: orange!important;
+  color: #F7C446 !important;
   border: solid white!important;
   background: black!important;
 }
 
-#group5 button:hover
-{
+#group5 button:hover{
   background: rgb(100, 100, 100)!important;
 }
 
-#group5 button:active
-{
+#group5 button:active{
     box-shadow: inset .1rem .1rem 5rem black!important;
 }
 
@@ -275,7 +226,7 @@ textarea
 /* MAINpage */
 .container{
   background: radial-gradient(circle 30rem, black, rgb(100, 100, 100))!important;
-  }
+}
 
 .column{
   background: black!important;
@@ -283,32 +234,23 @@ textarea
 
 .column .item-container{
   border-radius: .3rem;
-  border: 0.2rem solid white!important;
-}
-
-.column-1{
+  border: 0.2rem solid #ffffff !important;
 }
 
 .column-4{
-  background: black!important;
+  background: black !important;
 }
 
 
 .column-1 .item-container{
-  /*background: linear-gradient(to top, #4480ED, rgba(68, 128, 237, 40%));
-  */
-  background: black!important;
+  background: black !important;
 }
 
 .column-2 .item-container{
- /* background: linear-gradient(to top, #E76646, rgb(231, 102, 70, 40%));
-  */
-  background: black!important;
+  background: black !important;
 }
 
 .column-3 .item-container{
-  /*background: linear-gradient(to top, #71DBC9, rgb(113, 219, 201, 40%));
-  */
   background: black!important;
 }
 
@@ -316,103 +258,41 @@ textarea
   border: 0.2rem solid white!important;
 }
 
-.column li {
-}
-
-.column #commits{
-}
-
-.main-title{
-}
-
-.item-container{
-}
-
 .item{
-  border: 0.05rem solid rgb(100, 100, 100)!important;;
+  border: 0.05rem solid #ffffff !important;;
   background: black!important;
-  color: orange!important;
+  color: #F7C446 !important;
 }
-
-.item:hover{
-}
-
-.content{
-  }
-
-.progress{
- }
 
 .button{
   border: 0.01rem solid white!important;;
-  color: orange!important;
+  color: #F7C446 !important;
   background: black!important;
 }
 
-.manual{
-}
-
-
 /* Popup container--- */
-.popup-container
-{
+.popup-container{
   background-color: rgba(0,0,0,0.2)!important;
   color: orange!important;
 }
 
-.popup-window-task
-{
+.popup-window{
   background-color: black!important;
-  }
-
-.popup-column{
+  border: solid 0.2rem #ffffff;
 }
 
-#popup-header{
-  }
-
-.head-task-container{
-}
-
-#spacer{
-}
-
-/* form starting stylings ------------------------------- */
-
-#group1{
-}
-
-.input-box
-{ 		 
-}
-input 				{
+input {
   border: none;
-border-bottom:1px solid #757575!important;
+  border-bottom:1px solid #757575!important;
 }
-
-input:focus 		{  
-}
-
-#group2{
-}
-
-#group4{
-}
-
 
 /* LABEL ======================================= */
 .name-label			 {
-color:orange!important;
+color: #F7C446 !important;
 }
 
 /* active state */
 input:focus ~ label, input:valid ~ label 		{
-}
-
-
-
-.input-dropdown
-{
 }
 
 .select-task {
@@ -420,31 +300,19 @@ input:focus ~ label, input:valid ~ label 		{
   background-color: black!important;
 }
 
-
-.input-multiline{
- }
-
 textarea
 {
   border: none; 
   background-color: black!important;
-  color: orange!important;
+  color: #F7C446 !important;
   }
-
-.popup-exit-button{
-}
-
-
-.delete-icon{
- }
-
 
 #group5 button
 {
-color: orange!important;
-border: solid white!important;
+color: #F7C446 !important;
+border: solid white !important;
 border-radius: 0.5rem;
-background: black!important;
+background: black !important;
 }
 
 #group5 button:hover
@@ -457,8 +325,6 @@ background: rgb(100, 100, 100)!important;
   box-shadow: inset .1rem .1rem 5rem rgb(100, 100, 100)!important;
 }
 
-#checkid{
-}
 
 /* Default CHECKBOX Hidden*/
 .checkbox-container input{
@@ -487,15 +353,11 @@ background: black!important;
 
 
 .wrapper-login{
-  /* background: radial-gradient(circle 30rem at 45rem 18rem, #ffffff, #cacaca); */
-  background: black!important;
-}
-
-#logo{	
+  background: black !important;
 }
 
 #login-button{ 
-  color: orange!important;
+  color: #F7C446 !important;
 	border: 0.05rem solid white!important;
 	background: black!important;
 }

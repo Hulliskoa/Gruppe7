@@ -14,10 +14,12 @@
 require('dotenv').config()
 const express = require('express');
 const app = express();
+const router = express.Router()
 const bodyParser = require('body-parser');
 const request = require('request'); // module for making HTTP calls to an api
 const hostname = 'localhost';//Change this to the server ip when we go to production
 const port = 3000;
+
 // modules used for GitHub OAuth 
 const session = require('express-session');
 const qs = require('querystring');
@@ -30,10 +32,11 @@ const helpers = require('./helpers/helpers')//module conatining premade function
 const Task = require('./classes').Task;//module containing the task class
 const mWare = require('./middleware/middleware')// module containing middleware used with http requests
 const api = require('./api');// module containing all functions for creating arrays of api queries
-
+const oAuth = require('./oAuth');
 // global variables github information
 const repoNames = [] //used to store the repository names of repositories user can access
-const access = {token: ""};//used to store the access token from github oAuth callback
+const access = {token: ""}
+
 let apiUserInfo;//used to store all user info about user that logged in (username, profile picture, github profile url)
 let apiUserRepos;//used to store users repositories
 const repoOwner = [];//used to store the repository owner for rendering projects page
@@ -50,11 +53,14 @@ app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
 
+//routers
+app.use('/oAuth', oAuth)
+
 //these variables should be stored more securely, 
 const CLIENT_ID = "a7bd17430ccafbea1df9" 
 const CLIENT_SECRET = "85f152b50698af03f7553426df5887574bfd1b23"
 
-
+//creates an unique session for client
 app.use(
     session({
         secret: randomString.generate(),
@@ -74,13 +80,10 @@ const requestAsync = async function(url) {
     });
 };
 
-const requestPost = async function(url) {
-       return new Promise((resolve, reject) => {
-        let req = request(url, (err, response, body) => {
-            if (err) return reject(err, response, body);
-            resolve(body);
-        });
-    });
+//function used for api post requests
+const requestPost = function(url) {
+      request.post(
+            {url});
 };
 
 //function for doing a sequence of api querys based on arrays passed to it - reference: https://gist.github.com/bschwartz757/5d1ff425767fdc6baedb4e5d5a5135c8
@@ -93,15 +96,12 @@ const getParallel = async function(urls) {
     return data
 }
 
+//root route for page
 app.get('/',  (req, res, next) => {
     res.render('login');
 });
 
-app.get('/logout', mWare.asyncMiddleware(async  (req, res, next) => {
-    //const checkAuth = await api.getParallel(api.getAuthorization(access.token));
-    res.redirect('/');
-}));
-
+//route used for setting colorblind style on page
 app.post('/colorblind', (req, res, next) => {    
     colorblind = req.query.colorblind;
 });
@@ -122,7 +122,7 @@ app.get('/dashboard', mWare.asyncMiddleware(async (req, res, next) =>{
             owner: apiUserRepos[0][i].owner.login
             })
       }
-    // renders dashboard page and sends repoNameOwnerArray and username to the ejs file for further processing
+    // renders dashboard page and sends api callback data to the ejs file for further processing
     res.render('dashboard', {
         repoNames: repoNames, 
         userName: apiUserInfo[0].login,
@@ -132,24 +132,25 @@ app.get('/dashboard', mWare.asyncMiddleware(async (req, res, next) =>{
     });
 }));
 
-app.post('/inputName', (req, res, next) => {
-    repositoryName = req.body.repo;
-    res.redirect('/mainpage');
-});
-
-//Create new repo on github
+//route to create new repo on github
 app.post('/newRepo', mWare.asyncMiddleware(async (req, res, next) => {
     let repoName = req.body.repoName;
     let description = req.body.description;
     let privateBool = (req.body.privateBool == "on") ? true : false;
     // creates new repo with the github API
     await requestPost(api.createNewRepo(access.token, repoName, description, privateBool));
-
     res.redirect('/dashboard');
 }));
 
+//route for fetching the chosen repository's name and stores it in repositoryName for use when rendering mainpage
+app.post('/inputName', (req, res, next) => {
+    repositoryName = req.body.repo;
+    res.redirect('/mainpage');
+});
 
 
+
+// route for rendering mainpage aka Task view
 app.get('/mainpage', mWare.asyncMiddleware(async (req, res, next) => {
     repoOwner.pop()
     //checking the owner of selected repo and supplying it to the getMainContent function
@@ -188,7 +189,7 @@ app.get('/mainpage', mWare.asyncMiddleware(async (req, res, next) => {
     });
 }));
 
-//gets the collaborators in the chosen repository to be able to show and filter them on project site
+//route to get the collaborators in the chosen repository to be able to show and filter them on project site
 app.get('/collaborators', mWare.asyncMiddleware(async (req, res, next) => {
     let mainPageContent = await getParallel(api.getMainContent(access.token, repositoryName, repoOwner));
     let collaborators = [];
@@ -198,7 +199,7 @@ app.get('/collaborators', mWare.asyncMiddleware(async (req, res, next) => {
     res.send(collaborators);
 }));
 
-//Creates a new task when client submits new task form.
+//handler for creating a new task when client submits new task form.
 app.post('/newTask', (req, res, next) => {    
     let id = randomString.generate()
     taskArray.push(new Task(id, req.body.taskName, req.body.owner, req.body.category, req.body.description, repositoryName, req.body.dueDate, "to-do"));
@@ -206,7 +207,7 @@ app.post('/newTask', (req, res, next) => {
     res.redirect('/mainpage');
 });
 
-//edits task by using the setters specified in the task class in classes.js
+//handler to edits task by using the setters specified in the task class in classes.js
 app.post('/editTask', (req, res, next) => {    
     let editedTask = taskArray[(taskArray.findIndex(x => x.id === req.body.taskID))]
     editedTask.setTitle(req.body.taskName)
@@ -219,7 +220,7 @@ app.post('/editTask', (req, res, next) => {
     res.redirect('/mainpage');
 });
 
-//Deletes task when "confirm deletion" is clicked on the project site
+//handler for deleting task when "confirm deletion" is clicked on the project site
 app.post('/deleteTask', (req, res, next) => {
     //get the taskID sendt from client 
     taskID = req.query.taskID 
@@ -241,7 +242,8 @@ app.post('/changeTaskStatus', (req, res, next) => {
 
 
 
-// GitHub Oauth authorization to be able to make authorized api request (reference: https://shiya.io/how-to-do-3-legged-oauth-with-github-a-general-guide-by-example-with-node-js/)
+//handles GitHub Oauth authorization to be able to make authorized api request (reference: https://shiya.io/how-to-do-3-legged-oauth-with-github-a-general-guide-by-example-with-node-js/)
+
 app.get('/authorize', (req, res, next) => {
     req.session.csrf_string = randomString.generate();
       //github api url to start authorization process
@@ -250,19 +252,24 @@ app.get('/authorize', (req, res, next) => {
         qs.stringify({
             client_id: CLIENT_ID,
             redirect_uri: redirect_uri,
+            //State is an unguessable random string. It is used to protect against cross-site request forgery attacks.
             state: req.session.csrf_string,
-            scope: 'public_repo, read:user'//public_repo gives the server access to query data from users public repos. read:user gives the app access to read profile info. 
+             /*scope defines what kind of access the app will get to the users information.
+            public_repo gives the server access to query data from users public repos and access for creating new repo. 
+            read:user gives the app access to read profile info. */
+            scope: 'public_repo, read:user'
         });
     //redirects the user to github oauth login
     res.redirect(githubAuthUrl);
   });
-    //after user login github answers with the redirect url specified for our app
+    //after user login github sends the user to the redirect uri specified on github.com for our app 
     app.all('/redirect', (req, res) => {
         const code = req.query.code;
         const returnedState = req.query.state;
         //checks if the user is in the same session, if not the user is sendt back to login screen
         if (req.session.csrf_string === returnedState) {
-          //sends a post request to the github api containing client id,secret and code supplied by github earlier. Github Api answers with the user access token
+          /*sends a post request to the github api containing client id,secret and code supplied by github API earlier. 
+          Github Api answers with the user access token*/
           request.post(
             {
               url:
@@ -288,6 +295,9 @@ app.get('/authorize', (req, res, next) => {
             res.redirect('/');
         }
 });
+
+
+module.exports = 
 
 app.listen(port, () => {
   console.log(`Server listening on port :${port}`);

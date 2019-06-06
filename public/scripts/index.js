@@ -2,6 +2,8 @@
 let main = document.getElementsByTagName("main");
 const host = 'http://localhost:3000';
 let colorBlindStylesheet = document.getElementsByClassName("colorblind");
+const exitButtonSrc;
+const deleteButtonSrc;
 
 function linkGitHub(url){
   window.open(url, "_blank");
@@ -15,6 +17,12 @@ function post(formID) {
     // The rest of this code assumes you are not using a library.
       let form = document.getElementById(formID)
     form.submit();
+}
+
+if(colorBlindStylesheet[0].disbled == true){
+
+}else{
+  
 }
 
 function showAccess(){
@@ -61,6 +69,7 @@ function showGuide(){
                       '</div>';
   document.body.appendChild(newItem);
 }
+
 
 //Enables and disables the colorblind stylesheet
 function colorBlind(buttonClicked){

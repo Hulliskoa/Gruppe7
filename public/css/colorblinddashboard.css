@@ -25,6 +25,7 @@ Main colors
    }
   
   .dash-title{
+    color: #F7C446;
     }
   
   .column{
@@ -33,52 +34,49 @@ Main colors
   .column-2{
     /* background: linear-gradient(to top, #4480ed, rgba(68, 128, 237, 40%)); */
     background: black!important;
-    border-bottom: 0.5rem solid orange!important;
+    border: 0.5rem solid #ffffff !important;
   }
   
   .column-3{
-    /* background: linear-gradient(to top, #71dbc9, rgba(113, 219, 201, 40%)); */
-    border-bottom: 0.5rem solid orange;
+    background: black!important;
+    border: 0.5rem solid #ffffff !important;
   }
   
-  .item{
-    background: orange!important;
-  }
+ .item{
+  border: 0.05rem solid #ffffff !important;;
+  background: black!important;
+  color: #F7C446 !important;
+}
   
-  .item:hover{
-  }
-  
-  .content{
-  }
-  
-  .content h4{
-  }
-  
-  .content h5{
-  }
+.item:hover{
+  background: #ffffff !important;
+}
+ 
   
   /* END MAIN */
   
   /*POPUP new repo*/
   
-  .popup-window-repo{
-      background-color: black!important;
+.popup-window{
+    background-color: black!important;
+    border: solid .3rem #ffffff;
 }
-  
-  .new-repo-forms{
+
+#popup-header
+{
+  color: #F7C446 !important;
 }
-  #description-area{
-  }
-  #description-area textarea{
-  }
-  .checkboxes-new-repo input{
-  }
-  
-  #description-area li{
-  }
-  
+
+.head-task-container{
+  color: #F7C446 !important;
+}
+
+.dropdown-popup-title{
+  color: #F7C446 !important;
+}
+
   #group4 button{
-    color: orange!important;
+    color: #F7C446 !important;
     border: solid white!important;
     background: black!important;
   }

@@ -1,7 +1,10 @@
 let CLIENT_ID = "a7bd17430ccafbea1df9"
 let CLIENT_SECRET = "85f152b50698af03f7553426df5887574bfd1b23"
 
-module.exports = { // functions for creating dynamic api querys based on authenticated user ---------------
+
+
+// functions for creating dynamic api querys based on authenticated user
+module.exports = { 
 	
 getUserInfo: function (accessToken){
     return [
@@ -43,29 +46,8 @@ getMainContent: function (accessToken, repo, owner){
     ];
 },
 
-getAuthorization: function (accessToken){
-   return [
-        {//remove accesToken
-            url: 'https://api.github.com/applications/grants?client_id=' + CLIENT_ID + '&client_secret='  + CLIENT_SECRET,
-            method: 'GET',
-            headers:{'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'},
-        }
-    ]
- 
-},
-// log out by revoking the applications access to user profile data  DELETE /applications/:client_id/grants/:access_token
-revokeGrant: function (accessToken){
-   return [
-        {//remove accesToken
-            url: 'https://api.github.com/applications/' + CLIENT_ID + '/grants/' + accessToken + '?client_id=' + CLIENT_ID + '&client_secret='  + process.env.CLIENT_SECRET,
-            method: 'DELETE',
-            headers:{'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'},
-        }
-    ]
-},
-
 createNewRepo: function (accessToken, name, description, privateRepo, readme){
-  return [
+  return [ 
         {//create new repository on github
             url: 'https://api.github.com/user/repos?client_id=' + CLIENT_ID + '&client_secret='  + CLIENT_SECRET ,
             json:{name: name, description: description, private: privateRepo, auto_init: readme},
@@ -73,6 +55,7 @@ createNewRepo: function (accessToken, name, description, privateRepo, readme){
             headers:{'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'},
         }
     ]
+    
 },
 
 repositoryStats: function (accessToken, owner, repo){
