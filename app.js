@@ -243,7 +243,7 @@ app.get('/authorize', (req, res, next) => {
       const githubAuthUrl =
         'https://github.com/login/oauth/authorize?' +
         qs.stringify({
-            client_id: CLIENT_ID
+            client_id: CLIENT_ID,
             redirect_uri: redirect_uri,
             state: req.session.csrf_string,
             scope: 'public_repo, read:user'//public_repo gives the server access to query data from users public repos. read:user gives the app access to read profile info. 
