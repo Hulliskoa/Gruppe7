@@ -1,5 +1,6 @@
-let CLIENT_ID = "a7bd17430ccafbea1df9"
-let CLIENT_SECRET = "85f152b50698af03f7553426df5887574bfd1b23"
+const oAuth = require('./oAuth')
+let CLIENT_ID = oAuth.client.id
+let CLIENT_SECRET = oAuth.client.secret
 
 
 
@@ -47,14 +48,14 @@ getMainContent: function (accessToken, repo, owner){
 },
 
 createNewRepo: function (accessToken, name, description, privateRepo, readme){
-  return [ 
+  let newRepo =
         {//create new repository on github
             url: 'https://api.github.com/user/repos?client_id=' + CLIENT_ID + '&client_secret='  + CLIENT_SECRET ,
             json:{name: name, description: description, private: privateRepo, auto_init: readme},
             method: 'POST',
             headers:{'Authorization': accessToken, 'User-Agent': 'ProjectAdmin app'},
         }
-    ]
+    return newRepo;
     
 },
 

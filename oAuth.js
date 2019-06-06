@@ -2,12 +2,29 @@
 
 const express = require('express');
 const app = express();
+const server = require('./app')
 const router = express.Router()
 const session = require('express-session');
 const qs = require('querystring');
+const request = require('request'); // module for making HTTP calls to an api
+
 const randomString = require('randomstring');
 const csrfString = randomString.generate();
 const access = {token: ""};//used to store the access token from github oAuth callback
+const hostname = 'localhost'
+const redirect_uri = 'http://'+ hostname + ':3000' + '/oAuth/redirect'; //uri for github oauth redirect
+const client = {id: "a7bd17430ccafbea1df9",secret: "85f152b50698af03f7553426df5887574bfd1b23"} //should be stored more securely but for protoype purposes this i okay.
+
+
+//oAuth uses session to confirm that the session the user came from is the same as after login 
+router.use(
+    session({
+        secret: randomString.generate(),
+        cookie: { maxAge: 60000 },
+        resave: false,
+        saveUninitialized: false
+    })
+);
 
 router.get('/authorize', (req, res, next) => {
     req.session.csrf_string = randomString.generate();
@@ -15,7 +32,7 @@ router.get('/authorize', (req, res, next) => {
       const githubAuthUrl =
         'https://github.com/login/oauth/authorize?' +
         qs.stringify({
-            client_id: CLIENT_ID,
+            client_id: client.id,
             redirect_uri: redirect_uri,
             //State is an unguessable random string. It is used to protect against cross-site request forgery attacks.
             state: req.session.csrf_string,
@@ -40,8 +57,8 @@ router.get('/authorize', (req, res, next) => {
               url:
                     'https://github.com/login/oauth/access_token?' +
                     qs.stringify({
-                        client_id: CLIENT_ID,
-                        client_secret: CLIENT_SECRET,
+                        client_id: client.id,
+                        client_secret: client.secret,
                         code: code,
                         redirect_uri: redirect_uri,
                         state: req.session.csrf_string 
@@ -61,6 +78,9 @@ router.get('/authorize', (req, res, next) => {
         }
 });
 
-module.exports = access;
+module.exports = function getAccesToken(){
+    return access.token
+}
 module.exports = router;
-
+module.exports.access = access;
+module.exports.client = client;

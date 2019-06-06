@@ -67,7 +67,7 @@ function showGuide(){
                             '<div class="popup-head-column popup-head-column-1"></div>' +
                             '<h2 class="popup-head-column popup-head-column-2">User-Guide</h2>' + 
                             '<div class="popup-head-column popup-head-column-3">' +
-                              '<img onclick="exitTask()" src='+exitButtonSrc+' class="popup-exit-button">'+
+                              '<img onclick="exitTask()" src="img/close.png" class="popup-exit-button">'+
                             '</div>' +
                           '</div>'+
                         '<div class="popup-content">' +
