@@ -11,12 +11,13 @@
 // https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/ scope of oauth authorization
 
 // basic modules for hosting server
-require('dotenv').config(); //Github Oauth APP client id and client secret is stored in the .env file
+require('dotenv').config()
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const request = require('request'); // module for making HTTP calls to an api
-
+const hostname = 'localhost';//Change this to the server ip when we go to production
+const port = 3000;
 // modules used for GitHub OAuth 
 const session = require('express-session');
 const qs = require('querystring');
@@ -31,7 +32,8 @@ const mWare = require('./middleware/middleware')// module containing middleware 
 const api = require('./api');// module containing all functions for creating arrays of api queries
 
 // global variables
-const redirect_uri = process.env.HOST + '/redirect';
+const redirect_uri = 'http://'+ hostname + ':3000' + '/redirect';
+console.log(redirect_uri)
 const repoNames = []
 const access = {token: ""};
 const repoOwner = [];
@@ -46,10 +48,11 @@ let colorblind = "disabled"
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
-let CLIENT_ID = "a7bd17430ccafbea1df9"
-let CLIENT_SECRET = "85f152b50698af03f7553426df5887574bfd1b23"
-const hostname = '127.0.0.1';
-const port = 3000;
+
+
+const CLIENT_ID = "a7bd17430ccafbea1df9" 
+const CLIENT_SECRET = "85f152b50698af03f7553426df5887574bfd1b23"
+
 
 app.use(
     session({
@@ -153,7 +156,7 @@ app.get('/mainpage', mWare.asyncMiddleware(async (req, res, next) => {
     //saves callback data from getMainContent() queries to be used when rendering mainpage
     let mainPageContent = await getParallel(api.getMainContent(access.token, repositoryName, repoOwner[0]));
 
-    // saves number of commits done in repository per week
+    // get and saves number of commits done in repository per week
     let repositoryStats = await getParallel(api.repositoryStats(access.token, repoOwner[0], repositoryName))
     let collaborators =[];
     for(let i = 0; i < mainPageContent[1].length; i++){
@@ -284,6 +287,6 @@ app.get('/authorize', (req, res, next) => {
         }
 });
 
-app.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+app.listen(port, () => {
+  console.log(`Server listening on port :${port}`);
 });
