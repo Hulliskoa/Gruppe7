@@ -91,15 +91,6 @@ app.get('/',  (req, res, next) => {
     res.render('login');
 });
 
-app.get('/collaborators', mWare.asyncMiddleware(async (req, res, next) => {
-    let mainPageContent = await getParallel(api.getMainContent(access.token, repositoryName, repoOwner));
-    let collaborators = [];
-    for(let i = 0; i < mainPageContent[1].length; i++){
-        collaborators.push(helpers.upperCase(mainPageContent[1][i].login));
-    }
-    res.send(collaborators);
-}));
-
 app.get('/logout', mWare.asyncMiddleware(async  (req, res, next) => {
     //const checkAuth = await api.getParallel(api.getAuthorization(access.token));
     res.redirect('/');
@@ -107,7 +98,7 @@ app.get('/logout', mWare.asyncMiddleware(async  (req, res, next) => {
 
 
 app.get('/dashboard', mWare.asyncMiddleware(async (req, res, next) =>{  
-    
+    //removes reponames from repoNames array so that duplicates doesnt appear when refreshing page
     while(repoNames.length > 0) {
         repoNames.pop();
     }
@@ -171,7 +162,7 @@ app.get('/mainpage', mWare.asyncMiddleware(async (req, res, next) => {
     for(let i = 0; i < checkNumberOfCommits; i++){
         lastCommitMsg.push({
             message: mainPageContent[2][i].commit.message,
-            user: mainPageContent[2][i].commit.committer.name});//username
+            user: mainPageContent[2][i].commit.committer.name});
         }
     
     res.render('mainpage', {
@@ -188,13 +179,23 @@ app.get('/mainpage', mWare.asyncMiddleware(async (req, res, next) => {
     });
 }));
 
+//gets the collaborators in the chosen repository to be able to show and filter them on project site
+app.get('/collaborators', mWare.asyncMiddleware(async (req, res, next) => {
+    let mainPageContent = await getParallel(api.getMainContent(access.token, repositoryName, repoOwner));
+    let collaborators = [];
+    for(let i = 0; i < mainPageContent[1].length; i++){
+        collaborators.push(helpers.upperCase(mainPageContent[1][i].login));
+    }
+    res.send(collaborators);
+}));
+
+//Creates a new task when client submits new task form.
 app.post('/newTask', (req, res, next) => {    
     let id = randomString.generate()
-    taskArray.push(new Task(id, req.body.taskName, req.body.owner, req.body.category, req.body.description, repositoryName, req.body.dueDate, "to-do"));
-    console.log(taskArray)
+    taskArray.push(new Task(id, req.body.taskName, req.body.owner, req.body.category, req.body.description, repositoryName, "to-do"));
     res.redirect('/mainpage');
 });
-
+//edits task by using the setters specified in the task class in classes.js
 app.post('/editTask', (req, res, next) => {    
     let editedTask = taskArray[(taskArray.findIndex(x => x.id === req.body.taskID))]
     editedTask.setTitle(req.body.taskName)
@@ -202,25 +203,27 @@ app.post('/editTask', (req, res, next) => {
     editedTask.setCategory(req.body.category)
     editedTask.setTitle(req.body.taskName)
     editedTask.setDescription(req.body.description)
+    editedTask.setDueDate(req.body.dueDate)    
     console.log(editedTask)
     res.redirect('/mainpage');
 });
 
-app.post('/newTask', (req, res, next) => {    
-    let id = randomString.generate()
-    taskArray.push(new Task(id, req.body.taskName, req.body.owner, req.body.category, req.body.description, repositoryName, "to-do"));
+//Deletes task when "confirm deletion" is clicked on the project site
+app.post('/deleteTask', (req, res, next) => {
+    //get the taskID sendt from client 
+    taskID = req.query.taskID 
+    //removes the object  with the specified task id from taskArray
+    taskArray.splice((taskArray.findIndex(x => x.id === taskID)), 1); 
     res.redirect('/mainpage');
 });
 
-app.post('/deleteTask', (req, res, next) => {    
-    taskID = req.query.taskID
-    taskArray.splice((taskArray.findIndex(x => x.id === taskID)), 1);
-    res.redirect('/mainpage');
-});
-
-app.post('/changeTaskStatus', (req, res, next) => {    
+//handles task status changes when dragged to a new column in the kanban board
+app.post('/changeTaskStatus', (req, res, next) => { 
+    //gets the taskID sendt from client   
     taskID = req.query.taskID;
+    //gets the task status from client
     let status = req.query.status;
+    //changes the status on the task with the specified task id
     taskArray[taskArray.findIndex(x => x.id === taskID)].setStatus(status)
     res.redirect('/mainpage');
 });
@@ -230,6 +233,7 @@ app.post('/changeTaskStatus', (req, res, next) => {
 // GitHub Oauth authorization to be able to make authorized api request (reference: https://shiya.io/how-to-do-3-legged-oauth-with-github-a-general-guide-by-example-with-node-js/)
 app.get('/authorize', (req, res, next) => {
     req.session.csrf_string = randomString.generate();
+      //github api url to start authorization process
       const githubAuthUrl =
         'https://github.com/login/oauth/authorize?' +
         qs.stringify({
@@ -238,14 +242,16 @@ app.get('/authorize', (req, res, next) => {
             state: req.session.csrf_string,
             scope: 'public_repo, read:user'//public_repo gives the server access to query data from users public repos. read:user gives the app access to read profile info. 
         });
-      res.redirect(githubAuthUrl);
+    //redirects the user to github oauth login
+    res.redirect(githubAuthUrl);
   });
-
+    //after user login github answers with the redirect url specified for our app
     app.all('/redirect', (req, res) => {
         const code = req.query.code;
         const returnedState = req.query.state;
-
+        //checks if the user is in the same session, if not the user is sendt back to login screen
         if (req.session.csrf_string === returnedState) {
+          //sends a post request to the github api containing client id,secret and code supplied by github earlier. Github Api answers with the user access token
           request.post(
             {
               url:
@@ -258,6 +264,7 @@ app.get('/authorize', (req, res, next) => {
                         state: req.session.csrf_string 
                 })
             },
+            //gets the token from the api callback and saves to an object it for later use
             (error, response, body) => {
                     console.log('Your Access Token: ');
                     console.log(qs.parse(body));
@@ -270,7 +277,7 @@ app.get('/authorize', (req, res, next) => {
             res.redirect('/');
         }
 });
-//--------------------------------------
+
 
 app.listen(port, () => {
   console.log('Server listening at port ' + port);

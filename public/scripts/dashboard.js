@@ -21,7 +21,7 @@ function post(formID) {
                   '<img onclick="exitTask()" src="/img/close.png" class="popup-exit-button">'+
                 '</div>'+
             '<h2 id="popup-header">Create new GitHub repository</h2>'+
-            '<form id="new-repo-form1" class="new-repo-forms" action="/newRepo" method="POST">'+
+            '<form id="new-repo-form1" class="new-repo-forms" onsubmit="submit-button.disabled" action="/newRepo" method="POST">'+
               '<div id="group1" class="input-box group">'+ 
                 '<input type="text" name="repoName"  placeholder="Repository name.." required>'+
               '</div>'+
@@ -39,7 +39,7 @@ function post(formID) {
                 '</div>' +
               '</div>'+
               '<div id="group4" class="group">'+
-                '<button id="new-repo-submit">Create repository</button>' +
+                '<button id="new-repo-submit" name="submit-button">Create repository</button>' +
               '</div>'+        
             '</form>'+
           '</div>';
