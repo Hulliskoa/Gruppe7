@@ -78,43 +78,36 @@ async function editTask(task){
         newItem.setAttribute("id", "popup");
         newItem.setAttribute("value", taskID);
         newItem.classList.add("popup-container");
-        newItem.innerHTML = 
-            '<div class="popup-window">'+
-                
-                '<div class="head-task-container">' +
-                  '<div id="spacer"></div>' +
-                  '<img id="delete-task-button" onclick="confirmDeletion()" class="delete-icon" src="/img/delete.png">' +
-                  '<img onclick="exitTask()" src="/img/close.png" class="popup-exit-button">'+
-                '</div>'+
-                 
-                  '<h2 id="popup-header">Edit task</h2>'+
-                    '<form id="edit-task" action="/editTask" onsubmit="submit-button.disabled" method="POST">'+
-                      '<div id="group1" class="input-box">'+ 
-                        '<input value='+taskID+' name="taskID" hidden>' +
-                        '<input type="text" value="'+ title +'" name="taskName" required>'+
-                        '<span class="highlight"></span>'+
-                        '<span class="bar"></span>' +
-                        '<label class="name-label">'+ title +'</label>'+
-                      '</div>'+
-                      '<div id="group2" class="input-dropdown">'+
-                          predefinedDropDown(collaborators, owner, "owner", "Task owner") +
-                      '</div>'+
-                      '<div id="group3" class="input-dropdown">'+
-                          predefinedDropDown(categoryArray, category , "category", "Category") +
-                      '</div>'+
-                      '<div id="group4" class="input-multiline">'+
-                          '<textarea name="description" placeholder="Description">'+ description +'</textarea>'+
-                           '<div class="duedate-group">' +
-                              '<input placeholder="Due Date" value='+ date +' class="calendar-input" onfocusout="changeInputType(this)" onfocus="changeInputType(this)" name="dueDate" type="text">' +
-                          '</div>'+
-                      '</div>'+
-                      '<div id="group5" class="group">'+
-                          '<button onclick="postAndExit(edit-task)" id="new-repo-submit" name="submit-button">Submit changes</button>'+
-                      '</div>'+
-                    '</form>'+
-                
-            '</div>';
-
+        newItem.innerHTML = '<div class="popup-window">'+
+                              '<div class="popup-head-container">' +
+                                '<div class="popup-head-column popup-head-column-1"></div>' +
+                                '<h2 class="popup-head-column popup-head-column-2">Edit task</h2>' + 
+                                '<div class="popup-head-column popup-head-column-3">' +
+                                  '<img onclick="exitTask()" src="/img/close.png" class="popup-exit-button">'+
+                                '</div>' +
+                              '</div>' +
+                              '<form id="edit-task" action="/editTask" onsubmit="submit-button.disabled" method="POST">'+
+                                '<div class="popup-input-container">'+ 
+                                  '<input value='+taskID+' name="taskID" hidden>' +
+                                  '<input class="popup-input" type="text" value="'+ title +'" name="taskName" required>'+
+                                '</div>'+
+                                '<div class="popup-dropdown">'+
+                                  predefinedDropDown(collaborators, owner, "owner", "Task owner") +
+                                '</div>'+
+                                '<div class="popup-dropdown">'+
+                                  predefinedDropDown(categoryArray, category , "category", "Category") +
+                                '</div>'+
+                                '<div class="popup-description-container">'+
+                                  '<textarea class="popup-description" name="description" placeholder="Description">'+ description +'</textarea>'+
+                                  '<div class="popup-calendar-container">' +
+                                    '<input class="popup-calendar" placeholder="Due Date" value='+ date +' onfocusout="changeInputType(this)" onfocus="changeInputType(this)" name="dueDate" type="text">' +
+                                  '</div>'+
+                                '</div>'+
+                                '<div class="popup-button-container">'+
+                                    '<button class="popup-button" onclick="postAndExit(edit-task)" name="submit-button">Submit changes</button>'+
+                                '</div>'+
+                              '</form>'+
+                            '</div>';
         document.body.appendChild(newItem);
         document.body.style.cursor="default";
 };
@@ -139,31 +132,28 @@ async function createNewTask(task){
                               '</div>' +
                             '</div>' +
                             '<form class="task-form" id="newTask" action="/newTask" method="POST">'+
-                              '<div id="group1" class="input-box group">'+ 
-                                '<input type="text" name="taskName" placeholder="Title (required)" required>'+
-                                '<span class="highlight"></span>'+
-                                '<span class="bar"></span>'+
-                                '<label class="name-label">Task name (required)</label>' +
+                              '<div class="popup-input-container">'+ 
+                                '<input class="popup-input" type="text" name="taskName" placeholder="Title (required)" required>'+
                               '</div>'+
-                              '<div id="group2" class="input-dropdown group">'+
+                              '<div class="popup-dropdown">'+
                                 createDropDown(json) +
                               '</div>'+
-                              '<div id="group3" class="input-dropdown group">'+
-                                '<select class="category select-task group" name="category">'+
+                              '<div class="popup-dropdown">'+
+                                '<select class="category select-task" name="category">'+
                                     '<option value="" >Category</option>'+
                                     '<option value="Front-end">Front-end</option>'+
                                     '<option value="Back-end">Back-end</option>'+
                                     '<option value="Design">Design</option>'+
                                   '</select>'+
                               '</div>'+
-                              '<div id="group4" class="input-multiline group">'+
-                                '<textarea name="description" placeholder="Description"></textarea>'+
-                                '<div class="duedate-group">' +
-                                  '<input placeholder="Due Date" class="calendar-input" onfocusout="changeInputType(this)" onfocus="changeInputType(this)" name="dueDate" type="text">' +
+                              '<div class="popup-description-container">'+
+                                '<textarea class="popup-description" name="description" placeholder="Description"></textarea>'+
+                                '<div class="popup-calendar-container">' +
+                                  '<input class="popup-calendar" placeholder="Due Date" onfocusout="changeInputType(this)" onfocus="changeInputType(this)" name="dueDate" type="text">' +
                                 '</div>'+
                               '</div>'+
-                              '<div id="group5" class="group">'+
-                                '<button onclick="postAndExit(newTask)" id="new-repo-submit">Create task</button>'+
+                              '<div class="popup-button-container">'+
+                                '<button class="popup-button" onclick="postAndExit(newTask)">Create task</button>'+
                               '</div>'+
                             '</form>'+
                           '</div>';
