@@ -1,4 +1,4 @@
-/* MAIN */
+﻿/* MAIN */
 .container{
     width: 100vw;
     height: 100vh;
@@ -12,10 +12,14 @@
 .column{
     display: flex;
     flex-direction: column;
-    margin-top: 6rem;
-    height: 84vh;
+    margin-top: 5rem;
+    height: 85vh;
     box-sizing: border-box;
     background: #ffffff;
+}
+
+.column .item-container{
+    border-radius: .3rem;
 }
 
 .column-1{
@@ -24,36 +28,23 @@
 
 .column-4{
     margin-right: 1rem;
-    padding-bottom: 1rem;
-}
-
-.column .item-container{
-    border-radius: .3rem;
 }
 
 .column-1 .item-container{
     background: linear-gradient(to top, #4480ED, rgba(68, 128, 237, 40%));
-    border-bottom: .5rem solid #4480ED;
 }
 
 .column-2 .item-container{
     background: linear-gradient(to top, #E76646, rgb(231, 102, 70, 40%));
-    border-bottom: .5rem solid #E76646;
 }
 
 .column-3 .item-container{
     background: linear-gradient(to top, #71DBC9, rgb(113, 219, 201, 40%));
-    border-bottom: .5rem solid #71DBC9;
 }
 
 .column-4 .item{
     overflow-y: auto;
     padding-bottom: 0.5rem;
-    margin: 1rem 1rem 0 1rem !important;
-}
-
-.column-4 h4{
-    margin: 0.5rem 0 0.5rem 0 !important;
 }
 
 .column li {
@@ -61,7 +52,7 @@
 }
 
 .column #commits{
-    margin-bottom: .3rem;
+    margin-bottom: .2rem;
 }
 
 .main-title{
@@ -71,7 +62,7 @@
 .item-container{
     overflow-y: auto;
     height: 100vh;
-    margin: 0 1rem 1rem 1rem;
+    margin: 0 1rem 3rem 1rem;
 }
 
 .item{
@@ -86,25 +77,9 @@
     cursor: pointer;
 }
 
-.column-4 .item:hover{
-    cursor: default;
-}
-
-.column-4 [class*="checkbox-filter"] {
-    cursor: pointer;
-}
-
 .content{
     padding: 0 .5rem 0 .5rem;
     margin: 0rem .5rem 0 .5rem;
-}
-
-.content h4{
-    margin: 0.5rem 0 0.5rem 0;
-}
-
-.content h5{
-    margin: 0 0 .5rem 0;
 }
 
 .progress{
@@ -127,13 +102,7 @@
 }
 
 
-/*CHECKBOXES*/
-.checkbox-container input{
-    width: 1rem;
-    margin: 0;
-}
-
-/*Popups - kanban*/
+/* Popup container--- */
 .popup-container
 {
     position: absolute;
@@ -157,9 +126,14 @@
     z-index: 2;
     border-radius: 15px;
     display: grid;
-    grid-template-columns: 100%;
+    grid-template-columns: 95%;
     padding: 0 2.5%;
-    grid-template-rows: 2% 20% 78% ;
+}
+
+.popup-column
+{
+  display: flex;
+  flex-direction: column;
 }
 
 #popup-header
@@ -173,82 +147,81 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 3rem;
     margin-top: 0.5rem;
     width: 100%;
 
 }
-.delete-icon
-{
-    z-index: 1;
-    height: 2rem;
-    margin-top: 0.5rem;
-    cursor: pointer;
-}
-
-.popup-exit-button
-{
-  
-    z-index: 1;
-    height: 2rem;
-    margin-top: 0.5rem;
-    cursor: pointer;
-}
-
 
 #spacer{
     width: 100%;
 }
 
-
 /* form starting stylings ------------------------------- */
 
-
-
-.task-form{
-  display: grid;
-  grid-template-rows: 10% 12% 20% 35% 10%;
+#group1
+{
+      height: 2rem;
 }
 
-.group{
-  margin: 0;
+.input-box
+{ 			   
+  position:relative; 
+  margin-bottom: 2rem; 
 }
-
-.input-box input{
+input 				{
   font-size:1.3rem;
-  height: 100%;
+  padding:3% 0.3rem 0.3rem 0.5rem;
+  margin-bottom: 0.5rem;
   width:50%;
   border:none;
   border-bottom:1px solid #757575;
 }
 
-.input-box input:focus{ 
+input:focus 		
+{ 
     outline:none; 
 }
 
-.input-box label{
-  color:#999;
-  font-size: 1.4rem;
-  font-weight: normal;
-  pointer-events: none;
-  left:1%;
+#group2
+{
+    height: 2rem;
+}
+
+#group4
+{
+      height: 5rem;
 }
 
 
-.input-box input:focus ~ label, input:valid ~ label{
+/* LABEL ======================================= */
+.name-label			 {
+  color:#999;
+  font-size: 1.4rem;
+  font-weight: normal;
+  position: absolute;
+  top: 1rem;
+  pointer-events: none;
+  left:1%;
+
+}
+
+/* active state */
+input:focus ~ label, input:valid ~ label 		{
   opacity: 0;
 }
 
 
 
-.input-dropdown{
+.input-dropdown
+{
+    padding-top: 3%;
     position: relative;
     width: 100%;
-
 }
 
-.input-dropdown select{
+.select-task {
     width: 50%;
+    padding: 2% 0;
     border: none;
     border-radius: 4px;
     background-color: #f1f1f1;
@@ -256,27 +229,18 @@
     font-family: 'Ubuntu', sans-serif;
   }
 
-#group4{
-  display: grid;
-  grid-template-columns: 60% 40%;
-  height: 100%;
-}
 
-.input-multiline{
+.input-multiline
+{
     width: 100%;
 
 }
-.duedate-group{
-  display: grid;
-  align-items: center;
-  grid-template-rows: 20% 20%;
-}
 
-.input-multiline textarea{
-    width: 90%;
-    height: 100%;
+textarea
+{
+    width: 60%;
+    height: inherit;
     border: none; 
-
     background-color: #f1f1f1;
     font-family: 'Ubuntu', sans-serif;
     resize: none;
@@ -284,63 +248,59 @@
     padding: .5rem;
     word-wrap: break-word;
 }
-#group5{
-  display: grid;
-  margin: 0;
 
+.popup-exit-button
+{
+  
+    z-index: 1;
+    
+    height:2rem;
+    margin-top: 0.5rem;
+    cursor: pointer;
 }
-#group5 button{
-  margin-top: 2rem;
+
+
+.delete-icon
+{
+    z-index: 1;
+    height: 1.5rem;
+    margin-top: 0.5rem;
+    cursor: pointer;
+}
+
+
+#group5 button
+{
   color: #ffffff;
   font-weight: bold;
-  margin-bottom: 1rem;
   text-decoration: none;
+  padding: 1rem 3.5rem 1rem 3.5rem;
+  margin: 2.5rem 0 1.5rem 0;
   border: solid #e8eef2;
   border-radius: 0.5rem;
   background: #b7e0c2;
+  right: 2.5rem;
+
 }
 
-#group5 button:hover{
+#group5 button:hover
+{
   background: #a7ccb1;
 }
 
-#group5 button:active{
+#group5 button:active
+{
     box-shadow: inset .1rem .1rem 5rem #b7e0c2;
 }
 
-
-.calendar-input::-webkit-clear-button {
-    display: none;
+#checkid
+{
+    vertical-align:middle;
 }
 
-/* Removes the spin button */
-.calendar-input::-webkit-inner-spin-button { 
-    display: none;
+/*CHECKBOXES*/
+.checkbox-container input{
+    width: 1rem;
+    margin: 0;
 }
 
-/* Always display the drop down caret */
-.calendar-input::-webkit-calendar-picker-indicator {
-    color: #2c3e50;
-}
-
-
-/* A few custom styles for date inputs */
-.calendar-input {
-    appearance: none;
-    -webkit-appearance: none;
-    color: #95a5a6;
-    font-family: "Helvetica", arial, sans-serif;
-    font-size: 18px;
-    border:1px solid #ecf0f1;
-    background:#ecf0f1;
-    padding:5px;
-    display: inline-block !important;
-    visibility: visible !important;
-}
-
-.calendar-input focus {
-    color: #95a5a6;
-    box-shadow: none;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-}
