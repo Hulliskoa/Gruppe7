@@ -59,6 +59,12 @@
     align-self: center;
 }
 
+#add-img{
+    display: block;
+    margin: auto;
+    height: 3.7rem;
+}
+
 .item-container{
     overflow-y: auto;
     height: 100vh;

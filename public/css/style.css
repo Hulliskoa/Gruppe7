@@ -104,12 +104,6 @@ html, body{
   background: #ffffff; 
 }
 
-#add-img{
-  display: block;
-  margin: auto;
-  height: 6rem;  
-}
-
 .column-1 .item:hover{
 	background: #f5f5f5;
 }
