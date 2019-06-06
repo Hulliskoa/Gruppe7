@@ -47,7 +47,8 @@ let colorblind = "disabled"
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
-
+let CLIENT_ID = "a7bd17430ccafbea1df9"
+let CLIENT_SECRET = "85f152b50698af03f7553426df5887574bfd1b23"
 
 app.use(
     session({
