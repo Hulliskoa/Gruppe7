@@ -33,6 +33,7 @@ function predefinedDropDown(optionsArray, selectedValue, optionName, textContent
 };
 
 //function for creating a dropdown based on specified array
+
 function createDropDown(optionsArray){
     let element = document.createElement("div")
     let select = document.createElement("select")
