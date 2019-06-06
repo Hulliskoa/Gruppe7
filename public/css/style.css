@@ -64,11 +64,11 @@ html, body{
 }
 
 .dropdown-li:hover {
-	background: #b7e0c2;
+	background: rgba(113, 219, 201, .6);
 }
 
 .dropdown-li:active{
-	box-shadow: inset .1rem .1rem 5rem #9fc4a9;
+	box-shadow: inset .1rem .1rem 5rem rgba(113, 219, 201, .8);
 }
 
 .drop-popup-container {
@@ -242,7 +242,7 @@ html, body{
 	height: 6vh;
 	border-radius: 0.3rem;
 	font-size: 1rem;
-	background: #71dbc9;
+	background: rgba(113, 219, 201, .8);
 }
 
 .popup-button:hover{
