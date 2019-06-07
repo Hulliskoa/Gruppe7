@@ -118,3 +118,8 @@ function exitTask(){
     let popup = document.getElementById("popup");
     popup.remove();
 }
+//disables submit button on form submit to prevent multiple submits on same form
+function disableButton(){
+  let button = document.getElementById("submit-button")
+  button.disabled = true;
+}

@@ -137,7 +137,7 @@ app.post('/newRepo', mWare.asyncMiddleware(async (req, res, next) => {
 
 //route for fetching the chosen repository's name and stores it in repositoryName for use when rendering mainpage
 app.post('/inputName', (req, res, next) => {
-    repositoryName = req.body.repo;
+    repositoryName = req.body.repo; //saves the repository name the user clicked on in dashboard
     res.redirect('/mainpage');
 });
 
@@ -194,7 +194,8 @@ app.get('/collaborators', mWare.asyncMiddleware(async (req, res, next) => {
 //route for creating a new task when client submits new task form.
 app.post('/newTask', (req, res, next) => {    
     let id = randomString.generate()
-    //constructs new task with the task class constructor
+    
+    //constructs new task with the task class constructor - see classes.js
     taskArray.push(new Task(id, req.body.taskName, req.body.owner, req.body.category, req.body.description, repositoryName, req.body.dueDate, "to-do"));
     console.log("Task created");
     res.redirect('/mainpage');//redirect user back to mainpage after task creation
@@ -203,7 +204,7 @@ app.post('/newTask', (req, res, next) => {
 //route to edit task by using the setters specified in the task class in classes.js
 app.post('/editTask', (req, res, next) => {    
     let editedTask = taskArray[(taskArray.findIndex(x => x.id === req.body.taskID))]
-    //set the task edited information supplied by the edit task form
+    //set the task edited information supplied by the edit task form using setters in the task class
     editedTask.setTitle(req.body.taskName) 
     editedTask.setOwner(req.body.owner)
     editedTask.setCategory(req.body.category)
@@ -237,5 +238,3 @@ app.post('/changeTaskStatus', (req, res, next) => {
 app.listen(port, () => {
   console.log(`Server listening on port :${port}`);
 });
-
-module.exports.host = host;

@@ -11,6 +11,7 @@ EJS file allow us to use javascript within the HTML tags to populate with data f
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap">
 	<title>ProCeed</title>
 </head>
+<!---- Onload function to check if user has chosen high contrast mode ---->
 <body onload="colorOfButtons()">
 	<header>
         <div class="head-container">
@@ -48,6 +49,7 @@ EJS file allow us to use javascript within the HTML tags to populate with data f
 						<img id="add-img" src="/img/plus.png">
 					</div>			                       
 				</div>
+				<!---EJS(embeded javascript) to be able to dynamically render repositories from github where user is owner ---->
 				<%let repoName;%>
 				<%let columnClass;%>
 				<%let user = userName;%>
@@ -69,10 +71,12 @@ EJS file allow us to use javascript within the HTML tags to populate with data f
 					<%}%>
 					<%repoID++%>
 				<%}%>
+				<!--EJS end -->
 			</div>	
 
 			<div class="column column-3">
 				<p class = "dash-title">COLLABORATOR</p>
+				<!---EJS(embeded javascript) to be able to dynamically render repositories from github where user is collaborator ---->
 				<%repoID = 1%>
 				<% for(let i = 0; i < repoNames.length; i++){ %>
 					<%repoName = repoNames[i].name%>
@@ -89,6 +93,7 @@ EJS file allow us to use javascript within the HTML tags to populate with data f
 					<%}%>
 					<%repoID++%>
 				<%}%>
+				<!----- EJS END -->
 			</div>
 			<div class="column column-4">
 			</div>
