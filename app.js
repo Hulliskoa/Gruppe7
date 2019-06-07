@@ -17,7 +17,7 @@ const app = express();
 const router = express.Router()
 const bodyParser = require('body-parser');
 const request = require('request'); // module for making HTTP calls to an api
-const host = {name:'localhost'};//Change this to the server ip when we go to production
+const host = {name:'178.62.193.44'}; //server ip-address
 const port = 3000;
 
 // modules used for GitHub OAuth 

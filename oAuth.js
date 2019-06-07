@@ -11,7 +11,7 @@ const request = require('request'); // module for making HTTP calls to an api
 const randomString = require('randomstring');
 const csrfString = randomString.generate();
 const access = {token: ""};//used to store the access token from github oAuth callback
-const hostname = 'localhost' //ip-address for server
+const hostname = '178.62.193.44' //ip-address for server
 const redirect_uri = 'http://'+ hostname + ':3000' + '/oAuth/redirect'; //uri for github oauth redirect
 const client = {id: "a7bd17430ccafbea1df9",secret: "85f152b50698af03f7553426df5887574bfd1b23"} //should be stored more securely but for protoype purposes this i okay.
 
