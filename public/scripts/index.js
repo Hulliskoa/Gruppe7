@@ -39,7 +39,7 @@ function showAccess(){
     let newItem = document.createElement("div");
     newItem.classList.add("popup-container");
     newItem.setAttribute("id", "popup");
-    newItem.innerHTML = '<div class="popup-window">' +
+    newItem.innerHTML = '<div class="popup-window popup-window-access">' +
                         '<div class="popup-head-container">' +
                           '<div class="popup-head-column popup-head-column-1"></div>' +
                           '<h2 class="popup-head-column popup-head-column-2">Accessibility</h2>' + 
@@ -49,9 +49,10 @@ function showAccess(){
                         '</div>'+
                         '<div class="popup-content">' +
                           '<h3>Font-size</h3>' + 
-                          '<p>The font size of this page adjusts based on the font size set in your browser settings.</p>' +
+                          '<p>This page uses your browser settings to set the font-size.<br>If you want a large font size please go to your browser settings, find  font-size and increase it</p>' +
                           '<h3>Colorblind?</h3>' +
-                          '<p>Click here for colorblind mode <button id="colorblind-button" value='+ colorBlindButtonValue +' onclick="colorBlind(this)">'+ colorBlindButtonText +'</button></p>' +
+                          '<p id="colorblind-text">Colorblind or in need of more contrats?<br>This button will change the color scheme of the website to high contrast. Making it easier to differentiate between different objects on the site</p>' +
+                          '<button id="colorblind-button" value='+ colorBlindButtonValue +' onclick="colorBlind(this)">'+ colorBlindButtonText +'</button>' +
                         '</div>';
     document.body.appendChild(newItem);
 }
@@ -62,7 +63,7 @@ function showGuide(){
     let newItem = document.createElement("div");
     newItem.classList.add("popup-container");
     newItem.setAttribute("id", "popup");
-    newItem.innerHTML = '<div class="popup-window">' + 
+    newItem.innerHTML = '<div class="popup-window popup-window-guide">' + 
                           '<div class="popup-head-container">' +
                             '<div class="popup-head-column popup-head-column-1"></div>' +
                             '<h2 class="popup-head-column popup-head-column-2">User-Guide</h2>' + 
@@ -72,9 +73,18 @@ function showGuide(){
                           '</div>'+
                         '<div class="popup-content">' +
                           '<h3>Projects</h3>' + 
-                          '<p>The project site is representing every repository you hav eon GitHub</p>' +
+                          '<p>The project-page is representing every repository you have on GitHub.<br><br>' +
+                            'The plus-sign will add a new repository to GitHub.<br><br>' +
+                            'If you want to go to your GitHub profile you can hover over your profile-picture and click on the top link.<br><br>' +
+                            'By clicking on one of the repositories you are taken to the Task-page.' + 
+                          '</p>' +
                           '<h3>Tasks</h3>' +
-                          '<p>The Task site represents all the tasks in your repository. Its represented in a KanBan style with three columns</p>' +
+                          '<p>The Task-page represents all the tasks in one of your repositories.<br><br>' +
+                            'Here you can add, move or delete your tasks as you wish.<br><br>' +
+                            'You can also filter out the tasks by name in the controlpanel on the right.<br><br>' +
+                            'In the controlpanel you also have the opportunity to see language documentation from MDN,<br><br>' + 
+                            'and your repository´s latest commits.' +
+                          '</p>' +
                         '</div>';
     document.body.appendChild(newItem);
 }
