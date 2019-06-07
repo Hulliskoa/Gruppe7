@@ -48,7 +48,7 @@ async function editTask(task){
                                   '</div>'+
                                 '</div>'+
                                 '<div class="popup-button-container">'+
-                                    '<button class="popup-button" onclick="postAndExit(edit-task)" name="submit-button">Submit changes</button>'+
+                                    '<button class="popup-button" onsubmit="myButton.disabled = true" onclick="postAndExit(edit-task)" name="submit-button">Submit changes</button>'+
                                 '</div>'+
                               '</form>'+
                             '</div>';
@@ -76,7 +76,7 @@ async function createNewTask(task){
                                 '<img onclick="exitTask()" src="/img/close.png" class="popup-exit-button">'+
                               '</div>' +
                             '</div>' +
-                            '<form class="task-form" id="newTask" action="/newTask" method="POST">'+
+                            '<form class="task-form" id="newTask" action="/newTask" onsubmit="disableButton()" method="POST">'+
                               '<div class="popup-input-container">'+ 
                                 '<input class="popup-input" type="text" name="taskName" placeholder="Title (required)" required>'+
                               '</div>'+
@@ -98,7 +98,7 @@ async function createNewTask(task){
                                 '</div>'+
                               '</div>'+
                               '<div class="popup-button-container">'+
-                                '<button class="popup-button" onclick="postAndExit(newTask)">Create task</button>'+
+                                '<button id="submit-button" class="popup-button" onclick="postAndExit(newTask)">Create task</button>'+
                               '</div>'+
                             '</form>'+
                           '</div>';
@@ -106,6 +106,11 @@ async function createNewTask(task){
       document.body.appendChild(newItem);
 };
 
+function disableButton(){
+  let button = document.getElementById("submit-button")
+  button.disabled = true;
+
+}
 //function for making the calendar inputbox better looking when not in focus
 function changeInputType(element){
   if(element.type == 'date'){
@@ -155,6 +160,7 @@ function closeConfirmation(){
 };
 
 function postAndExit(formID) {
+   
     document.getElementById(formID).submit();
     exitTask();
 };
