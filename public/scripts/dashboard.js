@@ -1,5 +1,5 @@
 
-//function for creating popup for creating a new repo
+//Creating popup for creating a new repo
 function createNewRepo(){	 	
     main[0].style.filter = "blur(10px)";
     let newItem = document.createElement("div");

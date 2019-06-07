@@ -109,8 +109,8 @@ async function createNewTask(task){
 function disableButton(){
   let button = document.getElementById("submit-button")
   button.disabled = true;
-
 }
+
 //function for making the calendar inputbox better looking when not in focus
 function changeInputType(element){
   if(element.type == 'date'){
@@ -135,6 +135,7 @@ function deleteTask(){
     confirmation.remove()
 };
 
+//Creating pop-up delete warning
 function confirmDeletion(){
       let newItem = document.createElement("div");
       let selectedTask = document.getElementsByClassName("popup-item");

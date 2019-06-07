@@ -21,6 +21,7 @@ function post(formID) {
       let form = document.getElementById(formID)
       form.submit();
 }
+//Function for changing the value of the colorblind-button
 function colorOfButtons(){
     if(colorBlindStylesheet[0].disabled == true){
      
