@@ -14,7 +14,7 @@ function createNewRepo(){
                               '<img onclick="exitTask()" src="/img/close.png" class="popup-exit-button">'+
                           '</div>' +
                           '</div>'+
-                          '<form id="new-repo-form1" class="new-repo-forms" onsubmit="submit-button.disabled" action="/newRepo" method="POST">'+
+                          '<form id="new-repo-form1" class="new-repo-forms" onsubmit="disableButton()" action="/newRepo" method="POST">'+
                               '<div class="popup-input-container">'+ 
                                   '<input class="popup-input" type="text" name="repoName"  placeholder="Repository name (required)" required>'+
                               '</div>'+
@@ -32,7 +32,7 @@ function createNewRepo(){
                                     '</div>' +
                               '</div>'+
                               '<div class="popup-button-container">'+
-                                  '<button class="popup-button" name="submit-button">Create repository</button>' +
+                                  '<button id="submit-button" class="popup-button">Create repository</button>' +
                               '</div>'+        
                           '</form>'+
                       '</div>';

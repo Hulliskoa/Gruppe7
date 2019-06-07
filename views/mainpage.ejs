@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap">
 	<title>ProCeed</title>
 </head>
-
+<!---- Onload function to check if user has chosen high contrast mode ---->
 <body onload="colorOfButtons()">
 	<header>
 		<div class="head-container">
@@ -54,6 +54,7 @@
 						</div>
 					</div>
 					<!--To-Do code-->
+					<!--EJS to dynamically render tasks saved on server-->
 					<%for(let i = 0; i < tasks.length; i++){%>
 						<%if(tasks[i].status == "to-do" && tasks[i].repoName == repo){%>
 							<div class="item" draggable="true" ondragstart="dragStart(event)" value="<%= tasks[i].owner%>" id="<%=tasks[i].id%>"  onclick="editTask(this.id)">
@@ -67,12 +68,14 @@
 							</div>
 						<%}%>
 					<%}%>
+					<!--EJS end-->
 				</div>
 			</div>
 			<div class="column column-2">
 				<p class="main-title">IN PROGRESS</p>
 				<div id="in-progress" class="item-container" ondragover="dragOver()" ondragenter="dragEnter()" ondrop="dragDrop()">
 				<!--Ongoing code-->
+				<!--EJS to dynamically render tasks saved on server-->
 					<%for(let i = 0; i < tasks.length; i++){%>
 						<%if(tasks[i].status == "in-progress" && tasks[i].repoName == repo){%>
 							<div class="item" draggable="true" ondragstart="dragStart(event)" value="<%= tasks[i].owner%>"  id="<%=tasks[i].id%>" onclick="editTask(this.id)">
@@ -87,12 +90,14 @@
 							</div>
 						<%}%>
 					<%}%>
+					<!--EJS end-->
 				</div>
 			</div>
 			<div class="column column-3">
 				<p class="main-title">COMPLETE</p>
 				<div id="complete" class="item-container" ondragover="dragOver()" ondragenter="dragEnter()" ondrop="dragDrop()">
 				<!--Finished code-->
+				<!--EJS to dynamically render tasks saved on server-->
 					<%for(let i = 0; i < tasks.length; i++){%>
 						<%if(tasks[i].status == "complete" && tasks[i].repoName == repo){%>
 							<div class="item" draggable="true" ondragstart="dragStart(event)" value="<%= tasks[i].owner%>" id="<%=tasks[i].id%>" onclick="editTask(this.id)">
@@ -106,6 +111,7 @@
 							</div>
 						<%}%>
 					<%}%>
+					<!--EJS end-->
 				</div>
 			</div>
 			<div class="column column-4">
