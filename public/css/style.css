@@ -1,12 +1,14 @@
 
-/* ROOT */
+/* Root */
 html, body{
 	margin: 0;
   	font-size: 1rem;
 	font-family: 'Ubuntu', sans-serif;
 }
 
-/* HEADER */
+/* Common style for both dashboard and mainpage */
+
+/* Header */
 .head-container{
 	background: #ffffff;
 	position: fixed;
@@ -24,7 +26,7 @@ html, body{
 	margin-top: .3rem;
 }
 
-  /* NAV-BAR ICONS */
+  /* Nav-bar icons */
 #logo-icon{
 	height: 7vh;
   }
@@ -34,7 +36,7 @@ html, body{
 	height: 7vh;
 }
 
-/* DROPDOWN MENU */
+/* Dropdown menu */
 .dropdown-content{
 	display: none; 
 	position: absolute;
@@ -93,10 +95,10 @@ html, body{
 	padding: 0 2.5%;
 	background-color: rgb(255, 255, 255);
 }
-/* END HEADER */
+/* End dropdown menu*/
+/* End header */
 
-/* COMMON STYLES FOR MAIN-CONTAINER */
-
+/* Common style for main-container in both dashboard and mainpage */
 .add{
   display: flex;
   justify-content: center;
@@ -128,10 +130,8 @@ html, body{
 	box-shadow: inset .1rem .1rem 5rem #ffffff;
 
 }
-/* END COMMON STYLES FOR MAIN-CONTAINER */
 
-/* POP-UP ELEMENTS */
-
+/* All pop-up elements on bot sites*/
 .popup-container{
 	position: absolute;
 	top: 0;
@@ -296,3 +296,4 @@ html, body{
 	color: #ffffff;
 	background: #000000;
 }
+/* End common style for both dashboard and mainpage */

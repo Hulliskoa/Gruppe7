@@ -1,8 +1,7 @@
-/* MAIN - DASHBOARD*/
-
+/* Main - Dashboard*/
 .container{
   width: 100vw;
-  min-height: 100vh; /*change from 100vh to auto so that background gradient goes all the way down */
+  min-height: 100vh;
   display: grid;
   grid-template-columns: 10% 40% 40% 10%;
   background: radial-gradient(circle 30rem, #ffffff, #e7e7e7);
@@ -18,6 +17,7 @@
   grid-column-end: 3;
 }
 
+/* Columns */
 .column{
   display: grid;
   overflow-y: auto;
@@ -41,7 +41,9 @@
   margin-left: 1rem;
   border-bottom: 0.5rem solid #71dbc9;
 }
+/* End columns */
 
+/* Items */
 #add-img{
   display: block;
   margin: auto;
@@ -71,10 +73,11 @@
 .content h5{
   margin: 0;
 }
+/* End items */
 
+/* Pop-up input for dashboard */
 .popup-input-container{
 	margin: 3vh 2vw 4vh 2vw !important;
 }
-
-/* END MAIN - DASHBOARD */
+/* End main - Dashboard */
 
