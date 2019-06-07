@@ -50,24 +50,24 @@ let members;//used to store selected repository collaborators
 //global variables
 let colorblind = "disabled" // used to store colorblind state.
 
-app.set('view engine', 'ejs')
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(__dirname + '/public'));
+app.set('view engine', 'ejs')//expressJS uses ejs(Embedded javascript templaets) to render HTML documents
+app.use(bodyParser.urlencoded({ extended: true })); //used to parse HTTP messages and extract information to be used on the server
+app.use(express.static(__dirname + '/public')); //sends the static css, img, and script files to the client
 
 //routers
-app.use('/oAuth', oAuth)
+app.use('/oAuth', oAuth)//router that handles all of oAuth authentication when user logs in - see oAuth.js
 
-//function for sending api query to an api endpoint - reference: https://gist.github.com/bschwartz757/5d1ff425767fdc6baedb4e5d5a5135c8
+//function for sending api query to an api endpoint. - reference: https://gist.github.com/bschwartz757/5d1ff425767fdc6baedb4e5d5a5135c8
 const requestAsync = async function(url) {
     return new Promise((resolve, reject) => {
         let req = request(url, (err, response, body) => {
             if (err) return reject(err, response, body);
-            resolve(JSON.parse(body));
+            resolve(JSON.parse(body));//parse the callback response from API and resolve it
         });
     });
 };
 
-//function used for api post requests
+//function used for api post requests. This function is only used for creating a new repository on GitHub
 const requestPost = async function(url) {
     return new Promise((resolve, reject) => {
         let req = request(url, (err, response, body) => {
@@ -87,15 +87,14 @@ const getParallel = async function(urls) {
     return data
 }
 
-//root route for page
+//root route for page. Renders the login-page
 app.get('/',  (req, res, next) => {
     res.render('login');
 });
 
-//route used for setting colorblind style on page
+//route used for setting colorblind style on page and remember it when user navigates site. 
 app.get('/colorblind', (req, res, next) => {    
-    colorblind = req.query.colorblind;
-    console.log(colorblind)
+    colorblind = req.query.colorblind;//returns disabled or "". if "" colorblind mode is active
 });
 
 app.get('/dashboard', mWare.asyncMiddleware(async (req, res, next) =>{  
@@ -116,22 +115,24 @@ app.get('/dashboard', mWare.asyncMiddleware(async (req, res, next) =>{
       }
     // renders dashboard page and sends api callback data to the ejs file for further processing
     res.render('dashboard', {
-        repoNames: repoNames, 
-        userName: apiUserInfo[0].login,
-        profilePicture: apiUserInfo[0].avatar_url,
-        githubProfile: apiUserInfo[0].html_url,
-        colorblind: colorblind
+        // Variables to be sendt to the EJS file for processing
+        repoNames: repoNames, //all repository names the user is connected to (owner or collaborator)
+        userName: apiUserInfo[0].login, //users username on github
+        profilePicture: apiUserInfo[0].avatar_url,//users profile picture on Github
+        githubProfile: apiUserInfo[0].html_url, //users profile url to github profile
+        colorblind: colorblind //colorblind state (disables or "")
     });
 }));
 
 //route to create new repo on github
 app.post('/newRepo', mWare.asyncMiddleware(async (req, res, next) => {
-    let repoName = req.body.repoName;
-    let description = req.body.description;
-    let privateBool = (req.body.privateBool == "on") ? true : false;
+    let repoName = req.body.repoName; // saves the reponame that the user wrote in new repo form
+    let description = req.body.description;//save the description about the new repository  
+    let privateBool = (req.body.privateBool == "on") ? true : false; // checks if user chose to create a private repo 
+    let readme = (req.body.readme == "on") ? true : false; // checks if user wanted to create a readme on repo creation
     // creates new repo with the github API
-    await requestPost(api.createNewRepo(oAuth.access.token, repoName, description, privateBool));
-    res.redirect('/dashboard');
+    await requestPost(api.createNewRepo(oAuth.access.token, repoName, description, privateBool, readme)); // async function for GitHub API call.
+    res.redirect('/dashboard');//redirects user back to dashboard with updated repositories
 }));
 
 //route for fetching the chosen repository's name and stores it in repositoryName for use when rendering mainpage
@@ -139,8 +140,6 @@ app.post('/inputName', (req, res, next) => {
     repositoryName = req.body.repo;
     res.redirect('/mainpage');
 });
-
-
 
 // route for rendering mainpage aka Task view
 app.get('/mainpage', mWare.asyncMiddleware(async (req, res, next) => {
@@ -152,7 +151,7 @@ app.get('/mainpage', mWare.asyncMiddleware(async (req, res, next) => {
 
     // get and saves number of commits done in repository per week
     let repositoryStats = await getParallel(api.repositoryStats(oAuth.access.token, repoOwner[0], repositoryName))
-    let collaborators =[];
+    let collaborators =[]; // array to store the collaborators in the chosen repository.
     for(let i = 0; i < mainPageContent[1].length; i++){
         collaborators.push(helpers.upperCase(mainPageContent[1][i].login));
     }
@@ -167,17 +166,18 @@ app.get('/mainpage', mWare.asyncMiddleware(async (req, res, next) => {
         }
 
     res.render('mainpage', {
-        repo: repositoryName, 
-        userName: apiUserInfo[0].login,
-        githubProfile: apiUserInfo[0].html_url,
-        profilePicture: apiUserInfo[0].avatar_url,
-        collaborators: collaborators,
-        tasks: taskArray,
-        repoLanguage: Object.keys(mainPageContent[0]), 
-        docs: languageDocs, 
-        commits: lastCommitMsg,
-        repositoryStats: repositoryStats[0].all[repositoryStats[0].all.length - 1],
-        colorblind: colorblind
+        // Variables to be sendt to the EJS file for processing
+        repo: repositoryName, //repository name that the user clicked on in dashboard
+        userName: apiUserInfo[0].login,//users username on Github
+        githubProfile: apiUserInfo[0].html_url,// users 
+        profilePicture: apiUserInfo[0].avatar_url,//users profile url to github profile
+        collaborators: collaborators,//collaborators in chosen github repository
+        tasks: taskArray, //all task on the chosen repository. Empty if no tasks are created
+        repoLanguage: Object.keys(mainPageContent[0]), //The programming languages used in the chose repository
+        docs: languageDocs, //object containing links to programming language documentation
+        commits: lastCommitMsg,//array of 5 last commits to chosen repository
+        repositoryStats: repositoryStats[0].all[repositoryStats[0].all.length - 1], //number of commits to chosen repository in the last week
+        colorblind: colorblind //colorblind state (disables or "")
     });
 }));
 
@@ -194,15 +194,17 @@ app.get('/collaborators', mWare.asyncMiddleware(async (req, res, next) => {
 //route for creating a new task when client submits new task form.
 app.post('/newTask', (req, res, next) => {    
     let id = randomString.generate()
+    //constructs new task with the task class constructor
     taskArray.push(new Task(id, req.body.taskName, req.body.owner, req.body.category, req.body.description, repositoryName, req.body.dueDate, "to-do"));
     console.log("Task created");
-    res.redirect('/mainpage');
+    res.redirect('/mainpage');//redirect user back to mainpage after task creation
 });
 
 //route to edit task by using the setters specified in the task class in classes.js
 app.post('/editTask', (req, res, next) => {    
     let editedTask = taskArray[(taskArray.findIndex(x => x.id === req.body.taskID))]
-    editedTask.setTitle(req.body.taskName)
+    //set the task edited information supplied by the edit task form
+    editedTask.setTitle(req.body.taskName) 
     editedTask.setOwner(req.body.owner)
     editedTask.setCategory(req.body.category)
     editedTask.setTitle(req.body.taskName)
