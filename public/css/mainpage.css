@@ -1,4 +1,4 @@
-﻿/* MAIN */
+﻿/* Main */
 .container{
     width: 100vw;
     height: 100vh;
@@ -9,6 +9,7 @@
     z-index: 0;
 }
 
+/* Columns */
 .column{
     display: flex;
     flex-direction: column;
@@ -58,7 +59,9 @@
 .column #commits{
     margin-bottom: .2rem;
 }
+/* End columns */
 
+/* Items */
 .main-title{
     align-self: center;
 }
@@ -110,3 +113,5 @@
     margin-top: 10%;
     padding: .5rem;
 }
+/* End items */
+/* End main */
