@@ -11,13 +11,12 @@
 // https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/ scope of oauth authorization
 
 // basic modules for hosting server
-require('dotenv').config()
 const express = require('express');
 const app = express();
 const router = express.Router()
 const bodyParser = require('body-parser');
 const request = require('request'); // module for making HTTP calls to an api
-const host = {name:'178.62.193.44'}; //server ip-address
+const host = {name:'localhost'}; //server ip-address
 const port = 3000;
 
 // modules used for GitHub OAuth 
@@ -36,8 +35,6 @@ const oAuth = require('./oAuth');//module for github oAuth
 
 // global variables github information
 const repoNames = [] //used to store the repository names of repositories user can access
-
-
 let apiUserInfo;//used to store all user info about user that logged in (username, profile picture, github profile url)
 let apiUserRepos;//used to store users repositories
 const repoOwner = [];//used to store the repository owner for rendering projects page
