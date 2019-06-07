@@ -9,42 +9,40 @@ if it looks unchanged, or commented out the code may be reusable
 
 Main colors
   rgb(100, 100, 100); //grey
-  orange;
+  Orange (#F7C446);
   black;
   white;
 
 */
 
-
-
-/* MAIN */
+/* Main */
 .popup-exit-button{
   filter: invert(100%) !important;
 }
 .container{
-   /* background: radial-gradient(circle 30rem, #ffffff, #e7e7e7); */
-    background: black!important;
-   }
-  
-  .dash-title{
-    color: #F7C446;
-    }
-  
-  .column{
-    }
-  
-  .column-2{
-    /* background: linear-gradient(to top, #4480ed, rgba(68, 128, 237, 40%)); */
-    background: black!important;
-    border: 0.5rem solid #ffffff !important;
-  }
-  
-  .column-3{
-    background: black!important;
-    border: 0.5rem solid #ffffff !important;
-  }
-  
- .item{
+  /* background: radial-gradient(circle 30rem, #ffffff, #e7e7e7); */
+  background: black!important;
+}
+
+/* Columns */
+.dash-title{
+  color: #F7C446;
+}
+
+.column-2{
+  /* background: linear-gradient(to top, #4480ed, rgba(68, 128, 237, 40%)); */
+  background: black!important;
+  border: 0.5rem solid #ffffff !important;
+}
+
+.column-3{
+  background: black!important;
+  border: 0.5rem solid #ffffff !important;
+}
+/* End columns */
+
+/* Items */
+.item{
   border: 0.05rem solid #ffffff !important;;
   background: black!important;
   color: #F7C446 !important;
@@ -53,32 +51,28 @@ Main colors
 .item:hover{
   background: #ffffff !important;
 }
- 
+/* End items */
   
-  /* END MAIN */
-  
-  /*POPUP new repo*/
-  
+/*Pop-up new repo*/  
 .popup-window{
     background-color: black!important;
     border: solid .3rem #ffffff;
     color: #F7C446 ;
 }
 
+#group4 button{
+  color: #F7C446 !important;
+  border: solid white!important;
+  background: black!important;
+}
 
-  #group4 button{
-    color: #F7C446 !important;
-    border: solid white!important;
-    background: black!important;
-  }
-  
-  #group4 button:hover{
-    background: rgb(100, 100, 100)!important;
-  }
-  
-  #group4 button:active{
-      box-shadow: inset .1rem .1rem 5rem rgb(100, 100, 100)!important;
-  }
+#group4 button:hover{
+  background: rgb(100, 100, 100)!important;
+}
+
+#group4 button:active{
+    box-shadow: inset .1rem .1rem 5rem rgb(100, 100, 100)!important;
+}
   
 #add-img{
   filter: invert(100%);
@@ -87,3 +81,5 @@ Main colors
 .add:hover {
   background: grey !important;
 }
+/*End pop-up new repo*/ 
+/* End main */

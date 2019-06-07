@@ -1,5 +1,4 @@
 /* 
-
 Colorblind css-mix
  
 
@@ -15,16 +14,13 @@ login.css       line ~478
 
 Main colors
   rgb(100, 100, 100); //grey
-  orange;
+  Orange (#F7C446);
   black;
   white;
 
+*/
 
-
-
-
-/* colored scrollbar  */
-
+/* Colored scrollbar  */
 html*{
   scrollbar-face-color: #030303!important;
   scrollbar-base-color: #050505!important;
@@ -52,20 +48,19 @@ html*{
 }
 ::-webkit-scrollbar-corner { 
   background-color: #444444!important;
-}}
+}
 ::-webkit-resizer { 
   background-color: rgb(100, 100, 100)!important;
 }
+/* End colored scrollbar */
 
-/* style.css Colorblind */
-
-/*   HEADER */
-
+/* style.css for colorblind */
+/* Header */
 .head-container{
 	background: #ffffff!important;
   }
   
-/* DROPDOWN MENU */
+/* Dropdown menu */
 .dropdown-content{
 	background-color: black !important;
   box-shadow: grey 0.1rem 0.3rem .5rem 0rem !important;
@@ -75,10 +70,6 @@ html*{
 .dropdown-li {
   color: #F7C446 !important;
 	}
-
-.dropdown:hover .dropdown-content {
-  
-}
 
 .dropdown-btn:hover{
 	cursor: pointer;
@@ -100,17 +91,16 @@ html*{
 	border: .05rem solid white!important;
 	background-color: black!important;
 }
-/* END HEADER */
+/* End dropdown menu */
+/* End header */
 
+/* Main */
 .add{
   background: black!important; 
   border: 0.15rem solid white!important;
 }
 
-#add-img{
-  /* Her trengs en ny pil */
-  }
-
+/* Columns */
 .column-1 .item:hover{
 	background: rgb(100, 100, 100)!important;
 }
@@ -134,8 +124,9 @@ html*{
 .column-3 .item:active{	
   box-shadow: inset .1rem .1rem 5rem rgb(100, 100, 100)!important;
 }
-/*POPUP mainpage and dropdown*/
+/* End columns */
 
+/*Pop-ups for mainpage and dropdown*/
 .popup-container{
     background-color: rgba(0,0,0,0.2)!important;
 }
@@ -151,8 +142,7 @@ html*{
   border-color: white !important;  
 }
 
-#popup-header
-{
+#popup-header{
   color: #F7C446 !important;
 }
 
@@ -178,10 +168,10 @@ html*{
 .add:hover {
   background: grey !important;
 }
+/* End pop-ups for mainpage and dropdown*/
+/* End main */
 
-
-/* form starting stylings ------------------------------- */
-
+/* Forms */
 input{
   border: 0.1rem solid white !important;
   background-color: black !important;
@@ -200,10 +190,6 @@ select{
 
 .name-label			 {
   color:rgb(100, 100, 100)!important;;
-}
-
-
-input:focus ~ label, input:valid ~ label{
 }
 
 
@@ -232,17 +218,16 @@ textarea
 #group5 button:active{
     box-shadow: inset .1rem .1rem 5rem black!important;
 }
+/* End forms */
+/* End style.css for colorblind */
 
-
-
-/* mainpage.css Colorblind */
-
-
-/* MAINpage */
+/* mainpage.css for colorblind */
+/* Main */
 .container{
   background: radial-gradient(circle 30rem, black, rgb(100, 100, 100))!important;
 }
 
+/* Columns */
 .column{
   background: black!important;
 }
@@ -272,7 +257,9 @@ textarea
 .column-4 .item{
   border: 0.2rem solid white!important;
 }
+/* End columns */
 
+/* Items */
 .item{
   border: 0.05rem solid #ffffff !important;;
   background: black!important;
@@ -284,8 +271,9 @@ textarea
   color: #F7C446 !important;
   background: black!important;
 }
+/* End items */
 
-/* Popup container--- */
+/* Popup container */
 .popup-container{
   background-color: rgba(0,0,0,0.2)!important;
   color: #F7C446 !important;
@@ -300,14 +288,12 @@ input {
   border: none;
   border-bottom:1px solid #757575!important;
 }
+/* End pop-up container */
+/* End main */
 
-/* LABEL ======================================= */
+/* Forms */
 .name-label			 {
 color: #F7C446 !important;
-}
-
-/* active state */
-input:focus ~ label, input:valid ~ label 		{
 }
 
 .select-task {
@@ -339,9 +325,9 @@ background: rgb(100, 100, 100)!important;
 {
   box-shadow: inset .1rem .1rem 5rem rgb(100, 100, 100)!important;
 }
+/* End forms */
 
-
-/* Default CHECKBOX Hidden*/
+/* Default checkbox hidden*/
 .checkbox-container input{
   position: absolute!important;
   opacity: 0!important;
@@ -349,24 +335,16 @@ background: rgb(100, 100, 100)!important;
   height: 0!important;
   width: 0!important;
 }
-/* Custom checkbox ?
-
-klassen checkmark må legges til isåfall
-
+/* 
+Custom checkbox ?
 .checkmark{
-background: black!important;
+  background: black!important;
 }
-
 */
 
+/* End mainpage.css for colorblind */
 
-
-
-
-
-/* login.css   */
-
-
+/* login.css for colorblind */
 .wrapper-login{
   background: black !important;
 }
@@ -384,7 +362,4 @@ background: black!important;
 #login-button:active{
   box-shadow: inset .1rem .1rem 5rem rgb(100, 100, 100)!important;
 }
-
-
-
-
+/* End login.css for colorblind */
